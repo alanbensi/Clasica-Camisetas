@@ -1,10 +1,11 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Inicio from './components/Inicio';
+import Footer from './components/footer/Footer';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Routes>
         <Route exact path='/' element= {<Inicio />} />
         {/* <Route exact path='/productos' element= {<Productos />} /> */}
@@ -14,7 +15,8 @@ function App() {
         {/* <Route exact path='/ayuda' element= {<Ayuda />} /> */}
         {/* <Route exact path='/carrito' element= {<Carrito />} /> */}
       </Routes>
-    </div>
+      <Footer />
+    </>
   );
 }
 
