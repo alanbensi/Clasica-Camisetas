@@ -1,0 +1,35 @@
+.bgNavbar {
+    background-color: #F4D160;
+    padding-bottom: 0;
+}
+
+.containerLogoNavbar {
+    padding-left: 1rem;
+}
+
+.containerIconosNavbar {
+    padding-right: 1.5rem;
+}
+
+.iconoHamburguesa {
+    border: none;
+    padding: 0.5rem;
+}
+
+.iconoCarrito {
+    font-size: 30px;
+    margin-bottom: 0.15rem;
+    margin-left: 1rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.navbarDesplegado {
+    background-color: white;
+}
+
+.containerLinksNavbar {
+    padding: 1rem;
+}

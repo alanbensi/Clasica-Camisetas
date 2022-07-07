@@ -1,11 +1,13 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Inicio from './components/Inicio';
+import Inicio from './components/inicio/Inicio';
+import NavClasica from './components/navClasica/NavClasica'; 
 import Footer from './components/footer/Footer';
 
 function App() {
   return (
-    <>
+    <div>
+      <NavClasica />
       <Routes>
         <Route exact path='/' element= {<Inicio />} />
         {/* <Route exact path='/productos' element= {<Productos />} /> */}
@@ -16,7 +18,7 @@ function App() {
         {/* <Route exact path='/carrito' element= {<Carrito />} /> */}
       </Routes>
       <Footer />
-    </>
+    </div>
   );
 }
 

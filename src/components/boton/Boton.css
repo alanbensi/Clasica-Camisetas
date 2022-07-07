@@ -1,0 +1,18 @@
+.botonNav {
+    width: 9.5rem;
+    height: 2.6rem;
+    margin: 0.5rem 1rem 1rem 0;
+    border: 3px solid #F4D160;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.botonAzul {
+    background-color: #28527A;
+    color: white;
+}
+
+.botonBlanco {
+    background-color: white;
+    color: #28527A;
+}
