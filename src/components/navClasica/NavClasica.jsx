@@ -2,21 +2,21 @@ import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { Icon } from '@iconify/react';
+import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavClasica.css'
 import Boton from '../boton/Boton';
-import { Link } from 'react-router-dom';
 
 const NavClasica = () => {
     return (
         <header className='header'>
             <Navbar collapseOnSelect expand="lg" className='bgNavbar'>
                 <div className='containerLogoNavbar'>
-                    <Navbar.Brand href="#home">LOGO</Navbar.Brand>
+                    <Link to='/'>LOGO</Link>
                 </div>
                 <div className='containerIconosNavbar'>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" className='iconoHamburguesa' />
-                    <Icon icon="fluent:cart-20-regular" className='iconoCarrito' />
+                    <NavLink to='/carrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' /></NavLink>
                 </div>
                 <Navbar.Collapse id="responsive-navbar-nav" className='navbarDesplegado'>
                     <Nav className="me-auto">
