@@ -5,3 +5,8 @@ font-family: 'Rubik', sans-serif; */
     font-family: 'Rubik', sans-serif;
     margin: 0;
 }
+
+.estiloLinks {
+    color: black;
+    text-decoration: none;
+}
