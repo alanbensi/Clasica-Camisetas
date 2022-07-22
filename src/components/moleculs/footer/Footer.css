@@ -23,6 +23,14 @@ footer {
     margin-right: 1rem;
 }
 
+.logoMP, .logoPayPal, .logoCorreoArg {
+    width: 6rem;
+}
+
+.logoPayPal {
+    height: 2.87rem;
+}
+
 .iconoFacebookFooter {
     margin-bottom: 0.1rem;
 }

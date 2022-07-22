@@ -1,0 +1,14 @@
+.tituloCard {
+    font-size: 15px;
+    text-align: center;
+}
+
+.cardFooter {
+    padding: 0.5rem 0 !important;
+}
+
+.spanPrecioAntiguo {
+    font-weight: 100;
+    margin-right: 10px;
+    text-decoration: line-through;
+}

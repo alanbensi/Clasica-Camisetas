@@ -2,6 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Icon } from '@iconify/react';
 import './Footer.css'
+import iconoMP from '../../../assets/LOGO Mercado-Pago.png'
+import iconoPayPal from '../../../assets/LOGO Paypal.png'
+import iconoCorreoArg from '../../../assets/LOGO Correo Argentino.jpg'
 
 const Footer = () => {
     return (
@@ -20,21 +23,21 @@ const Footer = () => {
                 <div className='containerFooter containerContactoFooter'>
                     <p className='categoriasFooter'>Contacto</p>
                     <ul>
-                        <li className='listaFooter'> <a className='anchorFooter' href="tel:+54-9-1131867585">+541131867585</a> </li>
-                        <li className='listaFooter'> <a className='anchorFooter' href="mailto:clasicacamisetas@gmail.com"> clasicacamisetas@gmail.com</a> </li>
+                        <li className='listaFooter'><a className='anchorFooter' href="tel:+54-9-1131867585">+541131867585</a> </li>
+                        <li className='listaFooter'><a className='anchorFooter' href="mailto:clasicacamisetas@gmail.com"> clasicacamisetas@gmail.com</a> </li>
                     </ul>
                 </div>
                 <div className='containerFooter containerPagosFooter'>
                     <p className='categoriasFooter'>Medios de pago</p>
                     <div>
-                        <img className='imgMediosPagoFooter' src="" alt="Mercado pago" />
-                        <img className='imgMediosPagoFooter' src="" alt="PayPal" />
+                        <img className='imgMediosPagoFooter logoMP' src={iconoMP} alt="Mercado pago" />
+                        <img className='imgMediosPagoFooter logoPayPal' src={iconoPayPal} alt="PayPal" />
                     </div>
                 </div>
                 <div className='containerFooter containerEnviosFooter'>
                     <p className='categoriasFooter'>Medios de envío</p>
                     <div>
-                        <img className='imgMediosEnvioFooter' src="" alt="Correo Argentino" />
+                        <img className='imgMediosEnvioFooter logoCorreoArg' src={iconoCorreoArg} alt="Correo Argentino" />
                     </div>
                 </div>
                 <div className='containerFooter containerIconosFooter'>

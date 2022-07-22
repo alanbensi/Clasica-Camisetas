@@ -1,13 +1,13 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Inicio from './components/inicio/Inicio';
-import NavClasica from './components/navClasica/NavClasica'; 
-import Footer from './components/footer/Footer';
-import VendeTuCamiseta from './components/vende-tu-camiseta/VendeTuCamiseta';
+import Inicio from './components/pages/inicio/Inicio';
+import NavClasica from './components/moleculs/navClasica/NavClasica'; 
+import Footer from './components/moleculs/footer/Footer';
+import VendeTuCamiseta from './components/pages/vende-tu-camiseta/VendeTuCamiseta.jsx';
 
 function App() {
   return (
-    <div>
+    <>
       <NavClasica />
       <Routes>
         <Route exact path='/' element= {<Inicio />} />
@@ -19,7 +19,7 @@ function App() {
         {/* <Route exact path='/carrito' element= {<Carrito />} /> */}
       </Routes>
       <Footer />
-    </div>
+    </>
   );
 }
 

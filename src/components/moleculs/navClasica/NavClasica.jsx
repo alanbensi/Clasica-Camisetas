@@ -5,7 +5,7 @@ import { Icon } from '@iconify/react';
 import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavClasica.css'
-import Boton from '../boton/Boton';
+import Boton from '../../atoms/boton/Boton';
 
 const NavClasica = () => {
     return (
