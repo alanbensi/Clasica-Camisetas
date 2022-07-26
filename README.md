@@ -110,11 +110,11 @@ Los datos para poder acceder con los usuarios admin son:
 ```
   {
     username: "SuperAdmin",
-    password: "pass"
+    password: "clasica123"
   },
   {
     username: "SuperAdmin2",
-    password: "pass"
+    password: "clasica123"
   }
 ```
 ### 5. Iniciar Server.js
