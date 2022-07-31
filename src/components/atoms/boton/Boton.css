@@ -7,6 +7,11 @@
     font-weight: 600;
 }
 
+.textoBoton {
+    text-align: center;
+    padding-top: 0.35rem;
+}
+
 .botonAzul {
     background-color: #28527A;
     color: white;

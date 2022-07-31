@@ -5,3 +5,8 @@
 .containerVenderCamiseta h1 {
     margin-bottom: 1.5rem;
 }
+
+.breadcrumb {
+    text-decoration: none;
+    color: black;
+}

@@ -23,8 +23,8 @@ const NavClasica = () => {
                         <div className='containerLinksNavbar'>
                             <p className='mb-2'>Bienvenido</p>
                             <div className='d-flex justify-content-evenly'>
-                                <Link to='/'><Boton estilo = "botonNav botonAzul" texto= "Ingresá"></Boton></Link>
-                                <Link to='/'><Boton estilo = "botonNav botonBlanco" texto = "Registrate"></Boton></Link>
+                                <Link className='linksRouter' to='/'><Boton estilo = "botonNav botonAzul" texto= "Ingresá"></Boton></Link>
+                                <Link className='linksRouter' to='/'><Boton estilo = "botonNav botonBlanco" texto = "Registrate"></Boton></Link>
                             </div>
                             <NavLink to ='/' className='d-flex estiloLinks'>
                                 <Icon icon="bytesize:home" width= '20px'/>
@@ -38,7 +38,7 @@ const NavClasica = () => {
                                 <Icon icon="ri:auction-line" width= '20px' />
                                 <p className='ms-3'>Subastas</p>
                             </NavLink>
-                            <NavLink to='/vendeTuCamiseta' className='d-flex estiloLinks'>
+                            <NavLink to='/Vende-tu-camiseta' className='d-flex estiloLinks'>
                                 <Icon icon="ep:sell" width= '20px' />
                                 <p className='ms-3'>Vende tu camiseta</p>
                             </NavLink>

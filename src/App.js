@@ -1,3 +1,4 @@
+import React from 'react'
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Inicio from './components/pages/inicio/Inicio';
@@ -13,7 +14,7 @@ function App() {
         <Route exact path='/' element= {<Inicio />} />
         {/* <Route exact path='/productos' element= {<Productos />} /> */}
         {/* <Route exact path='/subastas' element= {<Subastas />} /> */}
-        <Route exact path='/vendeTuCamiseta' element= {<VendeTuCamiseta />} />
+        <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
         {/* <Route exact path='/nosotros' element= {<Nosotros />} /> */}
         {/* <Route exact path='/ayuda' element= {<Ayuda />} /> */}
         {/* <Route exact path='/carrito' element= {<Carrito />} /> */}

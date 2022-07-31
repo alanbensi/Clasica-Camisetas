@@ -3,7 +3,7 @@ import './Boton.css'
 const Boton = (props) => {
   return (
     <div className={props.estilo}>
-      <p>{props.texto}</p>
+      <p className='textoBoton'>{props.texto}</p>
     </div>
   )
 }

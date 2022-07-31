@@ -2,9 +2,6 @@ import React from 'react'
 import Card  from 'react-bootstrap/Card'
 import './Cards.css'
 
-
-
-
 const Cards = ({img,titulo,precio,precioAntiguo}) => {
     return (
         <Card>
