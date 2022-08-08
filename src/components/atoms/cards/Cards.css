@@ -1,10 +1,24 @@
-.tituloCard {
+.textoCard {
     font-size: 15px;
     text-align: center;
 }
 
+.tituloCard {
+    font-family: 'Bebas Neue', cursive;
+}
+
 .cardFooter {
     padding: 0.5rem 0 !important;
+    background-color:#003594 !important;
+}
+
+.tituloFooterCard {
+    color: white;
+    margin-top: 0.3rem;
+}
+
+.cards {
+    margin-bottom: 1rem;
 }
 
 .spanPrecioAntiguo {

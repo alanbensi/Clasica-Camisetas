@@ -10,17 +10,23 @@ const Slider = () => {
     return (
         <>
             <Carousel variant="dark">
-                <Carousel.Item interval={2500} className ="cardCarrusel">
-                    <h3>Temporada actual</h3>
-                    <img className="imagenesCarrusel" src={fotoTempActual} alt="Temporada actual" />
+                <Carousel.Item interval={3500}>
+                    <div className ="cardCarrusel">
+                        <h3 className='tituloCardCarrusel'>Temporada actual</h3>
+                        <img className="imagenesCarrusel" src={fotoTempActual} alt="Temporada actual" />
+                    </div>
                 </Carousel.Item>
-                <Carousel.Item interval={2500} className ="cardCarrusel">
-                    <h3>Retros de colección</h3>
-                    <img className="imagenesCarrusel" src={fotoRetroDeColeccion} alt="Retros de coleccion" />
+                <Carousel.Item interval={3500}>
+                    <div className ="cardCarrusel">
+                        <h3 className='tituloCardCarrusel'>Retros de colección</h3>
+                        <img className="imagenesCarrusel" src={fotoRetroDeColeccion} alt="Retros de coleccion" />
+                    </div>
                 </Carousel.Item>
-                <Carousel.Item interval={2500} className ="cardCarrusel">
-                    <h3>Otros</h3>
-                    <img className="imagenesCarrusel" src={fotoCategoriaOtros} alt="Otros" />
+                <Carousel.Item interval={3500}>
+                    <div className ="cardCarrusel">
+                        <h3 className='tituloCardCarrusel'>Otros</h3>
+                        <img className="imagenesCarrusel" src={fotoCategoriaOtros} alt="Otros" />
+                    </div>
                 </Carousel.Item>
             </Carousel>
         </>
