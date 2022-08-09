@@ -1,0 +1,38 @@
+.mainRegistrate {
+    padding: 1rem;
+}
+
+.tituloRegistrate {
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.inputRegistrate {
+    width: 98%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 0.6px solid #000000;
+    margin: 0.3rem 0;
+}
+
+.inputRegistrateCheckbox {
+    width: 18px;
+    border-radius: 0;
+    margin-right: 1rem;
+}
+
+.iconoOjoRegistrate {
+    position: absolute;
+    right: 7%;
+    font-size: 2rem;
+    top: 16%;
+    color: grey;
+}
+
+.iconoOjoRegistrate:hover {
+    cursor: pointer;
+}
+
+.textoCentrado {
+    text-align: center;
+}
