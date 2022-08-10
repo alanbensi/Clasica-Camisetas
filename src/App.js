@@ -8,6 +8,9 @@ import VendeTuCamiseta from './components/pages/vende-tu-camiseta/VendeTuCamiset
 import Login from './components/pages/login/Login';
 import Registrate from './components/pages/registrate/Registrate';
 import RestablecerContraseña from './components/pages/restablecerContraseña/RestablecerContraseña';
+import MailRestablecerContraseña from './components/pages/mailRestablecerContraseña/MailRestablecerContraseña';
+import NuevaContraseña from './components/pages/nuevaContraseña/NuevaContraseña';
+import LoginNuevaContraseña from './components/pages/loginNuevaContraseña/LoginNuevaContraseña';
 
 
 function App() {
@@ -19,6 +22,9 @@ function App() {
         <Route exact path='/Registrate' element={<Registrate />} />
         <Route exact path='/' element= {<Inicio />} />
         <Route exact path='/Restablecer-Contrasena' element={<RestablecerContraseña />} />
+        <Route exact path='/Mail-Restablecer-Contrasena' element={<MailRestablecerContraseña />} />
+        <Route exact path='/Nueva-Contrasena' element={<NuevaContraseña />} />
+        <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContraseña />} />
         {/* <Route exact path='/productos' element= {<Productos />} /> */}
         {/* <Route exact path='/subastas' element= {<Subastas />} /> */}
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />

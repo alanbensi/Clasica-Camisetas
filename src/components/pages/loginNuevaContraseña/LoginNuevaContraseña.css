@@ -1,0 +1,15 @@
+.tituloLoginNuevaContra {
+    font-family: 'Bebas Neue', cursive;
+    color: rgba(0, 53, 148, 1);
+    font-size: 32px;
+    margin: 1.2rem 0;
+}
+
+.subtituloLoginNuevaContra{
+    font-size: 22px;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.iconoLoginNuevaContra {
+    top: 13%;
+}

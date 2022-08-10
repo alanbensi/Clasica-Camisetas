@@ -7,8 +7,8 @@ import './Registrate.css'
 
 const Registrate = () => {
 
-    const [tipoInput, settipoInput] = useState("password");
-    const mostrarContraseña = () => {
+    let [tipoInput, settipoInput] = useState("password");
+    let mostrarContraseña = () => {
         if (tipoInput === "password") {
             settipoInput = "text"
         }

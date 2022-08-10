@@ -2,6 +2,7 @@ import React from 'react'
 import Boton from '../../atoms/boton/Boton'
 import './RestablecerContraseña.css'
 import swal from 'sweetalert';
+import { Link } from 'react-router-dom';
 
 const RestablecerContraseña = () => {
 
@@ -20,7 +21,9 @@ const RestablecerContraseña = () => {
                     <form action="" method="post">
                         <input className='inputLogin' type="email" placeholder='Ingresá tu email...' />
                         <p className='mt-2'>Te enviaremos un link para restablecer su contraseña. Si no recibes el email después de unos minutos, verifica tu carpeta de correo no deseado.</p>
-                        <Boton onClick={accionCompletada} estilo='botonAzul botonLogin mt-4' texto='Enviar mail' />
+                        <Link className='linksRouter' to='/Mail-Restablecer-Contrasena'>
+                            <Boton onClick={accionCompletada} estilo='botonAzul botonLogin mt-4' texto='Enviar mail' />
+                        </Link>
                     </form>
                 </section>
             </main>
