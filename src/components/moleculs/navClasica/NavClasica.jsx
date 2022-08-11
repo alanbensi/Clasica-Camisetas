@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavClasica.css'
+import logoClasica from '../../../assets/LOGO-clasica.png'
 import Boton from '../../atoms/boton/Boton';
 
 const NavClasica = () => {
@@ -13,16 +14,18 @@ const NavClasica = () => {
             <Navbar collapseOnSelect expand="lg" className='bgNavbar'>
                 <div className='d-flex justify-content-between w-100'>
                     <div className='containerLogoNavbar'>
-                        <Link to='/'>LOGO</Link>
+                        <Link to='/'>
+                            <img src={logoClasica} alt="Logo clasica camisetas" />
+                        </Link>
                     </div>
                     <div className='containerIconosNavbar'>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" className='iconoHamburguesa' />
                         <NavLink to='/carrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' /></NavLink>
                     </div>
                 </div>
-                <div>
+                {/* <div>
                     <p className='saludoUsuario'>Hola Juan Perez!</p>
-                </div>
+                </div> */}
                 <Navbar.Collapse id="responsive-navbar-nav" className='navbarDesplegado'>
                     <Nav className="me-auto">
                         <div className='containerLinksNavbar'>

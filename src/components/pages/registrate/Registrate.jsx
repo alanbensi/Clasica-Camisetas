@@ -16,6 +16,16 @@ const Registrate = () => {
             settipoInput ("password");
         }
     };
+    
+    const [tipoInput2, settipoInput2] = useState("password");
+    const mostrarContraseña2 = () => {
+        if (tipoInput2 === "password") {
+            settipoInput2("text");
+        }
+        else {
+            settipoInput2("password");
+        }
+    };
 
     return (
         <>
@@ -32,8 +42,8 @@ const Registrate = () => {
                             <Icon onClick={mostrarContraseña} icon="clarity:eye-line" className='iconoOjoRegistrate' />
                         </div>
                         <div className='containerInputPassword'>
-                            <input className='inputRegistrate' type={tipoInput} placeholder='Repetir contraseña' />
-                            <Icon onClick={mostrarContraseña} icon="clarity:eye-line" className='iconoOjoRegistrate' />
+                            <input className='inputRegistrate' type={tipoInput2} placeholder='Repetir contraseña' />
+                            <Icon onClick={mostrarContraseña2} icon="clarity:eye-line" className='iconoOjoRegistrate' />
                         </div>
                         <div className='d-flex mt-2'>
                             <input className='inputRegistrateCheckbox' type="checkbox"  />

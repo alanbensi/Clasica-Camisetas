@@ -2,9 +2,30 @@ import { Icon } from '@iconify/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Boton from '../../atoms/boton/Boton'
+import { useState } from 'react'
 import './NuevaContrasena.css'
 
 const NuevaContrasena = () => {
+    const [tipoInput, settipoInput] = useState("password");
+    const mostrarContraseña = () => {
+        if (tipoInput === "password") {
+            settipoInput("text");
+        }
+        else {
+            settipoInput("password");
+        }
+    };
+
+    const [tipoInput2, settipoInput2] = useState("password");
+    const mostrarContraseña2 = () => {
+        if (tipoInput2 === "password") {
+            settipoInput2("text");
+        }
+        else {
+            settipoInput2("password");
+        }
+    };
+
     return (
         <>
             <main className='p-3'>
@@ -13,12 +34,12 @@ const NuevaContrasena = () => {
                     <h2 className='subtituloNuevaContraseña'>Por favor ingresa tu nueva contraseña y confirma para continuar</h2>
                     <form action="" method="post">
                         <div className='containerInputPassword'>
-                            <input className='inputRegistrate' type='password' placeholder='Contraseña' />
-                            <Icon icon="clarity:eye-line" className='iconoOjoRegistrate' />
+                            <input className='inputRegistrate' type={tipoInput} placeholder='Contraseña' />
+                            <Icon onClick={mostrarContraseña} icon="clarity:eye-line" className='iconoOjoRegistrate' />
                         </div>
                         <div className='containerInputPassword'>
-                            <input className='inputRegistrate' type='password' placeholder='Repetir contraseña' />
-                            <Icon icon="clarity:eye-line" className='iconoOjoRegistrate' />
+                            <input className='inputRegistrate' type={tipoInput2} placeholder='Repetir contraseña' />
+                            <Icon onClick={mostrarContraseña2} icon="clarity:eye-line" className='iconoOjoRegistrate' />
                         </div>
                         <Link className='linksRouter' to='/Login-Nueva-Contrasena'>
                             <Boton estilo='botonAzul botonLogin mt-5' texto='Continuar'></Boton>
