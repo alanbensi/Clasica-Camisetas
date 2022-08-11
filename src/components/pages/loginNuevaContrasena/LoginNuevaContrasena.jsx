@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Boton from '../../atoms/boton/Boton'
-import './LoginNuevaContraseña.css'
+import './LoginNuevaContrasena.css'
 
 const LoginNuevaContraseña = () => {
     return (
@@ -23,7 +23,6 @@ const LoginNuevaContraseña = () => {
                 </section>
             </main>
         </>
-
     )
 }
 

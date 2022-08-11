@@ -7,11 +7,10 @@ import Footer from './components/moleculs/footer/Footer';
 import VendeTuCamiseta from './components/pages/vende-tu-camiseta/VendeTuCamiseta.jsx';
 import Login from './components/pages/login/Login';
 import Registrate from './components/pages/registrate/Registrate';
-import RestablecerContraseña from './components/pages/restablecerContraseña/RestablecerContraseña';
-import MailRestablecerContraseña from './components/pages/mailRestablecerContraseña/MailRestablecerContraseña';
-import NuevaContraseña from './components/pages/nuevaContraseña/NuevaContraseña';
-import LoginNuevaContraseña from './components/pages/loginNuevaContraseña/LoginNuevaContraseña';
-
+import MailRestablecerContrasena from './components/pages/mailRestablecerContrasena/MailRestablecerContrasena';
+import LoginNuevaContrasena from './components/pages/loginNuevaContrasena/LoginNuevaContrasena';
+import NuevaContrasena from './components/pages/nuevaContrasena/NuevaContrasena';
+import RestablecerContrasena from './components/pages/restablecerContrasena/RestablecerContrasena';
 
 function App() {
   return (
@@ -21,10 +20,10 @@ function App() {
         <Route exact path='/Login' element = {<Login />} />
         <Route exact path='/Registrate' element={<Registrate />} />
         <Route exact path='/' element= {<Inicio />} />
-        <Route exact path='/Restablecer-Contrasena' element={<RestablecerContraseña />} />
-        <Route exact path='/Mail-Restablecer-Contrasena' element={<MailRestablecerContraseña />} />
-        <Route exact path='/Nueva-Contrasena' element={<NuevaContraseña />} />
-        <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContraseña />} />
+        <Route exact path='/Restablecer-Contrasena' element={<RestablecerContrasena />} />
+        <Route exact path='/Mail-Restablecer-Contrasena' element={<MailRestablecerContrasena />} />
+        <Route exact path='/Nueva-Contrasena' element={<NuevaContrasena />} />
+        <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
         {/* <Route exact path='/productos' element= {<Productos />} /> */}
         {/* <Route exact path='/subastas' element= {<Subastas />} /> */}
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />

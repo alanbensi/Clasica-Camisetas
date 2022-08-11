@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Boton from '../../atoms/boton/Boton'
 
-const MailRestablecerContraseña = () => {
+const MailRestablecerContrasena = () => {
     return (
         <>
             <main className='p-3'>
@@ -17,4 +17,4 @@ const MailRestablecerContraseña = () => {
     )
 }
 
-export default MailRestablecerContraseña
+export default MailRestablecerContrasena

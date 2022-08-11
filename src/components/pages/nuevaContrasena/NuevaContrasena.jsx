@@ -2,9 +2,9 @@ import { Icon } from '@iconify/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Boton from '../../atoms/boton/Boton'
-import './NuevaContraseña.css'
+import './NuevaContrasena.css'
 
-const NuevaContraseña = () => {
+const NuevaContrasena = () => {
     return (
         <>
             <main className='p-3'>
@@ -31,4 +31,4 @@ const NuevaContraseña = () => {
     )
 }
 
-export default NuevaContraseña
+export default NuevaContrasena

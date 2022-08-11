@@ -10,10 +10,10 @@ const Login = () => {
     const [tipoInput, settipoInput] = useState("password");
     const mostrarContraseña = ()=> {
         if (tipoInput==="password") {
-            settipoInput = "text"
+            settipoInput ("text") 
         }
         else {
-            settipoInput = "password"
+            settipoInput ("password")
         }
     };
 

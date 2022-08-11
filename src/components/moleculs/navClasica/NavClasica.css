@@ -7,6 +7,13 @@
     padding-left: 1rem;
 }
 
+.saludoUsuario {
+    font-size: 12px;
+    padding-left: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
 .containerIconosNavbar {
     padding-right: 1.5rem;
 }
