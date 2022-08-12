@@ -11,6 +11,7 @@ import MailRestablecerContrasena from './components/pages/mailRestablecerContras
 import LoginNuevaContrasena from './components/pages/loginNuevaContrasena/LoginNuevaContrasena';
 import NuevaContrasena from './components/pages/nuevaContrasena/NuevaContrasena';
 import RestablecerContrasena from './components/pages/restablecerContrasena/RestablecerContrasena';
+import Ayuda from './components/pages/ayuda/Ayuda';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path='/Mail-Restablecer-Contrasena' element={<MailRestablecerContrasena />} />
         <Route exact path='/Nueva-Contrasena' element={<NuevaContrasena />} />
         <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
+        <Route exact path='/Ayuda' element={<Ayuda />} />
         {/* <Route exact path='/productos' element= {<Productos />} /> */}
         {/* <Route exact path='/subastas' element= {<Subastas />} /> */}
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />

@@ -69,7 +69,7 @@ const NavClasica = () => {
                                 </NavLink>
                             </Navbar.Toggle>
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                <NavLink to ='/' className='d-flex estiloLinks'>
+                                <NavLink to ='/Ayuda' className='d-flex estiloLinks'>
                                     <Icon icon="carbon:help" width= '20px' />
                                     <p className='ms-3'>Ayuda</p>
                                 </NavLink>

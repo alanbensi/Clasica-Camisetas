@@ -12,9 +12,6 @@ const VendeTuCamiseta = () => {
         setTitulo (sinEspacios.replace ("/", " "));
     }, [ruta]);
     
-    console.log (titulo);
-
-    
     return (
         <div>
             <Banner />

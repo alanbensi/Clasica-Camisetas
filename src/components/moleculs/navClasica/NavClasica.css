@@ -9,8 +9,8 @@
 
 .saludoUsuario {
     font-size: 12px;
-    padding-left: 1rem;
-    font-weight: 500;
+    padding-left: 2rem;
+    font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
@@ -20,6 +20,7 @@
 
 .iconoHamburguesa {
     border: none;
+    font-weight: 600;
     padding: 0.5rem;
 }
 

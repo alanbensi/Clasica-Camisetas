@@ -1,0 +1,43 @@
+.tituloAyuda {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.containerAyudaBuscar {
+    position: relative;
+}
+
+.inputAyudaBuscar {
+    height: 40px;
+    width: 85%;
+}
+
+.inputAyudaBuscar::placeholder, .inputAyudaBuscar:focus {
+    text-align: center;
+}
+
+.iconoAyudaBuscar {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+}
+
+.botonBusquedaAyuda {
+    border: 3px solid rgba(255, 184, 28, 1);
+    width: 90px;
+    height: 40px;
+}
+
+.tituloCategoriasFaqs {
+    font-size: 22px;
+    font-family: 'Bebas Neue', cursive;
+    color: rgba(0, 53, 148, 1);
+    margin: 2.5rem 0 1rem 0;
+}
+
+.linkContactanos {
+    color: #003594;
+    text-decoration: none;
+    font-weight: 600;
+}
