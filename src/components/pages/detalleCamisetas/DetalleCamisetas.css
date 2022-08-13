@@ -1,0 +1,56 @@
+.tituloDetalleCamiseta {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 32px;
+}
+
+.contenedorImgDetalle {
+    text-align: center;
+    position: relative;
+}
+
+.contenedorDescuentoDetalle {
+    position: absolute;
+    bottom: 0;
+    left: 17px;
+    background: rgba(255, 39, 39, 1);
+}
+
+.contenedorDescuentoDetalle p {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: white;
+    width: 4.7rem;
+}
+
+.imgDetalle {
+    width: 90%;
+}
+
+.precioNormal {
+    text-decoration: line-through;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.metodosDetalleCamisetas {
+    color: rgba(0, 53, 148, 1);
+    font-weight: 500;
+}
+
+.inputDetalleCamisetas {
+    width: 100%;
+    height: 40px;
+}
+
+.agregarCarritoDetalleCamiseta {
+    font-weight: 600;
+}
+
+.compartirDetalleCamisetas {
+    color: grey;
+}
+
+.logosDetalleCamisetas {
+    color: grey;
+}
+

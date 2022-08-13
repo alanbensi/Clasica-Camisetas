@@ -29,7 +29,7 @@ const NavClasica = () => {
                 <Navbar.Collapse id="responsive-navbar-nav" className='navbarDesplegado'>
                     <Nav className="me-auto">
                         <div className='containerLinksNavbar'>
-                            <p className='mb-2'>Bienvenido</p>
+                            {/* <p className='mb-2'>Bienvenido</p> */}
                             <div className='d-flex justify-content-evenly'>
                                 <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                                     <Link className='linksRouter' to='/Login'><Boton estilo = "botonNav botonAzul" texto= "Ingresá"></Boton></Link>

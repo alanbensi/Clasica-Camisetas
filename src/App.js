@@ -12,6 +12,7 @@ import LoginNuevaContrasena from './components/pages/loginNuevaContrasena/LoginN
 import NuevaContrasena from './components/pages/nuevaContrasena/NuevaContrasena';
 import RestablecerContrasena from './components/pages/restablecerContrasena/RestablecerContrasena';
 import Ayuda from './components/pages/ayuda/Ayuda';
+import DetalleCamisetas from './components/pages/detalleCamisetas/DetalleCamisetas';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route exact path='/Nueva-Contrasena' element={<NuevaContrasena />} />
         <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
         <Route exact path='/Ayuda' element={<Ayuda />} />
+        <Route exact path='/Detalle-Camisetas' element={<DetalleCamisetas />} />
         {/* <Route exact path='/productos' element= {<Productos />} /> */}
         {/* <Route exact path='/subastas' element= {<Subastas />} /> */}
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />

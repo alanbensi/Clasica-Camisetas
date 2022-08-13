@@ -6,6 +6,7 @@ import {Container, Row, Col} from 'react-bootstrap'
 import './Inicio.css'
 import { Icon } from '@iconify/react'
 import Slider from '../../moleculs/slider/Slider'
+import { Link } from 'react-router-dom';
 
 const Inicio = () => {
     return (
@@ -21,9 +22,11 @@ const Inicio = () => {
             <Container>
                 <Row>
                     <Col lg ={3} md = {6} xs = {6}>
-                        <Cards img = 'adfsdf' titulo = 'Camiseta 1' precio ='$10000.00' precioAntiguo= '$20000'>
-                            <Boton estilo ='botonAzul' texto ='20000' />
-                        </Cards>
+                        <Link to="/Detalle-Camisetas" className='estiloLinks'>
+                            <Cards img = 'adfsdf' titulo = 'Camiseta 1' precio ='$10000.00' precioAntiguo= '$20000'>
+                                <Boton estilo ='botonAzul' texto ='20000' />
+                            </Cards>
+                        </Link>
                     </Col>
                     <Col lg ={3} md = {6} xs = {6}>
                         <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000'>
