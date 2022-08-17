@@ -13,6 +13,7 @@ import NuevaContrasena from './components/pages/nuevaContrasena/NuevaContrasena'
 import RestablecerContrasena from './components/pages/restablecerContrasena/RestablecerContrasena';
 import Ayuda from './components/pages/ayuda/Ayuda';
 import DetalleCamisetas from './components/pages/detalleCamisetas/DetalleCamisetas';
+import Carrito from './components/pages/carrito/Carrito';
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
         {/* <Route exact path='/nosotros' element= {<Nosotros />} /> */}
         {/* <Route exact path='/ayuda' element= {<Ayuda />} /> */}
-        {/* <Route exact path='/carrito' element= {<Carrito />} /> */}
+        <Route exact path='/carrito' element= {<Carrito />} />
       </Routes>
       <Footer />
     </>

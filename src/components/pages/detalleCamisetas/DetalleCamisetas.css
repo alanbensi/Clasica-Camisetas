@@ -42,6 +42,11 @@
     height: 40px;
 }
 
+
+.estiloLinkDetalleBoton {
+    text-decoration: none;
+}
+
 .agregarCarritoDetalleCamiseta {
     font-weight: 600;
 }
