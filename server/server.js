@@ -4,11 +4,14 @@ const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const mysql2 = require('mysql2');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
 // Signing key for jsonwebtoken
 const jwtKey = '123456';
 
 const app = express();
+
+app.use(cors())
 
 // Applies body parser to all paths
 app.use(bodyParser.json());
@@ -85,7 +88,7 @@ app.post('/login', (req, res) => {
     // checks if there´s a missing value, returns an error if there is
     if (!password || (!username && !password) || (!email && !password)){
         res.status(400);
-        res.json({ error: 'Missing obligatory fields' });
+        res.json({ error: `Missing obligatory fields ${password} ${email}` });
         return;
     }
     // get the condition to search by
@@ -206,7 +209,7 @@ app.get('/users/checkUsernameOrEmail', (req, res) => {
 });
 
 // Indicates the server is working
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log('Server running...');
 });
 
