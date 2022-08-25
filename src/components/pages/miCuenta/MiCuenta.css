@@ -1,0 +1,11 @@
+.titulosMiCuenta {
+    font-size: 22px;
+    font-family: 'Bebas Neue', cursive;
+    color: rgba(0, 53, 148, 1);
+    margin: 0rem 0 1rem 0;
+}
+
+.tablaCompras {
+    width: 100%;
+    margin: 1.3rem 0;
+}

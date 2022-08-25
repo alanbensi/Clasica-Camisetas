@@ -100,7 +100,7 @@ const NavClasica = () => {
                                 </NavLink>
                             </Navbar.Toggle>
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                <NavLink to ='/' className='d-flex estiloLinks'>
+                                <NavLink to ='/Mi-cuenta' className='d-flex estiloLinks'>
                                     <Icon icon="codicon:account" width= '20px' />
                                     <p className='ms-3'>Mi cuenta</p>
                                 </NavLink>

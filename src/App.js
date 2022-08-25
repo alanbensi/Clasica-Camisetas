@@ -14,6 +14,7 @@ import RestablecerContrasena from './components/pages/restablecerContrasena/Rest
 import Ayuda from './components/pages/ayuda/Ayuda';
 import DetalleCamisetas from './components/pages/detalleCamisetas/DetalleCamisetas';
 import Carrito from './components/pages/carrito/Carrito';
+import MiCuenta from './components/pages/miCuenta/MiCuenta';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         {/* <Route exact path='/productos' element= {<Productos />} /> */}
         {/* <Route exact path='/subastas' element= {<Subastas />} /> */}
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
+        <Route exact path='/Mi-cuenta' element={<MiCuenta />} />
         {/* <Route exact path='/nosotros' element= {<Nosotros />} /> */}
         {/* <Route exact path='/ayuda' element= {<Ayuda />} /> */}
         <Route exact path='/carrito' element= {<Carrito />} />
