@@ -43,6 +43,20 @@
     padding: 1rem;
 }
 
+.dropdownProductos a {
+    padding: 0;
+    color: black !important;
+}
+
+.paginasDropdownProductos {
+    margin: 1.3rem 0;
+}
+
+.show {
+    border: none;
+    padding: 0;
+}
+
 .linksRouter {
     text-decoration: none;
 }

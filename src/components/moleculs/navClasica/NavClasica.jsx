@@ -1,6 +1,7 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Icon } from '@iconify/react';
 import { Link, NavLink } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -44,12 +45,36 @@ const NavClasica = () => {
                                     <p className='ms-3'>Inicio</p>
                                 </NavLink>
                             </Navbar.Toggle>
-                            <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                <NavLink to ='/' className='d-flex estiloLinks'>
-                                    <Icon icon="ion:shirt-outline" width= '20px' />
-                                    <p className='ms-3'>Productos</p>
-                                </NavLink>
-                            </Navbar.Toggle>
+                            <div className='estiloLinks d-flex'>
+                                <div className='d-flex'>
+                                    <Icon icon="ion:shirt-outline" width= '20px' /> 
+                                    <NavDropdown id="nav-dropdown-dark-example" title="Productos" className='dropdownProductos ms-3 mb-3'>
+                                        <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='w-100'>
+                                            <NavDropdown.Item className='paginasDropdownProductos'>
+                                                <NavLink to='/' className="estiloLinks">
+                                                    Camisetas temporada actual
+                                                </NavLink>
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item className='paginasDropdownProductos'>
+                                                <NavLink to='/' className="estiloLinks">
+                                                    Retros de coleccion
+                                                </NavLink>
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item className='paginasDropdownProductos'>
+                                                <NavLink to='/' className="estiloLinks">
+                                                    Otros equipos
+                                                </NavLink>
+                                            </NavDropdown.Item>
+                                            <NavDropdown.Item className='paginasDropdownProductos'>
+                                                <NavLink to='/' className="estiloLinks">
+                                                    Entrenamiento y salidas
+                                                </NavLink>
+                                            </NavDropdown.Item>
+                                        </Navbar.Toggle>
+                                    </NavDropdown>
+
+                                </div>
+                            </div>
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                                 <NavLink to ='/' className='d-flex estiloLinks'>
                                     <Icon icon="ri:auction-line" width= '20px' />
