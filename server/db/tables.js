@@ -13,7 +13,8 @@ const queries = [
                 fullname VARCHAR(255) NOT NULL, 
                 email VARCHAR(255) UNIQUE NOT NULL, 
                 password VARCHAR(100) NOT NULL, 
-                address VARCHAR(255) NOT NULL, 
+                address VARCHAR(255) NOT NULL,
+                phone VARCHAR(50) NOT NULL,
                 admin BOOLEAN NOT NULL, 
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
     },

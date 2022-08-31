@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
+// eslint-disable-next-line no-unused-vars
 const mysql2 = require('mysql2');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
@@ -59,6 +60,7 @@ function adminAuth (req, res, next){
 }
 
 // Validates user session
+// eslint-disable-next-line no-unused-vars
 function validateUser (req, res, next){
     try {
         // if the token is not sent in the header, throws an error
@@ -66,7 +68,7 @@ function validateUser (req, res, next){
         // extracts the token from the header
         let token = req.headers.authorization.split(' ')[1];
         // verifies the token with the sign chose 
-        decodeToken = jwt.verify(token, jwtKey);
+        const decodeToken = jwt.verify(token, jwtKey);
         if(decodeToken){
             // sends the data contained in the token
             req.tokenData = decodeToken;
@@ -88,7 +90,7 @@ app.post('/login', (req, res) => {
     // checks if there´s a missing value, returns an error if there is
     if (!password || (!username && !password) || (!email && !password)){
         res.status(400);
-        res.json({ error: `Missing obligatory fields ${password} ${email}` });
+        res.json({ error: `Missing obligatory fields` });
         return;
     }
     // get the condition to search by
@@ -100,10 +102,7 @@ app.post('/login', (req, res) => {
     ).then((response) => {
         //checks if the found info and the submitted are the same
         //when they are, responds a token with the user id, username and admin info gotten from the select query
-        if (response.length == 0){
-            throw err;
-        } 
-        if (response[0].password == password) {
+        if (response[0].password === password) {
             let payload = {
                 id: response[0].id,
                 username: response[0].username,
@@ -115,9 +114,9 @@ app.post('/login', (req, res) => {
             // responds the token formed
             res.json({ token });
         } else {
-            throw err;
+            throw new Error ();
         }
-    }).catch (function (err) {
+    }).catch (() => {
         res.status(401).json({ error: 'Login failed: Incorrect username, email or password' });
     });
 });
@@ -125,9 +124,9 @@ app.post('/login', (req, res) => {
 //  Create user
 //  Admin is false in every insert 
 app.post('/users', (req, res) => {
-    const { username, name, surname, email, password, address } = req.body;
+    const { username, name, surname, email, password, address, phone } = req.body;
     // checks if there´s a missing value, returns an error if there is
-    if (!username || !name || !surname || !email || !password || !address){
+    if (!username || !name || !surname || !email || !password || !address || !phone){
         res.status(400);
         res.json({error: `Missing obligatory fields`})
         return;
@@ -136,17 +135,17 @@ app.post('/users', (req, res) => {
     sequelize.query('SELECT username, email FROM users WHERE username = ? OR email = ?',
         {replacements: [username, email], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
-        if (response.length != 0) {
+        if (response.length !== 0) {
             throw new Error ('Username or email already exist') 
         }
         // creates the user in db with the values sent in the body of the request
         // admin is always false
         const fullname = `${name} ${surname}`
-        sequelize.query('INSERT INTO users (username, name, surname, fullname, email, password, address, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-            {replacements: [username, name, surname, fullname, email, password, address, false]})
+        sequelize.query('INSERT INTO users (username, name, surname, fullname, email, password, address, phone, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            {replacements: [username, name, surname, fullname, email, password, address, phone, false]})
         .then((response) => {
             res.status(201).json({ message: `User ${username} created successfully`,
-                user: {username: username, fullname: fullname, email: email, address: address}});
+                user: {username: username, fullname: fullname, email: email, address: address, phone: phone}});
         })
     }).catch (function (err) {
         res.status(409).json({ error: err.message});
@@ -162,7 +161,6 @@ app.get('/users', adminAuth, (req, res) => {
         sequelize.query(`SELECT * FROM users WHERE ${searchBy} = ?`,
             {replacements: [req.query[searchBy]], type: sequelize.QueryTypes.SELECT, raw: true}
         ).then(([response]) => {
-            console.log(response[searchBy]);
             // if the user can´t be found, throws error
             // if(!(response[searchBy])){
             //     res.status(404);
@@ -185,7 +183,6 @@ app.get('/users', adminAuth, (req, res) => {
 // Check existing username or email
 app.get('/users/checkUsernameOrEmail', (req, res) => {
     const searchBy = Object.keys(req.body)[0];
-    console.log(req.body);
     // checks if there´s a missing value, returns an error if there is
     if (!searchBy){
         res.status(400);
@@ -197,7 +194,7 @@ app.get('/users/checkUsernameOrEmail', (req, res) => {
         {replacements: [req.body[searchBy]], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
         // Matching username or email
-        if (response.length != 0) {
+        if (response.length !== 0) {
             throw new Error ('Username or email already exist') 
         } else {
             // No matching, response with no content

@@ -100,11 +100,11 @@ Acceder a http://localhost/phpmyadmin/ desde el navegador para poder crear la ba
 En el panel de la izquierda, se debe seleccionar "Nueva" y en la sección que se abre crear una nueva base de datos con el nombre que se encuentra en el archivo **config.js**, mencionado en el paso anterior.
 #### 4.1 Comando para crear las tablas
 ```
-node db/tables.js
+node server/db/tables.js
 ```
 #### 4.2 Comando para crear dos usuarios admin
 ```
-node db/user_admin.js
+node server/db/user_admin.js
 ```
 Los datos para poder acceder con los usuarios admin son:
 ```
@@ -119,7 +119,7 @@ Los datos para poder acceder con los usuarios admin son:
 ```
 ### 5. Iniciar Server.js
 ```
-node server.js
+node server/server.js
 ```
 ## Documentación 
 Para más información sobre como interactuar con los endpoints de este proyecto, remitirse a la documentación que se encuentra en el archivo **spec.yaml** y puede abrirse en [Swagger Editor](https://editor.swagger.io/)
