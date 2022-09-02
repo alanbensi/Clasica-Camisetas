@@ -12,8 +12,8 @@ const MiCuenta = () => {
     }, [ruta]);
 
     const datosUsuario = {
-        nombreCompleto: "Alan Bensi",
-        mail: "abc@gmail.com",
+        fullname: "Alan Bensi",
+        email: "abc@gmail.com",
         telefono: "1512345678"
     }
 
@@ -40,8 +40,8 @@ const MiCuenta = () => {
             <section>
                 <div>
                     <h2 className='titulosMiCuenta'>MIS DATOS</h2>
-                    <p>Nombre y apellido: {datosUsuario.nombreCompleto}</p>
-                    <p>Email: {datosUsuario.mail}</p>
+                    <p>Nombre y apellido: {datosUsuario.fullname}</p>
+                    <p>Email: {datosUsuario.email}</p>
                     <p>Telefono: {datosUsuario.telefono}</p>
                 </div>
                 <div>
@@ -65,7 +65,7 @@ const MiCuenta = () => {
                     )
                     :
                     (
-                        <p>Todavía no realizaste ninguna compra 😥</p>
+                        <p>Todavía no realizaste ninguna compra <span role="img" aria-label='icono de cara triste'>😥</span> </p>
                     )
                     }
                 </div>
@@ -89,7 +89,7 @@ const MiCuenta = () => {
                     )
                     :
                     (
-                        <p>Todavía no realizaste ofertas en subastas 😥</p>
+                        <p>Todavía no realizaste ofertas en subastas <span role="img" aria-label='icono de cara triste'>😥</span></p>
                     )
                     }
                 </div>

@@ -10,18 +10,25 @@ import logoClasica from '../../../assets/LOGO-clasica.png'
 import Boton from '../../atoms/boton/Boton';
 
 const NavClasica = () => {
+
+    const token = true; 
+
     return (
         <header className='header'>
             <Navbar collapseOnSelect expand="lg" className='bgNavbar'>
                 <div className='d-flex justify-content-between w-100'>
                     <div className='containerLogoNavbar'>
-                        <Link to='/'>
-                            <img src={logoClasica} alt="Logo clasica camisetas" />
-                        </Link>
+                        <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
+                            <Link to='/'>
+                                <img src={logoClasica} alt="Logo clasica camisetas" />
+                            </Link>
+                        </Navbar.Toggle>
                     </div>
                     <div className='containerIconosNavbar'>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" className='iconoHamburguesa' />
-                        <NavLink to='/carrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' /></NavLink>
+                        <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='linkIconoCarritoActive'>
+                            <Link to='/Carrito-de-compras' className='linkIconoCarrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' /></Link>
+                        </Navbar.Toggle>
                     </div>
                 </div>
                 {/* <div>
@@ -100,7 +107,7 @@ const NavClasica = () => {
                                 </NavLink>
                             </Navbar.Toggle>
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                <NavLink to ='/Mi-cuenta' className='d-flex estiloLinks'>
+                                <NavLink to={token?('/Login'):('/Mi-cuenta')} className='d-flex estiloLinks'>
                                     <Icon icon="codicon:account" width= '20px' />
                                     <p className='ms-3'>Mi cuenta</p>
                                 </NavLink>

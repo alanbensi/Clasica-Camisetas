@@ -16,6 +16,8 @@
 
 .containerIconosNavbar {
     padding-right: 1.5rem;
+    display: flex;
+    align-items: center;
 }
 
 .iconoHamburguesa {
@@ -23,6 +25,17 @@
     font-weight: 600;
     padding: 0.5rem;
 }
+
+.linkIconoCarrito {
+    width: 100%;
+    height: 100%;
+}
+
+/* .linkIconoCarritoActive {
+    pointer-events: none !important;
+} */
+
+
 
 .iconoCarrito {
     font-size: 30px;

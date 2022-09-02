@@ -30,13 +30,12 @@ function App() {
         <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
         <Route exact path='/Ayuda' element={<Ayuda />} />
         <Route exact path='/Detalle-Camisetas' element={<DetalleCamisetas />} />
-        {/* <Route exact path='/productos' element= {<Productos />} /> */}
         {/* <Route exact path='/subastas' element= {<Subastas />} /> */}
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
         <Route exact path='/Mi-cuenta' element={<MiCuenta />} />
         {/* <Route exact path='/nosotros' element= {<Nosotros />} /> */}
         {/* <Route exact path='/ayuda' element= {<Ayuda />} /> */}
-        <Route exact path='/carrito' element= {<Carrito />} />
+        <Route exact path='/Carrito-de-compras' element= {<Carrito />} />
       </Routes>
       <Footer />
     </>

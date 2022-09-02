@@ -22,8 +22,19 @@ const DetalleCamisetas = () => {
         "descuento" : "10",
         "cantidad" : "4",
         "stock": "2",
-        "descripcion": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae expedita placeat, magnam doloribus voluptate enim reiciendis ad quos quasi. Laborum non porro odit sequi error? Earum blanditiis ipsam sed voluptatibus!"
+        "descripcion": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae expedita placeat, magnam doloribus voluptate enim reiciendis ad quos quasi. Laborum non porro odit sequi error? Earum blanditiis ipsam sed voluptatibus!",
+        "id" : "1"
     }
+
+    let carrito = [];
+    if (localStorage.getItem('Carrito')) { carrito = JSON.parse(localStorage.getItem('Carrito'))}
+
+    const agregarAlCarrito = ()=> {
+        carrito.push (camiseta);
+        localStorage.setItem("Carrito", JSON.stringify(carrito));
+        console.log ("Carrito ok", carrito);
+    };
+
     return (
         <>
             <main className='px-3'>
@@ -59,7 +70,7 @@ const DetalleCamisetas = () => {
                 <section className=''>
                     <input className='inputDetalleCamisetas' type="text" placeholder={`Cantidad: ${camiseta.cantidad} (Stock disponible: ${camiseta.stock})`} />
                     <Boton estilo='botonAzul botonLogin' texto='Comprar' />
-                    <Link to="carrito" className='estiloLinkDetalleBoton'><Boton estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' /></Link>
+                    <Link to="../Carrito-de-compras" className='estiloLinkDetalleBoton'><Boton onClick={agregarAlCarrito} estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' /></Link>
                 </section>
                 <section className='d-flex my-4'>
                     <p className='me-2 compartirDetalleCamisetas'>COMPARTIR</p>
