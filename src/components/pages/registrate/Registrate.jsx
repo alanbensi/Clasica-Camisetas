@@ -1,13 +1,16 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { Link } from 'react-router-dom';
 import Boton from '../../atoms/boton/Boton';
 import './Registrate.css'
+import { useFetchData } from "../../../hooks/useFetch";
 
 const Registrate = () => {
-
+    const [email, setEmail] = useState('');
     const [tipoInput, settipoInput] = useState("password");
+    const { fetchData, data, loading, error } = useFetchData(`/users/checkUsernameOrEmail?email=${email}`);
+   
     const mostrarContraseña = () => {
         if (tipoInput === "password") {
             settipoInput ("text");
@@ -27,6 +30,17 @@ const Registrate = () => {
         }
     };
 
+    const checkEmail = (e) => {
+        const emailValue = e.target.value;
+        setEmail(emailValue);
+        fetchData()
+    }
+
+    /* useEffect(() => {
+       console.log(data);
+       console.log(loading);
+    }, [data, loading]);  */
+
     return (
         <>
             <main className='mainRegistrate'>
@@ -35,7 +49,8 @@ const Registrate = () => {
                     <form action="" method="post">
                         <input className='inputRegistrate' type="text" placeholder='Nombres' />
                         <input className='inputRegistrate' type="text" placeholder='Apellidos' />
-                        <input className='inputRegistrate' type="email" placeholder='Email' />
+                        <input className='inputRegistrate' type="email" placeholder='Email' onBlur={(e) => checkEmail(e)}/>
+                        {data.error && <p>Ups el email ya existe</p>}
                         <input className='inputRegistrate' type="tel" placeholder='Número de teléfono' />
                         <div className='containerInputPassword'>
                             <input className='inputRegistrate' type={tipoInput} placeholder='Contraseña' />
