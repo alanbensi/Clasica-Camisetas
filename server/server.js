@@ -161,14 +161,15 @@ app.get('/users', adminAuth, (req, res) => {
         sequelize.query(`SELECT * FROM users WHERE ${searchBy} = ?`,
             {replacements: [req.query[searchBy]], type: sequelize.QueryTypes.SELECT, raw: true}
         ).then(([response]) => {
-            // if the user can´t be found, throws error
-            // if(!(response[searchBy])){
-            //     res.status(404);
-            //     throw new Error (`User with ${searchBy} = ${req.query[searchBy]} could not be found`);
-            // }
-            // when user exists, sends response
-            res.status(200).send(response);
+            if (response) {
+                // when user exists, sends response
+                res.status(200).send(response);
+            } else {
+                // when the user is not found, throws error
+                throw new Error (`User with ${searchBy} = ${req.query[searchBy]} could not be found`);
+            }
         }).catch(function (err){
+            res.status(404);
             res.json({ error: err.message });
         });
     } else {
@@ -181,28 +182,28 @@ app.get('/users', adminAuth, (req, res) => {
 });
 
 // Check existing username or email
-app.get('/users/checkUsernameOrEmail', (req, res) => {
-    const searchBy = Object.keys(req.body)[0];
+app.get('/users/checkEmail', (req, res) => {
+    const email = req.query.email;
     // checks if there´s a missing value, returns an error if there is
-    if (!searchBy){
+    if (!email){
         res.status(400);
-        res.json({error: 'Username or email are required'})
+        res.json({error: 'Email is required'})
         return;
     }
-    //checks that the username or email isn´t already save
-    sequelize.query(`SELECT ${searchBy} FROM users WHERE ${searchBy} = ?`,
-        {replacements: [req.body[searchBy]], type: sequelize.QueryTypes.SELECT, raw: true }
+    //checks that the email isn´t already in use
+    sequelize.query(`SELECT email FROM users WHERE email = ?`,
+        {replacements: [email], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
         // Matching username or email
         if (response.length !== 0) {
-            throw new Error ('Username or email already exist') 
+            throw new Error ('Email is already in use') 
         } else {
             // No matching, response with no content
             res.status(204).json();
         }
     }).catch (function (err) {
         res.status(409).json({ error: err.message });
-    }); 
+    });
 });
 
 // Indicates the server is working
