@@ -17,7 +17,7 @@ const Carrito = () => {
     const [carrito, setCarrito] = useState ([]);
 
     const borrarItem = (id)=> {
-        setCarrito (carrito.filter((item)=>item.id != id));        
+        setCarrito (carrito.filter((item)=>item.id !== id));        
     };
 
     useEffect (()=>{
@@ -39,7 +39,7 @@ const Carrito = () => {
             <section>
                 <h1 className='tituloCarrito'>Carrito de compras</h1>
                 <div>
-                    {carrito.length != 0 ? 
+                    {carrito.length !== 0 ? 
                     (carrito.map ((item)=>(
                     <div className='d-flex justify-content-around my-4'>
                         <img className='imgCardCarrito' src={item.imagen} alt={item.nombre} />

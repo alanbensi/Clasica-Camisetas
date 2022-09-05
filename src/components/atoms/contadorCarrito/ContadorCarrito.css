@@ -8,3 +8,8 @@
     background-color: transparent;
     border: none;
 }
+
+.disabled {
+    visibility: hidden;
+    pointer-events: none;
+}

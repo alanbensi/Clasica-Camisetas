@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 
 const localUrl = 'http://127.0.0.1:3001'
 
@@ -25,7 +25,7 @@ export const useFetchData = (BASE_URL = '', token, error_msg = 'oops!') => {
                     throw new Error(`Http status ${response.status}`);
                 }
                 const data = await response.json();
-                console.log('en el hook', data);
+                console.log('en el hook', data, BASE_URL);
                 setFetchData(data);
             } catch (error) {
                 //Si hay un error ...
