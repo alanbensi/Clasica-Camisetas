@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
+import ContadorCarrito from '../../atoms/contadorCarrito/ContadorCarrito';
 import './Carrito.css'
+import { Icon } from '@iconify/react';
 
 const Carrito = () => {
 
@@ -38,7 +40,18 @@ const Carrito = () => {
                 <h1 className='tituloCarrito'>Carrito de compras</h1>
                 <div>
                     {carrito.length != 0 ? 
-                    (carrito.map ((item)=>(<p onClick={()=>borrarItem (item.id)}>{item.nombre}</p>)))
+                    (carrito.map ((item)=>(
+                    <div className='d-flex justify-content-around my-4'>
+                        <img className='imgCardCarrito' src={item.imagen} alt={item.nombre} />
+                        <div>
+                            <h2 className='nombreCamisetaCardCarrito'>{item.nombre}</h2>
+                            <ContadorCarrito />
+                        </div>
+                        <div>
+                            <Icon onClick={() => borrarItem(item.id)} icon="codicon:chrome-close" width='20px' /> 
+                        </div>
+                    </div>
+                    )))
                     :
                     (<p>Todavía no agregaste productos al carrito</p>)
                     }

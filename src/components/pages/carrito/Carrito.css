@@ -4,3 +4,12 @@
     font-size: 32px;
     font-weight: 400;
 }
+
+.imgCardCarrito {
+    width: 5rem;
+}
+
+.nombreCamisetaCardCarrito {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 16px;
+}
