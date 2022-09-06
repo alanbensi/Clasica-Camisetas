@@ -187,7 +187,7 @@ app.get('/users/checkEmail', (req, res) => {
     // checks if there´s a missing value, returns an error if there is
     if (!email){
         res.status(400);
-        res.json({error: 'Email is required'})
+        res.json({error: 'Este campo es obligatorio'})
         return;
     }
     //checks that the email isn´t already in use
@@ -196,7 +196,7 @@ app.get('/users/checkEmail', (req, res) => {
     ).then((response) => {
         // Matching username or email
         if (response.length !== 0) {
-            throw new Error ('Email is already in use') 
+            throw new Error ('Email ya en uso') 
         } else {
             // No matching, response with no content
             res.status(204).json();

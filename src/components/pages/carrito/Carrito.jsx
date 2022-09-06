@@ -43,9 +43,9 @@ const Carrito = () => {
                     (carrito.map ((item)=>(
                     <div className='d-flex justify-content-around my-4'>
                         <img className='imgCardCarrito' src={item.imagen} alt={item.nombre} />
-                        <div>
+                        <div className='w-100'>
                             <h2 className='nombreCamisetaCardCarrito'>{item.nombre}</h2>
-                            <ContadorCarrito />
+                            <ContadorCarrito stock={item.stock}/>
                         </div>
                         <div>
                             <Icon onClick={() => borrarItem(item.id)} icon="codicon:chrome-close" width='20px' /> 

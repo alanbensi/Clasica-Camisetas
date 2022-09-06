@@ -7,11 +7,11 @@ import './Registrate.css'
 import { useFetchData } from "../../../hooks/useFetch";
 
 const Registrate = () => {
-    const { fetchData, data, loading, error } = useFetchData(`/users/checkEmail?email=${email}`);
     const [email, setEmail] = useState('');
     const [errorMsj, setErrorMsj] = useState('');
     const [tipoInput, settipoInput] = useState("password");
-
+    const { fetchData, data, loading } = useFetchData(email ? `/users/checkEmail?email=${email}` : '');
+    
     const mostrarContraseña = () => {
         if (tipoInput === "password") {
             settipoInput ("text");
@@ -33,14 +33,16 @@ const Registrate = () => {
 
     const checkEmail = (e) => {
         const emailValue = e.target.value;
-        console.log (emailValue);
         setEmail(emailValue);
-        fetchData();
     }
 
+    useEffect(() => {        
+        fetchData();
+    }, [email]); 
+    
     useEffect(() => {
-        setErrorMsj(data.error)
-    }, [data]);  
+        setErrorMsj(data.error ? data.error : "");
+    }, [data]); 
 
     return (
         <>

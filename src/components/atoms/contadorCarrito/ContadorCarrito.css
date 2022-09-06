@@ -13,3 +13,7 @@
     visibility: hidden;
     pointer-events: none;
 }
+
+.msjError{
+    color: red;
+}
