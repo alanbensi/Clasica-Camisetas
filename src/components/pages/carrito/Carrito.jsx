@@ -4,6 +4,7 @@ import ContadorCarrito from '../../atoms/contadorCarrito/ContadorCarrito';
 import './Carrito.css'
 import { Icon } from '@iconify/react';
 
+
 const Carrito = () => {
 
     const ruta = useLocation();
@@ -13,8 +14,9 @@ const Carrito = () => {
         setTitulo(sinEspacios.replace("/", " "));
     }, [ruta]);
 
-
     const [carrito, setCarrito] = useState ([]);
+
+    const [cambioContador, setCambioContador] = useState(true);
 
     const borrarItem = (id)=> {
         setCarrito (carrito.filter((item)=>item.id !== id));        
@@ -22,13 +24,23 @@ const Carrito = () => {
 
     useEffect (()=>{
         if (localStorage.getItem('Carrito')) {setCarrito(JSON.parse(localStorage.getItem('Carrito')))};
-    },[]);
+    },[cambioContador]);
 
     useEffect(() => {
-    console.log (carrito);
+    console.log ("No me importa ", carrito);
     localStorage.setItem('Carrito', JSON.stringify(carrito));
     },[carrito]);
 
+
+    const contador = ()=> {
+        const local= localStorage.getItem('Carrito')
+        setCarrito (JSON.parse(local));
+        setCambioContador (!cambioContador);
+    }
+
+    const precioPorCantidad = (precio, cantidad) => {
+        return precio*cantidad; 
+    }
 
     return (
         <main className='px-3'>
@@ -41,20 +53,42 @@ const Carrito = () => {
                 <div>
                     {carrito.length !== 0 ? 
                     (carrito.map ((item)=>(
-                    <div className='d-flex justify-content-around my-4'>
-                        <img className='imgCardCarrito' src={item.imagen} alt={item.nombre} />
-                        <div className='w-100'>
-                            <h2 className='nombreCamisetaCardCarrito'>{item.nombre}</h2>
-                            <ContadorCarrito stock={item.stock}/>
-                        </div>
-                        <div>
-                            <Icon onClick={() => borrarItem(item.id)} icon="codicon:chrome-close" width='20px' /> 
+                    <div>
+                        <div className='d-flex justify-content-around my-4'>
+                            <img className='imgCardCarrito' src={item.imagen} alt={item.nombre} />
+                            <div className='w-100'>
+                                <h2 className='nombreCamisetaCardCarrito'>{item.nombre}</h2>
+                                <div className='d-flex align-items-center justify-content-between'>
+                                    <ContadorCarrito handleClick= {contador} carrito={carrito} camiseta={item}/>
+                                    <p className='m-0'>${precioPorCantidad(item.precioNormal, item.cantidad)}</p>
+                                </div>
+                            </div>
+                            <div>
+                                <Icon onClick={() => borrarItem(item.id)} icon="codicon:chrome-close" width='20px' /> 
+                            </div>
                         </div>
                     </div>
                     )))
                     :
                     (<p>Todavía no agregaste productos al carrito</p>)
                     }
+                    {/* {
+                        carrito.length !== 0 &&
+                    (
+                    <>
+                        <div>
+                            <h3 className='subtotalCarrito'>Subtotal (sin envío): ${item.precioNormal}</h3>
+                            <p className='envioGratisCarrito'>Envío gratis</p>
+                        </div>
+                        <div className='mb-3'>
+                            <div className='containerTotalCarrito'>
+                                <h3 className='totalCarrito'>Total: ${item.precioNormal}</h3>
+                                <Boton estilo="botonIniciarCompra botonAzul" texto="Iniciar compra" />
+                            </div>
+                        </div>
+                    </>
+                    )
+                    } */}
                 </div>
             </section>
         </main>

@@ -2,43 +2,50 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import './ContadorCarrito.css'
 
-const ContadorCarrito = (stock) => {
+const ContadorCarrito = ({camiseta, carrito, handleClick}) => {
 
     const [cantidadCamisetas, setcantidadCamisetas] = useState(contador);
-    const [contador, setContador] = useState(1);
+    const [contador, setContador] = useState(parseInt(camiseta.cantidad));
     const [errorMsj, setErrorMsj] = useState('');
 
     const sumarCamisetasCarrito = ()=> {
         
-        if(contador < parseInt(stock.stock)){
+        if(contador < parseInt(camiseta.stock)){
             setContador (contador + 1);
+            handleClick();
         }
         else{
-            setErrorMsj(`Stock máximo: ${stock.stock} unidades`)
+            setErrorMsj(`Stock máximo: ${camiseta.stock} unidades`)
         }
     }
     const restarCamisetasCarrito = () => {
         if (contador !== 1){
             setContador (contador - 1);
+            handleClick();
         }
     }
 
     useEffect (()=>{
         setcantidadCamisetas (contador)
-        if(contador < parseInt(stock.stock)){
+        if(contador < parseInt(camiseta.stock)){
             setErrorMsj('')
         }
+        const filterCarrito = carrito.filter((item) => item.id === camiseta.id);     
+        filterCarrito[0].cantidad = contador;
+        let otrasCamisetas = carrito.filter((item) => item.id !== camiseta.id);
+        otrasCamisetas.push(filterCarrito);
+        localStorage.setItem("Carrito", JSON.stringify(otrasCamisetas));
     },[contador])
 
     return (
-        <>
+        <div >
             <div className='d-flex align-items-center'>
                 <input className= {contador !== 1 ? 'botonesContadorCarrito' : 'botonesContadorCarrito disabled' } type="button" value="-" onClick={restarCamisetasCarrito}/>
                 <input className='cantidadContadorCarrito' type="number" defaultValue={cantidadCamisetas} />
                 <input className='botonesContadorCarrito' type="button" value="+" onClick={sumarCamisetasCarrito} />
             </div>
             {errorMsj && <p className='px-2 mt-2 msjError'>{errorMsj}</p>}
-        </>
+        </div>
     )
 }
 
