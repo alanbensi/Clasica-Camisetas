@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import ContadorCarrito from '../../atoms/contadorCarrito/ContadorCarrito';
 import './Carrito.css'
 import { Icon } from '@iconify/react';
+import Boton from '../../atoms/boton/Boton'
 
 
 const Carrito = () => {
@@ -72,23 +73,23 @@ const Carrito = () => {
                     :
                     (<p>Todavía no agregaste productos al carrito</p>)
                     }
-                    {/* {
+                    {
                         carrito.length !== 0 &&
                     (
                     <>
                         <div>
-                            <h3 className='subtotalCarrito'>Subtotal (sin envío): ${item.precioNormal}</h3>
+                            {/* <h3 className='subtotalCarrito'>Subtotal (sin envío): ${item.precioNormal}</h3> */}
                             <p className='envioGratisCarrito'>Envío gratis</p>
                         </div>
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>
-                                <h3 className='totalCarrito'>Total: ${item.precioNormal}</h3>
-                                <Boton estilo="botonIniciarCompra botonAzul" texto="Iniciar compra" />
+                                {/* <h3 className='totalCarrito'>Total: ${item.precioNormal}</h3> */}
+                                <Link to="/Detalle-de-compra" ><Boton estilo="botonIniciarCompra botonAzul" texto="Iniciar compra" /></Link>
                             </div>
                         </div>
                     </>
                     )
-                    } */}
+                    }
                 </div>
             </section>
         </main>

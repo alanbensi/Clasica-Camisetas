@@ -15,6 +15,7 @@ import Ayuda from './components/pages/ayuda/Ayuda';
 import DetalleCamisetas from './components/pages/detalleCamisetas/DetalleCamisetas';
 import Carrito from './components/pages/carrito/Carrito';
 import MiCuenta from './components/pages/miCuenta/MiCuenta';
+import DetalleDeCompra from './components/pages/detalleDeCompra/DetalleDeCompra';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         {/* <Route exact path='/nosotros' element= {<Nosotros />} /> */}
         {/* <Route exact path='/ayuda' element= {<Ayuda />} /> */}
         <Route exact path='/Carrito-de-compras' element= {<Carrito />} />
+        <Route exact path='/Detalle-de-compra' element={<DetalleDeCompra />} />
       </Routes>
       <Footer />
     </>

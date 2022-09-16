@@ -1,0 +1,137 @@
+.botonModal {
+    background-color: #8AC4D0;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    margin-bottom: 2rem;
+    border: none; 
+    position: relative;
+    padding: 1rem;
+    border-radius: 0;
+    text-align: start;
+    font-weight: 600;
+}
+
+.botonModal:focus {
+    background-color: #8AC4D0;
+    border: none;
+    color: black;
+    box-shadow: 0;
+    border-color: none;
+}
+
+.iconoArrowModal {
+    position: absolute;
+    right: 5%;
+    top: 18px;
+    font-size: 20px;
+}
+
+.tituloDetallesCompra {
+    font-family: 'Bebas Neue', cursive;
+}
+
+.subtituloDetallesCompra {
+    font-weight: 400;
+}
+
+.fontSizeDetalleCompra {
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+}
+
+.formularioDetalleCompra {
+    display: flex;
+    flex-direction: column;
+}
+
+.formularioDetalleCompra input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    margin: 1rem 0;
+    border: solid 1px #979797;
+}
+
+.radioDetallePedido {
+    width: 15px !important;
+    height: 15px;
+}
+
+.contenedorEnvioDomicilio {
+    margin: 0.5rem 0;
+}
+
+.tituloResumenPedido, .tituloMercadoPago {
+    font-family: 'Bebas Neue', cursive;
+    margin-top: 1rem;
+}
+
+.containerResumenPedido {
+    display: flex;
+    justify-content: space-between;
+}
+
+.containerResumenPedido div {
+    margin-top: 1rem;
+}
+
+.inputCheckboxMP {
+    width: 17px;
+    height: 17px;
+    border: solid 1px black;
+}
+
+.logoMercadoPago {
+    width: 7rem;
+}
+
+.containerMercadoPagoCompra {
+    background-color: #FFB81C;
+}
+
+.containerIconosMP {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.flechaMP {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 1rem;
+    color: #003594;
+}
+
+.iconosDetalleCompra {
+    background-color: #003594;
+    width: 4rem;
+    height: 4rem;
+    color: white;
+    border-radius: 40%;
+    border: 0.5px solid;
+    padding: 0.5rem;
+}
+
+.textoMPDetalle {
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    padding: 0 2rem 1rem 2rem;
+}
+
+.textoTerminosCondiciones {
+    text-align: center;
+}
+
+.terminosCondiciones {
+    text-decoration: none;
+    color: #003594;
+}
+
+.botonDetalleCompra {
+    width: 100%;
+    font-weight: 600;
+    font-size: 18px;
+}
