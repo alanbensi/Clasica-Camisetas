@@ -38,39 +38,39 @@ const DetalleDeCompra = () => {
                 <div>
                     <form action="" className='formularioDetalleCompra'>
                         <label htmlFor="nombreDetallePedido">NOMBRE *</label>
-                        <input type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu nombre...' />
+                        <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu nombre...' />
                         <label htmlFor="apellidosDetallePedido">APELLIDOS *</label>
-                        <input type="text" name="apellidosetallePedido" id="apellidosDetallePedido" placeholder='Ingresá tus apellidos...' />
+                        <input required type="text" name="apellidosetallePedido" id="apellidosDetallePedido" placeholder='Ingresá tus apellidos...' />
                         <label htmlFor="correoDetallePedido">CORREO ELECTRÓNICO *</label>
-                        <input type="text" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...'/>
+                        <input required type="text" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...'/>
                         <label htmlFor="telefonoDetallePedido">TELEFONO *</label>
-                        <input type="text" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...'/>
+                        <input required type="text" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...'/>
                         <label htmlFor="dniDetallePedido">DNI *</label>
-                        <input type="text" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...'/>
+                        <input required type="text" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...'/>
                         <label htmlFor="cpDetallePedido">CODIGO POSTAL *</label>
-                        <input type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...'/>
+                        <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...'/>
                         <label htmlFor="envioDetallePedido">ENVIO *</label>
                         <div className='d-flex align-items-center'>
-                            <input className='radioDetallePedido me-3' type="radio" value="Domicilio" name="envioDetallePedido" id="envioDomicilio" onChange={envioDomicilio} />
+                            <input required className='radioDetallePedido me-3' type="radio" value="Domicilio" name="envioDetallePedido" id="envioDomicilio" onChange={envioDomicilio} />
                             Envío a domicilio    
                         </div>
                         <div>
-                            <input className='radioDetallePedido me-3' type="radio" value="Retiro en sucursal de correo argentino" name="envioDetallePedido" id="envioCorreoArgentino" onChange={envioDomicilio} />
+                            <input required className='radioDetallePedido me-3' type="radio" value="Retiro en sucursal de correo argentino" name="envioDetallePedido" id="envioCorreoArgentino" onChange={envioDomicilio} />
                             Retiro en sucursal de Correo Argentino
                         </div>
                         <div className='mb-3'>
-                            <input className='radioDetallePedido me-3' type="radio" value="Retiro en punto de entrega" name="envioDetallePedido" id="retiro" onChange={envioDomicilio}/>
+                            <input required className='radioDetallePedido me-3' type="radio" value="Retiro en punto de entrega" name="envioDetallePedido" id="retiro" onChange={envioDomicilio}/>
                             Retiro en punto de entrega
                         </div>
                         {envio === "Domicilio" && 
                         <div className='contenedorEnvioDomicilio'>
                             <h2 className='tituloDetallesCompra mb-3'>Envío a domicilio</h2>
                             <label htmlFor="nombreDetallePedido">DIRECCIÓN *</label>
-                            <input type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu dirección...' />
+                            <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu dirección...' />
                             <label htmlFor="nombreDetallePedido">CIUDAD *</label>
-                            <input type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...'/>
+                            <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...'/>
                             <label htmlFor="nombreDetallePedido">PROVINCIA *</label>
-                            <input type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...'/>
+                            <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...'/>
                         </div>
                         }
                     </form>

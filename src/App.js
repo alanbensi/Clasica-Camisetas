@@ -16,6 +16,8 @@ import DetalleCamisetas from './components/pages/detalleCamisetas/DetalleCamiset
 import Carrito from './components/pages/carrito/Carrito';
 import MiCuenta from './components/pages/miCuenta/MiCuenta';
 import DetalleDeCompra from './components/pages/detalleDeCompra/DetalleDeCompra';
+import Subastas from './components/pages/subastas/Subastas';
+import DetalleSubastas from './components/pages/detalleSubasta/DetalleSubastas';
 
 function App() {
   return (
@@ -31,11 +33,10 @@ function App() {
         <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
         <Route exact path='/Ayuda' element={<Ayuda />} />
         <Route exact path='/Detalle-Camisetas' element={<DetalleCamisetas />} />
-        {/* <Route exact path='/subastas' element= {<Subastas />} /> */}
+        <Route exact path='/Subastas' element= {<Subastas />} />
+        <Route exact path='/Detalle-subastas' element= {<DetalleSubastas/>} />
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
         <Route exact path='/Mi-cuenta' element={<MiCuenta />} />
-        {/* <Route exact path='/nosotros' element= {<Nosotros />} /> */}
-        {/* <Route exact path='/ayuda' element= {<Ayuda />} /> */}
         <Route exact path='/Carrito-de-compras' element= {<Carrito />} />
         <Route exact path='/Detalle-de-compra' element={<DetalleDeCompra />} />
       </Routes>

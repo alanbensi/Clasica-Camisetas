@@ -84,7 +84,7 @@ const Carrito = () => {
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>
                                 {/* <h3 className='totalCarrito'>Total: ${item.precioNormal}</h3> */}
-                                <Link to="/Detalle-de-compra" ><Boton estilo="botonIniciarCompra botonAzul" texto="Iniciar compra" /></Link>
+                                <Link className='estiloLinks' to="/Detalle-de-compra" ><Boton estilo="botonIniciarCompra botonAzul" texto="Iniciar compra" /></Link>
                             </div>
                         </div>
                     </>

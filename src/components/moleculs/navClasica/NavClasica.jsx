@@ -83,7 +83,7 @@ const NavClasica = () => {
                                 </div>
                             </div>
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                <NavLink to ='/' className='d-flex estiloLinks'>
+                                <NavLink to ='/Subastas' className='d-flex estiloLinks'>
                                     <Icon icon="ri:auction-line" width= '20px' />
                                     <p className='ms-3'>Subastas</p>
                                 </NavLink>
