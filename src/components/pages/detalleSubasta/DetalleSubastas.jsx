@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './DetalleSubastas.css';
+import { useCountdown } from '../../../hooks/useCountdown'
 
 const DetalleSubastas = ({camiseta}) => {
+    const date2 = "22/10/2022"
+    const time2 = "00:00"
 
+    const {timeCounter ,daysLeft, hoursLeft, minutesLeft, secondsLeft} = useCountdown(date2, time2);
     const ruta = useLocation();
     const [titulo, setTitulo] = useState("");
 
@@ -12,6 +16,9 @@ const DetalleSubastas = ({camiseta}) => {
         setTitulo(sinEspacios.replace("/", " "));
     }, [ruta]);
 
+    setInterval(() => {
+        timeCounter()
+     }, 5000)
 
     return (
         <main className='px-3'>
@@ -22,6 +29,7 @@ const DetalleSubastas = ({camiseta}) => {
             </section>
             <section>
                 <h1 className='tituloDetalleSubastas'>Camiseta Lorem ipsum, dolor sit amet</h1>
+                <h3 className=''>Termina en <span>{daysLeft} dias </span><br/><span>{hoursLeft} hr </span><span>{minutesLeft} min</span> <span>{secondsLeft} seg</span></h3>  
             </section>
         </main>
     )
