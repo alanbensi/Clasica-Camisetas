@@ -18,13 +18,17 @@ const DetalleCamisetas = () => {
     const camiseta = {
         "nombre" : "Camiseta Boca Juniors Clausura 1997", 
         "imagen" : ejemplo,
-        "precioNormal": "22000",
+        "precioNormal": "10000",
         "descuento" : "10",
-        "cantidad" : "4",
-        "stock": "2",
+        "cantidad" : "3",
+        "stock": "5",
         "descripcion": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae expedita placeat, magnam doloribus voluptate enim reiciendis ad quos quasi. Laborum non porro odit sequi error? Earum blanditiis ipsam sed voluptatibus!",
         "id" : "1"
     }
+
+    let precioFinalSinDescuento = camiseta.cantidad * camiseta.precioNormal;
+    let descuentoNumeroFinal = (precioFinalSinDescuento * camiseta.descuento) /100; 
+    let precioFinalConDescuento = precioFinalSinDescuento - descuentoNumeroFinal;
 
     let carrito = [];
     if (localStorage.getItem('Carrito')) { carrito = JSON.parse(localStorage.getItem('Carrito'))}
@@ -57,12 +61,12 @@ const DetalleCamisetas = () => {
                     </div>
                     {camiseta.descuento === "" ? 
                     (<div className='mt-3 ms-3'>
-                        <h2>${camiseta.cantidad * camiseta.precioNormal}</h2>
+                        <h2>${precioFinalSinDescuento}</h2>
                     </div>)
                     :
                     (<div className='mt-3 ms-3 d-flex align-items-center'>
-                        <h2 className='precioNormal'>${camiseta.cantidad * camiseta.precioNormal}</h2>
-                        <h2 className='ms-2'>${camiseta.cantidad * (Number(camiseta.precioNormal))-(Number(camiseta.precioNormal)*Number(camiseta.descuento))/100}</h2>
+                        <h2 className='precioNormal'>${precioFinalSinDescuento}</h2>
+                        <h2 className='ms-2'>${precioFinalConDescuento}</h2>
                     </div>)
                     }
                     <p className='metodosDetalleCamisetas'>Ver metodos de pago</p>

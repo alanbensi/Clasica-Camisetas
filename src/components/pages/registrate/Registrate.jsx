@@ -8,9 +8,10 @@ import { useFetchData } from "../../../hooks/useFetch";
 
 const Registrate = () => {
     const [email, setEmail] = useState('');
+    const [errorMsj, setErrorMsj] = useState('');
     const [tipoInput, settipoInput] = useState("password");
-    const { fetchData, data, loading, error } = useFetchData(`/users/checkUsernameOrEmail?email=${email}`);
-   
+    const { fetchData, data, loading } = useFetchData(email ? `/users/checkEmail?email=${email}` : '');
+    
     const mostrarContraseña = () => {
         if (tipoInput === "password") {
             settipoInput ("text");
@@ -33,13 +34,15 @@ const Registrate = () => {
     const checkEmail = (e) => {
         const emailValue = e.target.value;
         setEmail(emailValue);
-        fetchData()
     }
 
-    /* useEffect(() => {
-       console.log(data);
-       console.log(loading);
-    }, [data, loading]);  */
+    useEffect(() => {        
+        fetchData();
+    }, [email]); 
+    
+    useEffect(() => {
+        setErrorMsj(data.error ? data.error : "");
+    }, [data]); 
 
     return (
         <>
@@ -50,7 +53,7 @@ const Registrate = () => {
                         <input className='inputRegistrate' type="text" placeholder='Nombres' />
                         <input className='inputRegistrate' type="text" placeholder='Apellidos' />
                         <input className='inputRegistrate' type="email" placeholder='Email' onBlur={(e) => checkEmail(e)}/>
-                        {data.error && <p>Ups el email ya existe</p>}
+                        {errorMsj && <p>{errorMsj}</p>}
                         <input className='inputRegistrate' type="tel" placeholder='Número de teléfono' />
                         <div className='containerInputPassword'>
                             <input className='inputRegistrate' type={tipoInput} placeholder='Contraseña' />

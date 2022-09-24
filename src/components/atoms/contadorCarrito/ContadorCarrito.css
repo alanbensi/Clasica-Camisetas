@@ -1,0 +1,19 @@
+.cantidadContadorCarrito {
+    width: 40px;
+    height: 25px;
+    text-align: center;
+}
+
+.botonesContadorCarrito {
+    background-color: transparent;
+    border: none;
+}
+
+.disabled {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.msjError{
+    color: red;
+}

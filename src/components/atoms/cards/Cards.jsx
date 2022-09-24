@@ -2,16 +2,17 @@ import React from 'react'
 import Card  from 'react-bootstrap/Card'
 import './Cards.css'
 
-const Cards = ({img,titulo,precio,precioAntiguo}) => {
+const Cards = (props) => {
+
     return (
         <Card className='cards'>
-            <Card.Img variant="top" src={img} />
+            <Card.Img variant="top" src={props.img} />
             <Card.Body>
-                <h3 className='textoCard tituloCard'>{titulo}</h3>
+                <h3 className='textoCard tituloCard'>{props.titulo}</h3>
             </Card.Body>
-            {precio &&  
+            {props.precio &&  
                 <Card.Footer className='cardFooter'>
-                    <h3 className='textoCard tituloFooterCard'>{precioAntiguo ?<span className='spanPrecioAntiguo'>{precioAntiguo}</span>: false}{precio}</h3>
+                    <h3 className='textoCard tituloFooterCard'>{props.precioAntiguo ?<span className='spanPrecioAntiguo'>{props.precioAntiguo}</span>: false}{props.precio}</h3>
                 </Card.Footer>
             }
         </Card>

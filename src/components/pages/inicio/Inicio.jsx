@@ -1,6 +1,5 @@
 import React from 'react'
 import Banner from '../../atoms/banner/Banner'
-import Boton from '../../atoms/boton/Boton'
 import Cards from '../../atoms/cards/Cards'
 import {Container, Row, Col} from 'react-bootstrap'
 import './Inicio.css'
@@ -23,25 +22,17 @@ const Inicio = () => {
                 <Row>
                     <Col lg ={3} md = {6} xs = {6}>
                         <Link to="/Detalle-Camisetas" className='estiloLinks'>
-                            <Cards img = 'adfsdf' titulo = 'Camiseta 1' precio ='$10000.00' precioAntiguo= '$20000'>
-                                <Boton estilo ='botonAzul' texto ='20000' />
-                            </Cards>
+                            <Cards img = 'adfsdf' titulo = 'Camiseta 1' precio ='$10000.00' precioAntiguo= '$20000'/>
                         </Link>
                     </Col>
                     <Col lg ={3} md = {6} xs = {6}>
-                        <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000'>
-                            <Boton estilo='botonAzul' texto='20000' />
-                        </Cards>
+                        <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000'/>
                     </Col>
                     <Col lg ={3} md = {6} xs = {6}>
-                        <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000'>
-                            <Boton estilo='botonAzul' texto='20000' />
-                        </Cards>
+                        <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000'/>
                     </Col>
                     <Col lg ={3} md = {6} xs = {6}>
-                        <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000'>
-                            <Boton estilo='botonAzul' texto='20000' />
-                        </Cards>
+                        <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000'/>
                     </Col>
                 </Row>
             </Container>

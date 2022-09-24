@@ -4,3 +4,46 @@
     font-size: 32px;
     font-weight: 400;
 }
+
+.imgCardCarrito {
+    width: 80px;
+    height: 80px;
+    margin-right: 1rem;
+}
+
+.nombreCamisetaCardCarrito {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 16px;
+}
+
+.subtotalCarrito {
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Roboto';
+}
+
+.envioGratisCarrito {
+    color: #0C9800;
+    margin-top: 1rem;
+}
+
+.containerTotalCarrito {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.totalCarrito {
+    font-size: 20px;
+    font-family: 'Roboto';
+    text-align: center;
+    margin: 2rem 0 1rem 0;
+}
+
+.botonIniciarCompra {    
+    width: 9.5rem;
+    height: 2.6rem;
+    border: 3px solid #F4D160;
+    border-radius: 5px;
+    font-weight: 600;
+}

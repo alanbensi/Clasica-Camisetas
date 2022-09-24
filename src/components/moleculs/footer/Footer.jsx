@@ -15,9 +15,9 @@ const Footer = () => {
                     <ul>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/'>Inicio</Link> </li>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/'>Categorias</Link> </li>
-                        <li className='listaFooter'> <Link className='anchorFooter' to='/subastas'>Subastas</Link> </li>
-                        <li className='listaFooter'> <Link className='anchorFooter' to='/ayuda'>Ayuda</Link> </li>
-                        <li className='listaFooter'> <Link className='anchorFooter' to='/vendeTuCamiseta'>Vende tu camiseta</Link> </li>
+                        <li className='listaFooter'> <Link className='anchorFooter' to='/Subastas'>Subastas</Link> </li>
+                        <li className='listaFooter'> <Link className='anchorFooter' to='/Ayuda'>Ayuda</Link> </li>
+                        <li className='listaFooter'> <Link className='anchorFooter' to='/Vende-tu-camiseta'>Vende tu camiseta</Link> </li>
                     </ul>
                 </div>
                 <div className='containerFooter containerContactoFooter'>
