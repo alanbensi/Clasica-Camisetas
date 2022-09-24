@@ -181,7 +181,7 @@ app.get('/users', adminAuth, (req, res) => {
     }
 });
 
-// Check existing username or email
+// Check existing email
 app.get('/users/checkEmail', (req, res) => {
     const email = req.query.email;
     // checks if there´s a missing value, returns an error if there is
@@ -203,6 +203,138 @@ app.get('/users/checkEmail', (req, res) => {
         }
     }).catch (function (err) {
         res.status(409).json({ error: err.message });
+    });
+});
+
+// PRODUCTS Endpoints
+
+//  Create product
+app.post('/products', adminAuth, (req, res) => {
+    const { name, images, discount, price, stock, collection, description } = req.body;
+    // checks if there´s a missing value, returns an error if there is
+    if (!name || !price || !discount || !stock) {
+        res.status(400);
+        res.json({ error: 'Missing obligatory fields' })
+        return;
+    }
+    //searches product by the product name sent in the request
+    sequelize.query('SELECT name FROM products WHERE name = ?',
+        {replacements: [name], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) => {
+        //checks for the content of response
+        //if response is not empty means a product by the product name is already saved
+        if (response.length != 0) { 
+            throw new Error ('Product already exist') 
+        }
+        //creates the product in db with the values sent in the body of the request
+        sequelize.query('INSERT INTO products (name, images, discount, price, stock, collection, description) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            {replacements: [name, images, discount, price, stock, collection, description]})
+        .then(() => {
+            res.status(201).json({ 
+                message: `Product ${name} created successfully`,
+                product: {
+                    name: name,
+                    images: images,
+                    discount: discount,
+                    price: price,
+                    stock: stock,
+                    collection: collection,
+                    description: description
+                }
+            });
+        });
+    }).catch (function (err) {
+        res.status(409).json({ error: err.message });
+    });
+});
+
+//  Get all products
+app.get('/products', validateUser, (req, res) => {
+    sequelize.query('SELECT * FROM products',
+        { type: sequelize.QueryTypes.SELECT }
+    ).then((response) => {
+        res.status(200).json(response);
+    });
+});
+
+//  Get product by id
+app.get('/products/:id', validateUser, (req, res) => {
+    //extracts id param from req
+    let id = req.params.id;
+    //search by the id sent in the request
+    sequelize.query('SELECT * FROM products WHERE id = ?',
+        {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) => {
+        //checks if the product by id sent in the request exists
+        if (response.length == 0) { 
+            throw new Error (`Product ${id} couldn't be found`);
+        }
+        //when the product exists answers the one that was found
+        res.status(200).json(response);
+    }).catch (function (err) {
+        res.status(404).json({ error: err.message });
+    });
+});
+
+// Get products by collection
+app.get('/products/collections/:collection', validateUser, (req, res) => {
+    //extracts collection param from req
+    let collection = req.params.collection;
+    //search by the collection sent in the request
+    sequelize.query('SELECT * FROM products WHERE collection = ?',
+        {replacements: [collection], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) => {
+        //checks if there are any product by collection sent in req
+        if (response.length == 0) { 
+            throw new Error (`Products of collection ${collection} couldn't be found`);
+        }
+        //when products by collection exist, returns the found ones
+        res.status(200).json(response);
+    }).catch (function (err) {
+        res.status(404).json({ error: err.message });
+    });
+});
+
+// Get products with discount
+app.get('/products-with-discount', validateUser, (req, res) => {
+    //search products with any discount
+    sequelize.query('SELECT * FROM products WHERE discount > ?',
+        {replacements: [0], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) => {
+        //checks if there are any product with discount
+        if (response.length === 0) { 
+            throw new Error (`Products with discount couldn't be found`);
+        }
+        //when products with discount exist, returns the found ones
+        res.status(200).json(response);
+    }).catch (function (err) {
+        res.status(404).json({ error: err.message });
+    });
+});
+
+//  Edit product
+
+
+//  Delete product
+app.delete('/products/:id', adminAuth, (req, res) => {
+    let id = req.params.id;
+    // checks if the product by id exists
+    sequelize.query('SELECT * FROM products WHERE id = ?',
+        {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) =>{
+        // if the product by id doesn´t exist, throws an error
+        if (response.length == 0){
+            res.status(404)
+            throw new Error (`Product with id = ${id} could not be found`);
+        }
+        // when the product by id exits, gets deleted
+        sequelize.query('DELETE FROM products WHERE id = ?',
+            {replacements: [id]}
+        ).then((response) => {
+            res.status(204).json();
+        });
+    }).catch(function(err){
+        res.json({error: err.message});
     });
 });
 
