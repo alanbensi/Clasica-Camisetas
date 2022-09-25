@@ -335,7 +335,7 @@ app.put('/products/:id', adminAuth, (req, res) => {
             {replacements: [name], type: sequelize.QueryTypes.SELECT, raw: true }
         ).then((response) =>{
             // if product name exists in other product, returns error
-            if (response.length){
+            if (response.length && response[0].id != id){
                 res.status(409);
                 throw new Error (`Un producto con ese nombre ya existe.`);
             }
