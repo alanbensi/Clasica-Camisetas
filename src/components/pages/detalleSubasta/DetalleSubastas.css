@@ -2,3 +2,32 @@
     font-family: 'Bebas Neue', cursive;
     font-size: 32px;
 }
+
+.verOfertasSubastas {
+    background-color: transparent;
+    border-color: transparent;
+    color: #212DB6;
+    font-weight: 600;
+    padding: 0;
+}
+
+.verOfertasSubastas:hover, .verOfertasSubastas:focus {
+    color: #212DB6;
+    box-shadow: none;
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.containerDescripcionSubastas {
+    padding: 2rem 0 0.5rem 0;
+}
+
+.subtituloDetalleSubastas {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+}
+
+.tablaDescripcionSubasta {
+    width: 100%;
+    margin: 1.3rem 0;
+}
