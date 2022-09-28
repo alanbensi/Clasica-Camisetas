@@ -4,26 +4,32 @@ const Sequelize = require('sequelize');
 const sequelize = require('../server.js');
 
 const queries = [
+    // {
+    //     table: 'users', 
+    //     layout: `id INT PRIMARY KEY AUTO_INCREMENT, 
+    //             username VARCHAR(100) UNIQUE NOT NULL, 
+    //             name VARCHAR(255) NOT NULL,
+    //             surname VARCHAR(255) NOT NULL,
+    //             fullname VARCHAR(255) NOT NULL, 
+    //             email VARCHAR(255) UNIQUE NOT NULL, 
+    //             password VARCHAR(100) NOT NULL, 
+    //             address VARCHAR(255) NOT NULL,
+    //             phone VARCHAR(50) NOT NULL,
+    //             admin BOOLEAN NOT NULL, 
+    //             created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
+    // },
     {
-        table: 'users', 
-        layout: `id INT PRIMARY KEY AUTO_INCREMENT, 
-                username VARCHAR(100) UNIQUE NOT NULL, 
-                name VARCHAR(255) NOT NULL,
-                surname VARCHAR(255) NOT NULL,
-                fullname VARCHAR(255) NOT NULL, 
-                email VARCHAR(255) UNIQUE NOT NULL, 
-                password VARCHAR(100) NOT NULL, 
-                address VARCHAR(255) NOT NULL,
-                phone VARCHAR(50) NOT NULL,
-                admin BOOLEAN NOT NULL, 
+        table: 'products',
+        layout: `id INT PRIMARY KEY AUTO_INCREMENT,
+                name VARCHAR(100) UNIQUE NOT NULL,
+                images VARCHAR(1000),
+                discount INT NOT NULL,
+                price INT NOT NULL,
+                stock INT NOT NULL,
+                collection VARCHAR(50),
+                description TEXT,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
     },
-    // {
-    //     table: 'products',
-    //     layout: `id INT PRIMARY KEY AUTO_INCREMENT, 
-    //             product_name VARCHAR(100) UNIQUE NOT NULL, 
-    //             description TINYTEXT, price INT`
-    // },
     // {
     //     table:'orders',
     //     layout: `id INT PRIMARY KEY AUTO_INCREMENT, 
