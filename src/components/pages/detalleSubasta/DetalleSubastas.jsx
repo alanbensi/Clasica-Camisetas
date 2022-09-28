@@ -44,7 +44,7 @@ const DetalleSubastas = () => {
                     <p>Siguiente oferta mínima: USD "OFERTA * 0.10"</p>
                 </div>
                 <div>
-                    <Link className='verOfertasSubastas estiloLinks' to="/">HACER UNA OFERTA</Link>
+                    <Link className='verOfertasSubastas estiloLinks' to="/Detalle-subastas/Nueva-oferta">HACER UNA OFERTA</Link>
                 </div>
                 <div className='containerDescripcionSubastas'>
                     <h2 className='subtituloDetalleSubastas'>DESCRIPCIÓN</h2>
@@ -71,7 +71,7 @@ const DetalleSubastas = () => {
                     </div>
                 </div>
                 <div className='containerBotonHacerOferta'>
-                    <Link className='estiloLinks' to="/">
+                    <Link className='estiloLinks' to="/Detalle-subastas/Nueva-oferta">
                         <Boton texto="Hacer una oferta" estilo="botonAzul botonLogin" />
                     </Link>
                 </div>

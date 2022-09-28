@@ -18,6 +18,7 @@ import MiCuenta from './components/pages/miCuenta/MiCuenta';
 import DetalleDeCompra from './components/pages/detalleDeCompra/DetalleDeCompra';
 import Subastas from './components/pages/subastas/Subastas';
 import DetalleSubastas from './components/pages/detalleSubasta/DetalleSubastas';
+import NuevaOfertaSubasta from './components/pages/nuevaOfertaSubasta/NuevaOfertaSubasta';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route exact path='/Detalle-Camisetas' element={<DetalleCamisetas />} />
         <Route exact path='/Subastas' element= {<Subastas />} />
         <Route exact path='/Detalle-subastas' element= {<DetalleSubastas/>} />
+        <Route exact path='/Detalle-subastas/Nueva-oferta' element={<NuevaOfertaSubasta />} />
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
         <Route exact path='/Mi-cuenta' element={<MiCuenta />} />
         <Route exact path='/Carrito-de-compras' element= {<Carrito />} />

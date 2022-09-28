@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 export const useCountdown = (date, time) => {
-       
+    
     let dateMessage = date;
     let [targetDay, targetMonth, targetYear] = (dateMessage).split('/')
 
