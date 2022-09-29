@@ -56,9 +56,9 @@ const Carrito = () => {
                     (carrito.map ((item)=>(
                     <div>
                         <div className='d-flex justify-content-around my-4'>
-                            <img className='imgCardCarrito' src={item.imagen} alt={item.nombre} />
+                            <img className='imgCardCarrito' src={item.images} alt={item.name} />
                             <div className='w-100'>
-                                <h2 className='nombreCamisetaCardCarrito'>{item.nombre}</h2>
+                                <h2 className='nombreCamisetaCardCarrito'>{item.name}</h2>
                                 <div className='d-flex align-items-center justify-content-between'>
                                     <ContadorCarrito handleClick= {contador} carrito={carrito} camiseta={item}/>
                                     <p className='m-0'>${precioPorCantidad(item.precioNormal, item.cantidad)}</p>

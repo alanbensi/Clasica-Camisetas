@@ -33,7 +33,7 @@ function App() {
         <Route exact path='/Nueva-Contrasena' element={<NuevaContrasena />} />
         <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
         <Route exact path='/Ayuda' element={<Ayuda />} />
-        <Route exact path='/Detalle-Camisetas' element={<DetalleCamisetas />} />
+        <Route exact path='/Detalle-Camisetas/:id' element={<DetalleCamisetas />} />
         <Route exact path='/Subastas' element= {<Subastas />} />
         <Route exact path='/Detalle-subastas' element= {<DetalleSubastas/>} />
         <Route exact path='/Detalle-subastas/Nueva-oferta' element={<NuevaOfertaSubasta />} />

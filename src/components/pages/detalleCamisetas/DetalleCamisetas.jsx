@@ -4,30 +4,37 @@ import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import Boton from '../../atoms/boton/Boton';
 import { Icon } from '@iconify/react';
-import ejemplo from '../../../assets/camiseta 1.png'
+import { useFetchData } from "../../../hooks/useFetch";
+import LoadingSpinner from '../../atoms/loading/LoadingSpinner';
 
 const DetalleCamisetas = () => {
 
     const ruta = useLocation();
     const [titulo, setTitulo] = useState("");
+    const [camiseta, setCamiseta] =useState ({});
+    const [id, setId] = useState(0);
+
     useEffect(() => {
-        const sinEspacios = ruta.pathname.replace(/-/g, " ");
-        setTitulo(sinEspacios.replace("/", " "));
+        const pathname = ruta.pathname.split("/");
+        setId(pathname[2])
     }, [ruta]);
 
-    const camiseta = {
-        "nombre" : "Camiseta Boca Juniors Clausura 1997", 
-        "imagen" : ejemplo,
-        "precioNormal": "10000",
-        "descuento" : "10",
-        "cantidad" : "3",
-        "stock": "5",
-        "descripcion": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae expedita placeat, magnam doloribus voluptate enim reiciendis ad quos quasi. Laborum non porro odit sequi error? Earum blanditiis ipsam sed voluptatibus!",
-        "id" : "1"
-    }
+    const { fetchData, data, loading } = useFetchData(`/products/${id}`);
 
-    let precioFinalSinDescuento = camiseta.cantidad * camiseta.precioNormal;
-    let descuentoNumeroFinal = (precioFinalSinDescuento * camiseta.descuento) /100; 
+    useEffect(() => {
+        fetchData();
+    }, [id])
+
+
+    useEffect(() => {
+        if (data.length > 0){
+            setCamiseta(data[0])
+        }
+    }, [data])
+
+
+    let precioFinalSinDescuento = 2 * camiseta.price;
+    let descuentoNumeroFinal = (precioFinalSinDescuento * camiseta.discount) /100; 
     let precioFinalConDescuento = precioFinalSinDescuento - descuentoNumeroFinal;
 
     let carrito = [];
@@ -39,27 +46,55 @@ const DetalleCamisetas = () => {
         console.log ("Carrito ok", carrito);
     };
 
+
+    // PREGUNTAR A JOSE PARA HACER EL SELECT
+    //
+    //
+    //const [cantidadSelect, setCantidadSelect] = useState(1)
+    //
+    //
+    // useEffect(() => {
+    //     if (cantidadSelect < camiseta.stock) {
+    //         camiseta.map (()=> {
+                
+    //         })
+    //         setCantidadSelect(cantidadSelect + 1)
+    //         console.log ("CANTIDAD DEL SELECT: ", cantidadSelect)
+    //     }
+    // }, [])
+
+
+    //SE ROMPIO EL USEFETCH Y ME APARECE BIEN LA IMAGEN + TITULO PERO FALLA PRECIO Y DESCRIPCION
+    
+
+    
+
+
     return (
         <>
-            <main className='px-3'>
-                <section className='d-flex mt-2'>
-                    <Link className='breadcrumb me-1' to='/'>Inicio {'>'}</Link>
-                    <Link className='breadcrumb' to='/'>Productos {'>'}</Link>
-                    <p className='ms-1'>{titulo}</p>
-                </section>
-                <section>
-                    <h1 className='tituloDetalleCamiseta'>{camiseta.nombre}</h1>
-                    <div className='d-flex justify-content-center'>
-                        <div className='contenedorImgDetalle'>
-                            <img className='imgDetalle' src={camiseta.imagen} alt={camiseta.nombre} />
-                            {camiseta.descuento &&
+        {loading ? 
+        (<LoadingSpinner />)
+        :
+        (
+        <main className='px-3'>
+            <section className='d-flex mt-2'>
+                <Link className='breadcrumb me-1' to='/'>Inicio {'>'}</Link>
+                <Link className='breadcrumb' to='/'>Productos {'>'}</Link>
+                <p className='ms-1'>{titulo}</p>
+            </section>
+            <section>
+                <h1 className='tituloDetalleCamiseta'>{camiseta.name}</h1>
+                <div className='d-flex justify-content-center'>
+                    <div className='contenedorImgDetalle'>
+                        <img className='imgDetalle' src={camiseta.images} alt={camiseta.name} />
+                        {camiseta.discount &&
                             <div className='contenedorDescuentoDetalle'>
-                                <p>-{camiseta.descuento}%</p>
+                                <p>-{camiseta.discount}%</p>
                             </div>
-                            }   
-                        </div>
+                        }
                     </div>
-                    {camiseta.descuento === "" ? 
+                </div>
+                {camiseta.descuento === "" ?
                     (<div className='mt-3 ms-3'>
                         <h2>${precioFinalSinDescuento}</h2>
                     </div>)
@@ -68,26 +103,29 @@ const DetalleCamisetas = () => {
                         <h2 className='precioNormal'>${precioFinalSinDescuento}</h2>
                         <h2 className='ms-2'>${precioFinalConDescuento}</h2>
                     </div>)
-                    }
-                    <p className='metodosDetalleCamisetas'>Ver metodos de pago</p>
-                </section>
-                <section className=''>
-                    <input className='inputDetalleCamisetas' type="text" placeholder={`Cantidad: ${camiseta.cantidad} (Stock disponible: ${camiseta.stock})`} />
-                    <Boton estilo='botonAzul botonLogin' texto='Comprar' />
-                    <Link to="../Carrito-de-compras" className='estiloLinkDetalleBoton'><Boton onClick={agregarAlCarrito} estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' /></Link>
-                </section>
-                <section className='d-flex my-4'>
-                    <p className='me-2 compartirDetalleCamisetas'>COMPARTIR</p>
-                    <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:gmail" width='20px' />
-                    <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:whatsapp" width='20px' />
-                    <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:facebook" width='20px' />
-                    <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:twitter" width='20px' />
-                </section>
-                <section>
-                    <h3>Descripción</h3>
-                    <p>{camiseta.descripcion}</p>
-                </section>
-            </main>
+                }
+                <p className='metodosDetalleCamisetas'>Ver metodos de pago</p>
+            </section>
+            <section className=''>
+                
+                <input className='inputDetalleCamisetas' type="text" placeholder={`Cantidad: 2 (Stock disponible: ${camiseta.stock})`} />
+                <Boton estilo='botonAzul botonLogin' texto='Comprar' />
+                <Link to="../Carrito-de-compras" className='estiloLinkDetalleBoton'><Boton onClick={agregarAlCarrito} estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' /></Link>
+            </section>
+            <section className='d-flex my-4'>
+                <p className='me-2 compartirDetalleCamisetas'>COMPARTIR</p>
+                <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:gmail" width='20px' />
+                <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:whatsapp" width='20px' />
+                <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:facebook" width='20px' />
+                <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:twitter" width='20px' />
+            </section>
+            <section>
+                <h3>Descripción</h3>
+                <p>{camiseta.description}</p>
+            </section>
+        </main>
+        )
+        }
         </>
     )
 }

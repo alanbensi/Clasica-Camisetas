@@ -19,6 +19,16 @@
 
 .cards {
     margin-bottom: 1rem;
+    min-height: 100%;
+}
+
+.cardsImage {
+    height: 165px;
+    object-fit: contain;
+}
+
+.reducirPaddingCard {
+    padding-bottom: 0 !important;
 }
 
 .spanPrecioAntiguo {

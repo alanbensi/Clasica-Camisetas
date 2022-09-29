@@ -258,7 +258,7 @@ app.get('/products', validateUser, (req, res) => {
 });
 
 //  Get product by id
-app.get('/products/:id', validateUser, (req, res) => {
+app.get('/products/:id', (req, res) => {
     //extracts id param from req
     let id = req.params.id;
     //search by the id sent in the request
@@ -296,7 +296,7 @@ app.get('/products/collections/:collection', validateUser, (req, res) => {
 });
 
 // Get products with discount
-app.get('/productsWithDiscount', validateUser, (req, res) => {
+app.get('/productsWithDiscount', (req, res) => {
     //search products with any discount
     sequelize.query('SELECT * FROM products WHERE discount > ?',
         {replacements: [0], type: sequelize.QueryTypes.SELECT, raw: true }

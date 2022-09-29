@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import Banner from '../../atoms/banner/Banner'
 import Cards from '../../atoms/cards/Cards'
 import {Container, Row, Col} from 'react-bootstrap'
@@ -7,16 +7,22 @@ import { Icon } from '@iconify/react'
 import Slider from '../../moleculs/slider/Slider'
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../atoms/loading/LoadingSpinner'
+import { useFetchData } from "../../../hooks/useFetch";
 
 
 const Inicio = () => {
 
-    const [cargando, setCargando] = useState(false)
+    const { fetchData, data, loading } = useFetchData('/productsWithDiscount');
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+    
 
 
     return (
         <div>
-            {cargando ? 
+            {loading ? 
                 (<LoadingSpinner/>) 
             : 
                 (<>
@@ -30,20 +36,15 @@ const Inicio = () => {
                     <h2 className='titOfertasInicio'>OFERTAS</h2>
                     <Container>
                         <Row>
-                            <Col lg={3} md={6} xs={6}>
-                                <Link to="/Detalle-Camisetas" className='estiloLinks'>
-                                    <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000' />
-                                </Link>
-                            </Col>
-                            <Col lg={3} md={6} xs={6}>
-                                <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000' />
-                            </Col>
-                            <Col lg={3} md={6} xs={6}>
-                                <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000' />
-                            </Col>
-                            <Col lg={3} md={6} xs={6}>
-                                <Cards img='adfsdf' titulo='Camiseta 1' precio='$10000.00' precioAntiguo='$20000' />
-                            </Col>
+                            {data &&
+                                data.map((camiseta)=> (
+                                    <Col className='cardMargin' lg={3} md={6} xs={6}>
+                                        <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
+                                            <Cards img={camiseta.images} titulo= {camiseta.name} precio={camiseta.price} discount={camiseta.discount} />
+                                        </Link>
+                                    </Col>
+                                ))
+                            }
                         </Row>
                     </Container>
                 </>
