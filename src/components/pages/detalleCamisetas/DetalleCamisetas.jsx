@@ -14,6 +14,8 @@ const DetalleCamisetas = () => {
     const [camiseta, setCamiseta] =useState ({});
     const [id, setId] = useState(0);
 
+    console.log (ruta)
+
     useEffect(() => {
         const pathname = ruta.pathname.split("/");
         setId(pathname[2])
@@ -63,8 +65,6 @@ const DetalleCamisetas = () => {
     //     }
     // }, [])
 
-
-    //SE ROMPIO EL USEFETCH Y ME APARECE BIEN LA IMAGEN + TITULO PERO FALLA PRECIO Y DESCRIPCION
     
 
     
@@ -110,14 +110,26 @@ const DetalleCamisetas = () => {
                 
                 <input className='inputDetalleCamisetas' type="text" placeholder={`Cantidad: 2 (Stock disponible: ${camiseta.stock})`} />
                 <Boton estilo='botonAzul botonLogin' texto='Comprar' />
-                <Link to="../Carrito-de-compras" className='estiloLinkDetalleBoton'><Boton onClick={agregarAlCarrito} estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' /></Link>
+                <Link to="../Carrito-de-compras" className='estiloLinkDetalleBoton'>
+                    <Boton onClick={agregarAlCarrito} estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' />
+                </Link>
             </section>
-            <section className='d-flex my-4'>
+            <section className='d-flex mt-4 mb-2'>
                 <p className='me-2 compartirDetalleCamisetas'>COMPARTIR</p>
-                <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:gmail" width='20px' />
-                <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:whatsapp" width='20px' />
-                <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:facebook" width='20px' />
-                <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:twitter" width='20px' />
+                <div>
+                    <a href={`mailto:?subject=Mira esta camiseta &body=Hola! Cómo estás? Esta camiseta es especial para vos!LINK: ${ruta.pathname}`} rel="noopener noreferrer">
+                        <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:gmail" width='20px' />
+                    </a>
+                    <a href={`https://api.whatsapp.com/send?text=Mira esta camiseta en ${ruta.pathname}`} target="_blank" rel="noopener noreferrer">
+                        <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:whatsapp" width='20px' />
+                    </a>
+                    <a href={`https://www.facebook.com/sharer.php?u=${ruta.pathname}&t=Mira esta camiseta`} target="_blank" rel="noopener noreferrer">
+                        <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:facebook" width='20px' />
+                    </a>
+                    <a href={`https://twitter.com/intent/tweet?text=Mira esta camiseta ${ruta.pathname}`} target="_blank" rel="noopener noreferrer">
+                        <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:twitter" width='20px' />
+                    </a>                
+                </div>
             </section>
             <section>
                 <h3>Descripción</h3>

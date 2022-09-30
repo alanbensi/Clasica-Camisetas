@@ -19,23 +19,31 @@ import DetalleDeCompra from './components/pages/detalleDeCompra/DetalleDeCompra'
 import Subastas from './components/pages/subastas/Subastas';
 import DetalleSubastas from './components/pages/detalleSubasta/DetalleSubastas';
 import NuevaOfertaSubasta from './components/pages/nuevaOfertaSubasta/NuevaOfertaSubasta';
+import CamisetasTempActual from './components/pages/CamisetasTempActual/CamisetasTempActual';
+import CamisetasRetro from './components/pages/CamisetasRetro/CamisetasRetro';
+import CamisetasOtrosEquipos from './components/pages/CamisetasOtrosEquipos/CamisetasOtrosEquipos';
+import CamisetasEntrenamientos from './components/pages/CamisetasEntrenamientos/CamisetasEntrenamientos';
 
 function App() {
   return (
     <>
       <NavClasica />
       <Routes>
+        <Route exact path='/' element= {<Inicio />} />
         <Route exact path='/Login' element = {<Login />} />
         <Route exact path='/Registrate' element={<Registrate />} />
-        <Route exact path='/' element= {<Inicio />} />
         <Route exact path='/Restablecer-Contrasena' element={<RestablecerContrasena />} />
         <Route exact path='/Mail-Restablecer-Contrasena' element={<MailRestablecerContrasena />} />
         <Route exact path='/Nueva-Contrasena' element={<NuevaContrasena />} />
         <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
-        <Route exact path='/Ayuda' element={<Ayuda />} />
-        <Route exact path='/Detalle-Camisetas/:id' element={<DetalleCamisetas />} />
+        <Route exact path='/Productos/Temporada-actual' element={<CamisetasTempActual />} />
+        <Route exact path='/Productos/Retro-de-coleccion' element={<CamisetasRetro />} />
+        <Route exact path='/Productos/Otros-equipos' element={<CamisetasOtrosEquipos />} />
+        <Route exact path='/Productos/Entrenamiento-y-salidas' element={<CamisetasEntrenamientos />} />
         <Route exact path='/Subastas' element= {<Subastas />} />
         <Route exact path='/Detalle-subastas' element= {<DetalleSubastas/>} />
+        <Route exact path='/Ayuda' element={<Ayuda />} />
+        <Route exact path='/Detalle-Camisetas/:id' element={<DetalleCamisetas />} />
         <Route exact path='/Detalle-subastas/Nueva-oferta' element={<NuevaOfertaSubasta />} />
         <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
         <Route exact path='/Mi-cuenta' element={<MiCuenta />} />

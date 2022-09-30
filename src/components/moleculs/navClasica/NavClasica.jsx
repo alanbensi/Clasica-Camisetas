@@ -58,22 +58,22 @@ const NavClasica = () => {
                                     <NavDropdown id="nav-dropdown-dark-example" title="Productos" className='dropdownProductos ms-3 mb-3'>
                                         <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='w-100'>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/' className="estiloLinks">
+                                                <NavLink to='/Productos/Temporada-actual' className="estiloLinks">
                                                     Camisetas temporada actual
                                                 </NavLink>
                                             </NavDropdown.Item>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/' className="estiloLinks">
+                                                <NavLink to='/Productos/Retro-de-coleccion' className="estiloLinks">
                                                     Retros de coleccion
                                                 </NavLink>
                                             </NavDropdown.Item>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/' className="estiloLinks">
+                                                <NavLink to='/Productos/Otros-equipos' className="estiloLinks">
                                                     Otros equipos
                                                 </NavLink>
                                             </NavDropdown.Item>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/' className="estiloLinks">
+                                                <NavLink to='/Productos/Entrenamiento-y-salidas' className="estiloLinks">
                                                     Entrenamiento y salidas
                                                 </NavLink>
                                             </NavDropdown.Item>

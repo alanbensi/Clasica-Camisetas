@@ -277,7 +277,7 @@ app.get('/products/:id', (req, res) => {
 });
 
 // Get products by collection
-app.get('/products/collections/:collection', validateUser, (req, res) => {
+app.get('/products/collections/:collection', (req, res) => {
     //extracts collection param from req
     let collection = req.params.collection;
     //search by the collection sent in the request

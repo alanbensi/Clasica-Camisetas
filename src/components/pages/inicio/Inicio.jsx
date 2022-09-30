@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react'
-import Banner from '../../atoms/banner/Banner'
-import Cards from '../../atoms/cards/Cards'
-import {Container, Row, Col} from 'react-bootstrap'
-import './Inicio.css'
-import { Icon } from '@iconify/react'
-import Slider from '../../moleculs/slider/Slider'
+import React, { useEffect } from 'react';
+import Banner from '../../atoms/banner/Banner';
+import Cards from '../../atoms/cards/Cards';
+import {Container, Row, Col} from 'react-bootstrap';
+import './Inicio.css';
+import { Icon } from '@iconify/react';
+import Slider from '../../moleculs/slider/Slider';
 import { Link } from 'react-router-dom';
-import LoadingSpinner from '../../atoms/loading/LoadingSpinner'
+import LoadingSpinner from '../../atoms/loading/LoadingSpinner';
 import { useFetchData } from "../../../hooks/useFetch";
 
 
@@ -21,7 +21,7 @@ const Inicio = () => {
 
 
     return (
-        <div>
+        <main>
             {loading ? 
                 (<LoadingSpinner/>) 
             : 
@@ -50,7 +50,7 @@ const Inicio = () => {
                 </>
                 )
             }
-        </div>
+        </main>
     )
 }
 
