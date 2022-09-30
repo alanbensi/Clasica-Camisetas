@@ -33,10 +33,13 @@ const Carrito = () => {
     },[carrito]);
 
 
-    const contador = ()=> {
-        const local= localStorage.getItem('Carrito')
-        setCarrito (JSON.parse(local));
-        setCambioContador (!cambioContador);
+    const contador = (contador,id)=> {
+        const local= JSON.parse(localStorage.getItem('Carrito'));
+        const index = local.findIndex((obj=>obj.id === id));
+        if (index >= 0){
+            local[index].cantidad = contador;
+            setCarrito (local);
+        }
     }
 
     const precioPorCantidad = (precio, cantidad) => {
@@ -61,7 +64,7 @@ const Carrito = () => {
                                 <h2 className='nombreCamisetaCardCarrito'>{item.name}</h2>
                                 <div className='d-flex align-items-center justify-content-between'>
                                     <ContadorCarrito handleClick= {contador} carrito={carrito} camiseta={item}/>
-                                    <p className='m-0'>${precioPorCantidad(item.precioNormal, item.cantidad)}</p>
+                                    <p className='m-0'>${precioPorCantidad(item.precioFinal, item.cantidad)}</p>
                                 </div>
                             </div>
                             <div>
