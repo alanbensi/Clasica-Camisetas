@@ -1,3 +1,10 @@
 .bannerInicial {
     width: 100%;
 }
+
+@media (min-width: 768px) {
+    .bannerInicial {
+        height: 250px; 
+        object-fit: cover;
+    }
+}

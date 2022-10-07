@@ -14,9 +14,9 @@ const NavClasica = () => {
     const token = true; 
 
     return (
-        <header className='header'>
-            <Navbar collapseOnSelect expand="lg" className='bgNavbar'>
-                <div className='d-flex justify-content-between w-100'>
+        <header>
+            <Navbar collapseOnSelect expand="md" className='bgNavbar'>
+                <div className='navDesktop d-flex justify-content-between w-100'>
                     <div className='containerLogoNavbar'>
                         <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                             <Link to='/'>
@@ -38,7 +38,7 @@ const NavClasica = () => {
                     <Nav className="me-auto">
                         <div className='containerLinksNavbar'>
                             {/* <p className='mb-2'>Bienvenido</p> */}
-                            <div className='d-flex justify-content-evenly'>
+                            <div className='puto d-flex justify-content-evenly'>
                                 <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                                     <Link className='linksRouter' to='/Login'><Boton estilo = "botonNav botonAzul" texto= "Ingresá"></Boton></Link>
                                 </Navbar.Toggle>
@@ -79,7 +79,6 @@ const NavClasica = () => {
                                             </NavDropdown.Item>
                                         </Navbar.Toggle>
                                     </NavDropdown>
-
                                 </div>
                             </div>
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>

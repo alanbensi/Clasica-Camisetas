@@ -5,9 +5,10 @@ import {Container, Row, Col} from 'react-bootstrap';
 import './Inicio.css';
 import { Icon } from '@iconify/react';
 import Slider from '../../moleculs/slider/Slider';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 import LoadingSpinner from '../../atoms/loading/LoadingSpinner';
 import { useFetchData } from "../../../hooks/useFetch";
+import CategoriasInicioDesktop from '../../moleculs/CategoriasInicioDesktop/CategoriasInicioDesktop';
 
 
 const Inicio = () => {
@@ -18,7 +19,8 @@ const Inicio = () => {
         fetchData();
     }, [])
     
-
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    let vistaComputadora = mediaQuery.matches;
 
     return (
         <main>
@@ -28,7 +30,13 @@ const Inicio = () => {
                 (<>
                     <Banner />
                     <h1 className='tituloInicio'>BIENVENIDOS A CLÁSICA 1905</h1>
-                    <Slider />
+                    {
+                        vistaComputadora?
+                        (<CategoriasInicioDesktop />) 
+                        : 
+                        (<Slider />)
+                    }
+                    
                     <div className='contenedorEnviosGratis'>
                         <Icon icon="carbon:delivery" width='32px' color='white' />
                         <p className='textoEnviosGratis'>Envios gratis a todo el pais</p>
@@ -38,7 +46,7 @@ const Inicio = () => {
                         <Row>
                             {data &&
                                 data.map((camiseta)=> (
-                                    <Col className='cardMargin' lg={3} md={6} xs={6}>
+                                    <Col className='cardMargin' lg={3} md={3} xs={6}>
                                         <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
                                             <Cards img={camiseta.images} titulo= {camiseta.name} precio={camiseta.price} discount={camiseta.discount} />
                                         </Link>

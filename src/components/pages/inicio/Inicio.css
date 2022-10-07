@@ -31,3 +31,11 @@
 .cardMargin {
     margin: 0 auto 1rem auto ;
 }
+
+@media (min-width:768px) {
+    .titOfertasInicio {
+        text-align: center;
+        margin-top: 1rem;
+    }
+}
+
