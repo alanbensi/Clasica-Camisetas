@@ -1,3 +1,7 @@
+.mainAyudaDesktop {
+    padding: 1rem 2.5rem;
+}
+
 .tituloAyuda {
     font-size: 16px;
     font-weight: 400;
@@ -29,15 +33,30 @@
     height: 40px;
 }
 
+.contenedorCategoriasFaqs {
+    margin: 1rem 0 2.5rem 0;
+}
+
 .tituloCategoriasFaqs {
     font-size: 22px;
     font-family: 'Bebas Neue', cursive;
     color: rgba(0, 53, 148, 1);
-    margin: 2.5rem 0 1rem 0;
 }
 
 .linkContactanos {
     color: #003594;
     text-decoration: none;
     font-weight: 600;
+}
+
+@media (min-width: 768px) and (max-width:1024px) {
+    .mainAyudaDesktop {
+        padding: 1rem 4.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .mainAyudaDesktop {
+        padding: 1rem 9.5rem;
+    }
 }
