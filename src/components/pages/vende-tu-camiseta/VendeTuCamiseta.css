@@ -4,9 +4,26 @@
 
 .containerVenderCamiseta h1 {
     margin-bottom: 1.5rem;
+    font-family: 'Bebas Neue', cursive;
 }
 
 .breadcrumb {
     text-decoration: none;
     color: black;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .containerBreadcrumb, .containerVenderCamiseta {
+        padding: 0 4.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .containerBreadcrumb, .containerVenderCamiseta {
+        padding: 0 9.5rem;
+    }
+    .containerVenderCamiseta h1 {
+        font-size: 38px;
+    }
 }

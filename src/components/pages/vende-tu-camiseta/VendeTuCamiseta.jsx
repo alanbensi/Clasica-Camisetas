@@ -15,7 +15,7 @@ const VendeTuCamiseta = () => {
     return (
         <div>
             <Banner />
-            <div className='d-flex ms-3 mt-2'>
+            <div className='d-flex containerBreadcrumb mt-2'>
                 <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
                 <p className='ms-1'>{titulo}</p> 
             </div>
