@@ -1,4 +1,4 @@
-.mainAyudaDesktop {
+.sectionBreadcrumb {
     padding: 1rem 2.5rem;
 }
 
@@ -50,13 +50,19 @@
 }
 
 @media (min-width: 768px) and (max-width:1024px) {
-    .mainAyudaDesktop {
-        padding: 1rem 4.5rem;
+    .sectionBreadcrumb {
+        padding: 1rem 4.5rem 0 4.5rem;
+    }
+    .sectionAyudaDesktop {
+        padding: 0 4.5rem;
     }
 }
 
 @media (min-width: 1024px) {
-    .mainAyudaDesktop {
-        padding: 1rem 9.5rem;
+    .sectionBreadcrumb {
+        padding: 1rem 9.5rem 0 9.5rem;
+    }
+    .sectionAyudaDesktop {
+        padding: 0 9.5rem;
     }
 }

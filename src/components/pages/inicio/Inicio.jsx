@@ -44,14 +44,18 @@ const Inicio = () => {
                     <h2 className='titOfertasInicio'>OFERTAS</h2>
                     <Container>
                         <Row>
-                            {data &&
-                                data.map((camiseta)=> (
-                                    <Col className='cardMargin' lg={3} md={3} xs={6}>
+                            {data.length !== 0 ? 
+                                (
+                                data.map((camiseta) => (
+                                    <Col className='cardMargin' key={camiseta.id} lg={3} md={3} xs={6}>
                                         <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
-                                            <Cards img={camiseta.images} titulo= {camiseta.name} precio={camiseta.price} discount={camiseta.discount} />
+                                            <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} />
                                         </Link>
                                     </Col>
-                                ))
+                                )))
+                            :
+                                (<p className='noHayOfertas'>Actualmente no hay productos en oferta. Podés buscar los productos deseados en su respectiva categoria.
+                                </p>)
                             }
                         </Row>
                     </Container>

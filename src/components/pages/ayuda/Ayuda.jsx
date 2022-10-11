@@ -2,9 +2,8 @@ import React from 'react'
 import './Ayuda.css'
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import Boton from '../../atoms/boton/Boton';
 import Acordeon from '../../moleculs/acordeon/Acordeon';
+import Banner from '../../atoms/banner/Banner';
 
 const Ayuda = () => {
 
@@ -15,14 +14,21 @@ const Ayuda = () => {
         setTitulo(rutaSinBarra);
     }, [ruta]);
 
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    let vistaComputadora = mediaQuery.matches;
+
     return (
         <>
-            <main className='mainAyudaDesktop'>
-                <section className='d-flex mt-2'>
+            <main>
+                {
+                    vistaComputadora &&
+                    <Banner />
+                }
+                <section className='sectionBreadcrumb d-flex'>
                     <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
                     <h1 className='ms-1 tituloAyuda'>{titulo}</h1>
                 </section>
-                <section>
+                <section className='sectionAyudaDesktop'>
                     <div className='contenedorCategoriasFaqs'>
                         <h2 className='tituloCategoriasFaqs'>COMPRAS</h2>
                         <Acordeon keyPregunta="1" pregunta="Pregunta número 1" respuesta= "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />

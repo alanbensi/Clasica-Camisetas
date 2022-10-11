@@ -29,7 +29,11 @@
 }
 
 .cardMargin {
-    margin: 0 auto 1rem auto ;
+    margin: 0 0 1.5rem 0 ;
+}
+
+.noHayOfertas {
+    text-align: center;
 }
 
 @media (min-width:768px) {

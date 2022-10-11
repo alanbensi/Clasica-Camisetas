@@ -19,14 +19,14 @@ const Cards = (props) => {
                     {
                         props.discount ? 
                         (
-                            <h3 className='textoCard tituloFooterCard'>
+                            <h3 className='tituloFooterCard'>
                                 <span className='spanPrecioAntiguo'>${props.precio}</span>
                                 ${precioFinal}
                             </h3>
                         )
                         :
                         (
-                            <h3 className='textoCard tituloFooterCard'>
+                            <h3 className='tituloFooterCard'>
                                 ${props.precio}
                             </h3>
                         )
