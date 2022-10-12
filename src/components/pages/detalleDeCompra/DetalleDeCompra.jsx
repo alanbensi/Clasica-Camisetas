@@ -17,6 +17,12 @@ const DetalleDeCompra = () => {
         setEnvio (e.target.value);
     } 
 
+    const carritoLocal = JSON.parse(localStorage.getItem('Carrito'));
+
+    const precioPorCantidad = (precio, cantidad) => {
+        const precioPorCantidad = precio * cantidad;
+        return precioPorCantidad;
+    }
     return (
         <main>
             <section>
@@ -25,8 +31,25 @@ const DetalleDeCompra = () => {
                     <Icon className='iconoArrowModal' icon="dashicons:arrow-down" />
                 </Button>
                 <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton />
-                    <Modal.Body>ACA VAN LAS CARDS DE LAS CAMISETAS DEL CARRITO.</Modal.Body>
+                    <Modal.Header closeButton>
+                        <p className='mb-0'>Detalle de pedido</p>
+                    </Modal.Header>
+                    <Modal.Body>
+                        
+                        {carritoLocal.map((item)=> (
+                        <div>
+                            <div className='d-flex justify-content-around my-4'>
+                                <img className='imgCardCarrito' src={item.images} alt={item.name} />
+                                <div className='w-100'>
+                                    <h2 className='nombreCamisetaCardCarrito'>{`${item.name} (${item.cantidad} U)`}</h2>
+                                    <div className='d-flex align-items-center justify-content-between'>
+                                        <p className='m-0'>${precioPorCantidad(item.precioFinal, item.cantidad)}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    ))}</Modal.Body>
                 </Modal>
             </section>
             <section className='mx-3'>

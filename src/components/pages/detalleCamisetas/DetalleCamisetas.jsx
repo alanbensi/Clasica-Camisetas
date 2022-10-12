@@ -47,8 +47,13 @@ const DetalleCamisetas = () => {
         const compra = camiseta;
         compra.precioFinal = camiseta.discount ? (precioFinalConDescuento): (precioFinalSinDescuento);
         compra.cantidad = cantidadSelect; 
-        carrito.push(compra);
-        localStorage.setItem("Carrito", JSON.stringify(carrito));
+        
+        if (carrito.some(item=>item.id == compra.id)) {
+            alert ("Esta camiseta ya esta en el carrito, para agregar más cantidad por favor modificar allí.")
+        }else {
+            carrito.push(compra);
+            localStorage.setItem("Carrito", JSON.stringify(carrito));
+        }
     };
 
     const select = [];
@@ -100,16 +105,12 @@ const DetalleCamisetas = () => {
                             <Form.Select onChange={(e) => { handleClick(e) }} aria-label="Default select example">
                                 <option>Selecciona cantidad (Stock disponible: {camiseta.stock})</option>
                                 {
-                                    select.map((item) => (<option value={item.value}>{item.label}</option>))
+                                    select.map((item) => (<option key={item.label} value={item.value}>{item.label}</option>))
                                 }
                             </Form.Select>
-
-
-                            {/* <Select options={select} defaultInputValue={1} placeholder={`Stock disponible: ${camiseta.stock}`} onClick={(e)=>{setCantidadSelect(e.value)}} /> */}
-                            <Boton estilo='botonAzul botonLogin' texto='Comprar' />
-                            {/* <Link to="../Carrito-de-compras" className='estiloLinkDetalleBoton'>
-                    <Boton onClick={agregarAlCarrito} estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' />
-                </Link> */}
+                            <Link to="../Carrito-de-compras" className='estiloLinkDetalleBoton'>
+                                <Boton onClick={agregarAlCarrito} estilo='botonAzul botonLogin' texto='Comprar' />
+                            </Link>
                             <Boton onClick={agregarAlCarrito} estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' />
                         </section>
                         <section className='d-flex mt-4 mb-2'>
