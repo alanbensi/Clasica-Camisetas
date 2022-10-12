@@ -8,8 +8,6 @@ const ContadorCarrito = ({camiseta, carrito, handleClick}) => {
     const [contador, setContador] = useState(camiseta.cantidad);
     const [errorMsj, setErrorMsj] = useState('');
 
-    console.log ("Camiseta abc 123", camiseta)
-
     const sumarCamisetasCarrito = ()=> {
         
         if(contador < parseInt(camiseta.stock)){

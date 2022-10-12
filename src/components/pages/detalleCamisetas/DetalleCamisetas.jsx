@@ -49,7 +49,6 @@ const DetalleCamisetas = () => {
         compra.cantidad = cantidadSelect; 
         carrito.push(compra);
         localStorage.setItem("Carrito", JSON.stringify(carrito));
-        console.log("Carrito ok", carrito);
     };
 
     const select = [];
@@ -78,14 +77,14 @@ const DetalleCamisetas = () => {
                             <div className='d-flex justify-content-center'>
                                 <div className='contenedorImgDetalle'>
                                     <img className='imgDetalle' src={camiseta.images} alt={camiseta.name} />
-                                    {camiseta.discount &&
+                                    {camiseta.discount !== 0 && 
                                         <div className='contenedorDescuentoDetalle'>
                                             <p>-{camiseta.discount}%</p>
                                         </div>
                                     }
                                 </div>
                             </div>
-                            {camiseta.descuento === "" ?
+                            {camiseta.discount === 0 ?
                                 (<div className='mt-3 ms-3'>
                                     <h2>${precioFinalSinDescuento}</h2>
                                 </div>)

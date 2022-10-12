@@ -29,6 +29,20 @@
 .linkIconoCarrito {
     width: 100%;
     height: 100%;
+    position: relative;
+}
+
+.contadorIconoCarrito {
+    border-radius: 50%;
+    background-color: black;
+    color: white;
+    font-weight: 500;
+    position: absolute;
+    width: 20px;
+    text-align: center;
+    right: -20px;
+    top: 5px;
+    font-size: 12px;
 }
 
 /* .linkIconoCarritoActive {

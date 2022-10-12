@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -12,6 +12,16 @@ import Boton from '../../atoms/boton/Boton';
 const NavClasica = () => {
 
     const token = true; 
+
+    
+    const [contador, setContador] = useState(0); 
+    useEffect(() => {
+        const carrito = JSON.parse(localStorage.getItem('Carrito'));
+        setContador (carrito.length);
+    }, [])
+    
+
+    /* EN EL CORCHETE DE LA 21 TIENE QUE IR EL CONTEXTO QUE VA A CAMBIAR CADA VEZ QUE SE MODIFIQUE CARRITO... PUEDE SER TRUE O FALSE  O LO QUE SEA. */ 
 
     return (
         <header>
@@ -27,7 +37,10 @@ const NavClasica = () => {
                     <div className='containerIconosNavbar'>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" className='iconoHamburguesa' />
                         <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='linkIconoCarritoActive'>
-                            <Link to='/Carrito-de-compras' className='linkIconoCarrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' /></Link>
+                            <Link to='/Carrito-de-compras' className='linkIconoCarrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' />
+                                <p className='contadorIconoCarrito estiloLinks'>{contador}</p>
+                            </Link>
+                            
                         </Navbar.Toggle>
                     </div>
                 </div>

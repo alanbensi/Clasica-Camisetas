@@ -12,14 +12,12 @@ const Login = () => {
     const [emailValue, setEmailValue] = useState('');
 
     const handleBlurEmail = (value) =>{
-        console.log(value);
         setEmailValue(value);
     }
 
     const [passwordValue, setPasswordValue] = useState ('');
 
     const handleBlurPassword = (value) => {
-        console.log (value); 
         setPasswordValue (value);
     }
 
@@ -44,7 +42,6 @@ const Login = () => {
     const redirect = useNavigate ();
 
     const usuarioLogueado = (token)=> {
-        console.log ("LOGUEADO!", token);
         redirect ("/");
     }
 

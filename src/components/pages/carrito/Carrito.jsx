@@ -16,8 +16,8 @@ const Carrito = () => {
     }, [ruta]);
 
     const [carrito, setCarrito] = useState ([]);
-
     const [cambioContador, setCambioContador] = useState(true);
+    const [precioTotal, setPrecioTotal] = useState(0);
 
     const borrarItem = (id)=> {
         setCarrito (carrito.filter((item)=>item.id !== id));        
@@ -28,10 +28,8 @@ const Carrito = () => {
     },[cambioContador]);
 
     useEffect(() => {
-    console.log ("No me importa ", carrito);
     localStorage.setItem('Carrito', JSON.stringify(carrito));
     },[carrito]);
-
 
     const contador = (contador,id)=> {
         const local= JSON.parse(localStorage.getItem('Carrito'));
@@ -39,12 +37,27 @@ const Carrito = () => {
         if (index >= 0){
             local[index].cantidad = contador;
             setCarrito (local);
+            calculoPrecioTotal();
         }
     }
 
     const precioPorCantidad = (precio, cantidad) => {
-        return precio*cantidad; 
+        const precioPorCantidad = precio * cantidad;
+        return precioPorCantidad; 
     }
+
+    const calculoPrecioTotal = ()=> {
+        let cuenta= 0; 
+        carrito.map(item => {
+            cuenta += (parseInt(item.cantidad) * parseInt(item.precioFinal))
+        });
+        setPrecioTotal(cuenta);  
+    }
+
+    useEffect(() => {
+        calculoPrecioTotal();
+    },[carrito])
+    
 
     return (
         <main className='px-3'>
@@ -83,6 +96,7 @@ const Carrito = () => {
                         <div>
                             {/* <h3 className='subtotalCarrito'>Subtotal (sin envío): ${item.precioNormal}</h3> */}
                             <p className='envioGratisCarrito'>Envío gratis</p>
+                            <p>${precioTotal}</p>
                         </div>
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>
