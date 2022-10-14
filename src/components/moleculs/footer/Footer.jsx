@@ -15,19 +15,19 @@ const Footer = () => {
                     <ul>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/'>Inicio</Link> </li>
                         <li className='listaFooter'> 
-                            <Link className='anchorFooter' to='/Productos/Temporada-actual'>Camisetas temporada actual
+                            <Link className='anchorFooter' to='/Productos/Camisetas temporada actual'>Camisetas temporada actual
                             </Link> 
                         </li>
                         <li className='listaFooter'>
-                            <Link className='anchorFooter' to='/Productos/Retro-de-coleccion'>Retros de coleccion
+                            <Link className='anchorFooter' to='/Productos/Retros de coleccion'>Retros de coleccion
                             </Link>
                         </li>
                         <li className='listaFooter'>
-                            <Link className='anchorFooter' to='/Productos/Otros-equipos'>Otros equipos
+                            <Link className='anchorFooter' to='/Productos/Otros equipos'>Otros equipos
                             </Link>
                         </li>
                         <li className='listaFooter'>
-                            <Link className='anchorFooter' to='/Productos/Entrenamiento-y-salidas'>Entrenamiento y salidas
+                            <Link className='anchorFooter' to='/Productos/Entrenamiento y salidas'>Entrenamiento y salidas
                             </Link>
                         </li>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/Subastas'>Subastas</Link> </li>

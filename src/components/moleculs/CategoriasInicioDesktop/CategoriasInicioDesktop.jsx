@@ -13,7 +13,7 @@ const CategoriasInicioDesktop = () => {
             <Container className='px-5 contenedorCatInicioDesktop'>
                 <Row>
                     <Col lg={3} md={3}>
-                        <Link to='/Productos/Temporada-actual' className='estiloLinks'>
+                        <Link to='/Productos/Camisetas temporada actual' className='estiloLinks'>
                             <div className="cardCatInicioDesktop">
                                 <h3 className='titulocardCatInicioDesktop'>Camisetas temporada actual</h3>
                                 <img className="imgCatInicioDesktop tempActualDesktop" src={fotoTempActual} alt="Temporada actual" />
@@ -21,7 +21,7 @@ const CategoriasInicioDesktop = () => {
                         </Link>
                     </Col>
                     <Col lg={3} md={3} >
-                        <Link to='/Productos/Retro-de-coleccion' className='estiloLinks'>
+                        <Link to='/Productos/Retros de coleccion' className='estiloLinks'>
                             <div className="cardCatInicioDesktop">
                                 <h3 className='titulocardCatInicioDesktop'>Retros de colección</h3>
                                 <img className="imgCatInicioDesktop" src={fotoRetroDeColeccion} alt="Retros de coleccion" />
@@ -29,7 +29,7 @@ const CategoriasInicioDesktop = () => {
                         </Link>
                     </Col>
                     <Col lg={3} md={3} >
-                        <Link to='/Productos/Otros-equipos' className='estiloLinks'>
+                        <Link to='/Productos/Otros equipos' className='estiloLinks'>
                             <div className="cardCatInicioDesktop">
                                 <h3 className='titulocardCatInicioDesktop'>Otros equipos</h3>
                                 <img className="imgCatInicioDesktop" src={fotoCategoriaOtros} alt="Otros" />
@@ -37,7 +37,7 @@ const CategoriasInicioDesktop = () => {
                         </Link>
                     </Col>
                     <Col lg={3} md={3} >
-                        <Link to='/Productos/Entrenamiento-y-salidas' className='estiloLinks'>
+                        <Link to='/Productos/Entrenamiento y salidas' className='estiloLinks'>
                             <div className="cardCatInicioDesktop">
                                 <h3 className='titulocardCatInicioDesktop'>Entrenamientos y salidas</h3>
                                 <img className="imgCatInicioDesktop" src={fotoCategoriaEntrenamientos} alt="Entrenamientos y salidas" />

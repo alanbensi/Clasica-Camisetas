@@ -1,23 +1,30 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Icon } from '@iconify/react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavClasica.css'
 import logoClasica from '../../../assets/LOGO-clasica.png'
 import Boton from '../../atoms/boton/Boton';
 import { CartContext } from '../../context/CartContext';
+import { UserContext } from '../../context/UserContext';
 
 const NavClasica = () => {
 
-    const token = true; 
+    const userContext = useContext (UserContext);
+    const {userID, setToken, username} = userContext;
 
     const cartContext = useContext (CartContext); 
     const {carritoContexto}= cartContext; 
 
-    /* EN EL CORCHETE DE LA 21 TIENE QUE IR EL CONTEXTO QUE VA A CAMBIAR CADA VEZ QUE SE MODIFIQUE CARRITO... PUEDE SER TRUE O FALSE  O LO QUE SEA. */ 
+    const redirect = useNavigate();
+    const cerrarSesion = ()=> {
+        localStorage.removeItem ("token"); 
+        setToken (""); 
+        redirect("/");
+    }
 
     return (
         <header>
@@ -36,25 +43,33 @@ const NavClasica = () => {
                             <Link to='/Carrito-de-compras' className='linkIconoCarrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' />
                                 <p className='contadorIconoCarrito estiloLinks'>{carritoContexto}</p>
                             </Link>
-                            
                         </Navbar.Toggle>
                     </div>
                 </div>
-                {/* <div>
-                    <p className='saludoUsuario'>Hola Juan Perez!</p>
-                </div> */}
                 <Navbar.Collapse id="responsive-navbar-nav" className='navbarDesplegado'>
                     <Nav className="me-auto">
                         <div className='containerLinksNavbar'>
                             {/* <p className='mb-2'>Bienvenido</p> */}
-                            <div className='puto d-flex justify-content-evenly'>
-                                <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                    <Link className='linksRouter' to='/Login'><Boton estilo = "botonNav botonAzul" texto= "Ingresá"></Boton></Link>
-                                </Navbar.Toggle>
-                                <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                    <Link className='linksRouter' to='/Registrate'><Boton estilo = "botonNav botonBlanco" texto = "Registrate"></Boton></Link>
-                                </Navbar.Toggle>
-                            </div>
+                            {
+                                !userID ? 
+                                (
+                                    <div className='d-flex justify-content-evenly'>
+                                        <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
+                                            <Link className='linksRouter' to='/Login'><Boton estilo="botonNav botonAzul" texto="Ingresá"></Boton></Link>
+                                        </Navbar.Toggle>
+                                        <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
+                                            <Link className='linksRouter' to='/Registrate'><Boton estilo="botonNav botonBlanco" texto="Registrate"></Boton></Link>
+                                        </Navbar.Toggle>
+                                    </div>
+                                ) 
+                                :
+                                (
+                                    <div>
+                                        <p className='saludoUsuario'>Hola {username}!</p>
+                                    </div>
+                                )
+                            }
+                            
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                                 <NavLink to ='/' className='d-flex estiloLinks'>
                                     <Icon icon="bytesize:home" width= '20px'/>
@@ -67,22 +82,22 @@ const NavClasica = () => {
                                     <NavDropdown id="nav-dropdown-dark-example" title="Productos" className='dropdownProductos ms-3 mb-3'>
                                         <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='w-100'>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/Productos/Temporada-actual' className="estiloLinks">
+                                                <NavLink to='/Productos/Camisetas temporada actual' className="estiloLinks">
                                                     Camisetas temporada actual
                                                 </NavLink>
                                             </NavDropdown.Item>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/Productos/Retro-de-coleccion' className="estiloLinks">
+                                                <NavLink to='/Productos/Retros de coleccion' className="estiloLinks">
                                                     Retros de coleccion
                                                 </NavLink>
                                             </NavDropdown.Item>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/Productos/Otros-equipos' className="estiloLinks">
+                                                <NavLink to='/Productos/Otros equipos' className="estiloLinks">
                                                     Otros equipos
                                                 </NavLink>
                                             </NavDropdown.Item>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/Productos/Entrenamiento-y-salidas' className="estiloLinks">
+                                                <NavLink to='/Productos/Entrenamiento y salidas' className="estiloLinks">
                                                     Entrenamiento y salidas
                                                 </NavLink>
                                             </NavDropdown.Item>
@@ -115,11 +130,21 @@ const NavClasica = () => {
                                 </NavLink>
                             </Navbar.Toggle>
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                <NavLink to={token?('/Login'):('/Mi-cuenta')} className='d-flex estiloLinks'>
+                                <NavLink to={userID ? (`/Mi-cuenta/${userID}`) : ('/Login')} className='d-flex estiloLinks'>
                                     <Icon icon="codicon:account" width= '20px' />
                                     <p className='ms-3'>Mi cuenta</p>
                                 </NavLink>
                             </Navbar.Toggle>
+                            {
+                                userID ? 
+                                (
+                                <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
+                                    <Boton onClick={cerrarSesion} estilo='botonBlanco botonLogin' texto='Cerrar sesión' />
+                                </Navbar.Toggle>
+                                ) 
+                                :
+                                (false)
+                            }
                         </div>
                     </Nav>
                 </Navbar.Collapse>

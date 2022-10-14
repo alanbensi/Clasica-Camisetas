@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Banner from '../../atoms/banner/Banner';
 import Cards from '../../atoms/cards/Cards';
 import {Container, Row, Col} from 'react-bootstrap';
@@ -9,9 +9,13 @@ import { Link } from 'react-router-dom';
 import LoadingSpinner from '../../atoms/loading/LoadingSpinner';
 import { useFetchData } from "../../../hooks/useFetch";
 import CategoriasInicioDesktop from '../../moleculs/CategoriasInicioDesktop/CategoriasInicioDesktop';
+import { UserContext } from '../../context/UserContext';
 
 
 const Inicio = () => {
+
+    const userContext = useContext (UserContext);
+    const { tokenDecode } = userContext;
 
     const { fetchData, data, loading } = useFetchData('/productsWithDiscount');
 

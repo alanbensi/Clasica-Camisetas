@@ -13,7 +13,7 @@ const Slider = () => {
         <>
             <Carousel variant="dark">
                 <Carousel.Item interval={3500}>
-                    <Link to='/Productos/Temporada-actual' className='estiloLinks'>
+                    <Link to='/Productos/Camisetas temporada actual' className='estiloLinks'>
                         <div className="cardCarrusel">
                             <h3 className='tituloCardCarrusel'>Camisetas temporada actual</h3>
                             <img className="imagenesCarrusel" src={fotoTempActual} alt="Temporada actual" />
@@ -21,7 +21,7 @@ const Slider = () => {
                     </Link>
                 </Carousel.Item>
                 <Carousel.Item interval={3500}>
-                    <Link to='/Productos/Retro-de-coleccion' className='estiloLinks'>
+                    <Link to='/Productos/Retros de coleccion' className='estiloLinks'>
                         <div className ="cardCarrusel">
                             <h3 className='tituloCardCarrusel'>Retros de colección</h3>
                             <img className="imagenesCarrusel" src={fotoRetroDeColeccion} alt="Retros de coleccion" />
@@ -29,7 +29,7 @@ const Slider = () => {
                     </Link>
                 </Carousel.Item>
                 <Carousel.Item interval={3500}>
-                    <Link to='/Productos/Otros-equipos' className='estiloLinks'>
+                    <Link to='/Productos/Otros equipos' className='estiloLinks'>
                         <div className ="cardCarrusel">
                             <h3 className='tituloCardCarrusel'>Otros equipos</h3>
                             <img className="imagenesCarrusel" src={fotoCategoriaOtros} alt="Otros" />
@@ -37,7 +37,7 @@ const Slider = () => {
                     </Link>
                 </Carousel.Item>
                 <Carousel.Item interval={3500}>
-                    <Link to='/Productos/Entrenamiento-y-salidas' className='estiloLinks'>
+                    <Link to='/Productos/Entrenamiento y salidas' className='estiloLinks'>
                         <div className="cardCarrusel">
                             <h3 className='tituloCardCarrusel'>Entrenamientos y salidas</h3>
                             <img className="imagenesCarrusel" src={fotoCategoriaEntrenamientos} alt="Entrenamientos y salidas" />

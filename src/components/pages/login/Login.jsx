@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Login.css'
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Boton from '../../atoms/boton/Boton';
+import { UserContext } from '../../context/UserContext';
 
 const Login = () => {
+
+    const userContext = useContext (UserContext);
+    const {setToken} = userContext;
 
     const [error, seterror] = useState(false)
     const [tipoInput, settipoInput] = useState("password");
@@ -42,6 +46,8 @@ const Login = () => {
     const redirect = useNavigate ();
 
     const usuarioLogueado = (token)=> {
+        setToken(token); 
+        localStorage.setItem ("token", token);
         redirect ("/");
     }
 
