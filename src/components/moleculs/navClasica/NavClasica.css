@@ -33,7 +33,7 @@
 
 .contadorIconoCarrito {
     border-radius: 50%;
-    background-color: black;
+    background-color: rgba(0, 10, 148, 1);
     color: white;
     font-weight: 500;
     position: absolute;
@@ -43,10 +43,6 @@
     top: 5px;
     font-size: 12px;
 }
-
-/* .linkIconoCarritoActive {
-    pointer-events: none !important;
-} */
 
 .iconoCarrito {
     font-size: 30px;

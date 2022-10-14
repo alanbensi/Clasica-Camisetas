@@ -1,7 +1,5 @@
 import { Icon } from '@iconify/react';
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import './DetalleDeCompra.css'
 import iconoMP from '../../../assets/LOGO Mercado-Pago.png'
 import Boton from '../../atoms/boton/Boton'

@@ -31,19 +31,20 @@ const NavClasica = () => {
             <Navbar collapseOnSelect expand="md" className='bgNavbar'>
                 <div className='navDesktop d-flex justify-content-between w-100'>
                     <div className='containerLogoNavbar'>
-                        <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
+                        <div className='estiloLinks'>
                             <Link to='/'>
                                 <img src={logoClasica} alt="Logo clasica camisetas" />
                             </Link>
-                        </Navbar.Toggle>
+                        </div>
                     </div>
                     <div className='containerIconosNavbar'>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" className='iconoHamburguesa' />
-                        <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='linkIconoCarritoActive'>
-                            <Link to='/Carrito-de-compras' className='linkIconoCarrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' />
+                        <div className='estiloLinks'>
+                            <Link to='/Carrito-de-compras' className='linkIconoCarrito'>
+                                <Icon icon="fluent:cart-20-regular" className='iconoCarrito' />
                                 <p className='contadorIconoCarrito estiloLinks'>{carritoContexto}</p>
                             </Link>
-                        </Navbar.Toggle>
+                        </div>
                     </div>
                 </div>
                 <Navbar.Collapse id="responsive-navbar-nav" className='navbarDesplegado'>
