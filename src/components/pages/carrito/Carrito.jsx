@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import ContadorCarrito from '../../atoms/contadorCarrito/ContadorCarrito';
 import './Carrito.css'
 import { Icon } from '@iconify/react';
 import Boton from '../../atoms/boton/Boton'
+import { CartContext } from '../../context/CartContext';
 
 
 const Carrito = () => {
+
+    const cartContext = useContext (CartContext);
+    const {setCarritoContexto} = cartContext;
 
     const ruta = useLocation();
     const [titulo, setTitulo] = useState("");
@@ -29,6 +33,7 @@ const Carrito = () => {
 
     useEffect(() => {
     localStorage.setItem('Carrito', JSON.stringify(carrito));
+    setCarritoContexto(carrito.length);
     },[carrito]);
 
     const contador = (contador,id)=> {
@@ -96,7 +101,7 @@ const Carrito = () => {
                         <div>
                             {/* <h3 className='subtotalCarrito'>Subtotal (sin envío): ${item.precioNormal}</h3> */}
                             <p className='envioGratisCarrito'>Envío gratis</p>
-                            <p>${precioTotal}</p>
+                            <p className='precioFinalCarrito'>Precio final ${precioTotal}</p>
                         </div>
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>

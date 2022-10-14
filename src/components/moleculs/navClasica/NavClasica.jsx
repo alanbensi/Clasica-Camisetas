@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -8,18 +8,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavClasica.css'
 import logoClasica from '../../../assets/LOGO-clasica.png'
 import Boton from '../../atoms/boton/Boton';
+import { CartContext } from '../../context/CartContext';
 
 const NavClasica = () => {
 
     const token = true; 
 
-    
-    const [contador, setContador] = useState(0); 
-    useEffect(() => {
-        const carrito = JSON.parse(localStorage.getItem('Carrito'));
-        setContador (carrito.length);
-    }, [])
-    
+    const cartContext = useContext (CartContext); 
+    const {carritoContexto}= cartContext; 
 
     /* EN EL CORCHETE DE LA 21 TIENE QUE IR EL CONTEXTO QUE VA A CAMBIAR CADA VEZ QUE SE MODIFIQUE CARRITO... PUEDE SER TRUE O FALSE  O LO QUE SEA. */ 
 
@@ -38,7 +34,7 @@ const NavClasica = () => {
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" className='iconoHamburguesa' />
                         <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='linkIconoCarritoActive'>
                             <Link to='/Carrito-de-compras' className='linkIconoCarrito'><Icon icon="fluent:cart-20-regular" className='iconoCarrito' />
-                                <p className='contadorIconoCarrito estiloLinks'>{contador}</p>
+                                <p className='contadorIconoCarrito estiloLinks'>{carritoContexto}</p>
                             </Link>
                             
                         </Navbar.Toggle>

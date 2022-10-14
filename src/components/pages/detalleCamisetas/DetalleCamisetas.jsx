@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './DetalleCamisetas.css'
 import { Link, useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react';
@@ -6,10 +6,13 @@ import Boton from '../../atoms/boton/Boton';
 import { Icon } from '@iconify/react';
 import { useFetchData } from "../../../hooks/useFetch";
 import LoadingSpinner from '../../atoms/loading/LoadingSpinner';
-import Select from 'react-select';
 import { Form } from 'react-bootstrap';
+import { CartContext } from '../../context/CartContext';
 
 const DetalleCamisetas = () => {
+
+    const cartContext = useContext(CartContext);
+    const { setCarritoContexto } = cartContext;
 
     const ruta = useLocation();
     const [titulo, setTitulo] = useState("");
@@ -53,6 +56,7 @@ const DetalleCamisetas = () => {
         }else {
             carrito.push(compra);
             localStorage.setItem("Carrito", JSON.stringify(carrito));
+            setCarritoContexto (carrito.length);
         }
     };
 
