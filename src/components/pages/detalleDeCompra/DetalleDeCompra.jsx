@@ -5,52 +5,20 @@ import Modal from 'react-bootstrap/Modal';
 import './DetalleDeCompra.css'
 import iconoMP from '../../../assets/LOGO Mercado-Pago.png'
 import Boton from '../../atoms/boton/Boton'
+import ModalBootstrap from '../../moleculs/ModalBootstrap/ModalBootstrap';
+import ModalDetalleCompra from '../../moleculs/ModalDetalleCompra/ModalDetalleCompra';
 
 const DetalleDeCompra = () => {
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    
     const [envio, setEnvio] = useState("");
     const envioDomicilio = (e) => {
         setEnvio (e.target.value);
-    } 
-
-    const carritoLocal = JSON.parse(localStorage.getItem('Carrito'));
-
-    const precioPorCantidad = (precio, cantidad) => {
-        const precioPorCantidad = precio * cantidad;
-        return precioPorCantidad;
     }
+
     return (
         <main>
             <section>
-                <Button className='botonModal' onClick={handleShow}>
-                    Ver detalles del pedido
-                    <Icon className='iconoArrowModal' icon="dashicons:arrow-down" />
-                </Button>
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <p className='mb-0'>Detalle de pedido</p>
-                    </Modal.Header>
-                    <Modal.Body>
-                        
-                        {carritoLocal.map((item)=> (
-                        <div>
-                            <div className='d-flex justify-content-around my-4'>
-                                <img className='imgCardCarrito' src={item.images} alt={item.name} />
-                                <div className='w-100'>
-                                    <h2 className='nombreCamisetaCardCarrito'>{`${item.name} (${item.cantidad} U)`}</h2>
-                                    <div className='d-flex align-items-center justify-content-between'>
-                                        <p className='m-0'>${precioPorCantidad(item.precioFinal, item.cantidad)}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                        </div>
-                    ))}</Modal.Body>
-                </Modal>
+                <ModalBootstrap clase='botonModal' textoBoton='Ver detalles del pedido' titulo='Detalle de pedido' contenido= {<ModalDetalleCompra />} icono={true} />
             </section>
             <section className='mx-3'>
                 <div>

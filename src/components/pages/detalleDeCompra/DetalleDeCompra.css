@@ -1,4 +1,4 @@
-.botonModal {
+.botonModal, .botonModal:focus {
     background-color: #8AC4D0;
     color: black;
     font-family: 'Roboto', sans-serif;
@@ -10,14 +10,7 @@
     border-radius: 0;
     text-align: start;
     font-weight: 600;
-}
-
-.botonModal:focus {
-    background-color: #8AC4D0;
-    border: none;
-    color: black;
-    box-shadow: 0;
-    border-color: none;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.5);
 }
 
 .iconoArrowModal {

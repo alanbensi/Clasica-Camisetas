@@ -8,6 +8,8 @@ import { useFetchData } from "../../../hooks/useFetch";
 import LoadingSpinner from '../../atoms/loading/LoadingSpinner';
 import { Form } from 'react-bootstrap';
 import { CartContext } from '../../context/CartContext';
+import ModalBootstrap from '../../moleculs/ModalBootstrap/ModalBootstrap';
+import ModalMediosPago from '../../atoms/modalMediosPago/ModalMediosPago';
 
 const DetalleCamisetas = () => {
 
@@ -103,7 +105,7 @@ const DetalleCamisetas = () => {
                                     <h2 className='ms-2'>${precioFinalConDescuento}</h2>
                                 </div>)
                             }
-                            <p className='metodosDetalleCamisetas'>Ver metodos de pago</p>
+                            <ModalBootstrap clase='metodosDetalleCamisetas' textoBoton='Ver métodos de pago' titulo= 'Métodos de pago' contenido={<ModalMediosPago />} />
                         </section>
                         <section className=''>
                             <Form.Select onChange={(e) => { handleClick(e) }} aria-label="Default select example">

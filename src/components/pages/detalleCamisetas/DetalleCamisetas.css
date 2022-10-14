@@ -32,16 +32,19 @@
     font-weight: 300;
 }
 
-.metodosDetalleCamisetas {
+.metodosDetalleCamisetas, .metodosDetalleCamisetas:focus, .metodosDetalleCamisetas:active, .metodosDetalleCamisetas:hover, .metodosDetalleCamisetas:active:focus {
     color: rgba(0, 53, 148, 1);
     font-weight: 500;
+    background-color: transparent;
+    border: none;
+    padding: 0 0 1rem 0;
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.5);
 }
 
 .inputDetalleCamisetas {
     width: 100%;
     height: 40px;
 }
-
 
 .estiloLinkDetalleBoton {
     text-decoration: none;
