@@ -26,7 +26,7 @@ const Ayuda = () => {
                 }
                 <section className='sectionBreadcrumb d-flex'>
                     <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
-                    <h1 className='ms-1 tituloAyuda'>{titulo}</h1>
+                    <p className='ms-1 breadcrumb'>{titulo}</p>
                 </section>
                 <section className='sectionAyudaDesktop'>
                     <div className='contenedorCategoriasFaqs'>

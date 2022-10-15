@@ -18,7 +18,6 @@ const DetalleCamisetas = () => {
     const { setCarritoContexto } = cartContext;
 
     const ruta = useLocation();
-    const [titulo, setTitulo] = useState("");
     const [camiseta, setCamiseta] = useState({});
     const [id, setId] = useState(0);
     const [cantidadSelect, setCantidadSelect] = useState(1);
@@ -141,11 +140,19 @@ const DetalleCamisetas = () => {
                 :
                 (
                     <main className='px-3'>
-                        <section className='d-flex mt-2'>
-                            <Link className='breadcrumb me-1' to='/'>Inicio {'>'}</Link>
-                            <Link className='breadcrumb' to='/'>Productos {'>'}</Link>
-                            <p className='ms-1'>{titulo}</p>
-                        </section>
+                        <nav className='mt-3' aria-label="breadcrumb">
+                            <ul className='breadcrumb'>
+                                <li className='breadcrumb-item'>
+                                    <Link className='estiloLinks' to='/'>Inicio </Link>
+                                </li>
+                                <li className='breadcrumb-item'>
+                                    <Link className='estiloLinks breadcrumbSobresale' to={`/Productos/${camiseta.collection}`}>{camiseta.collection}</Link>
+                                </li>
+                                <li className='breadcrumb-item active'>
+                                    <p className='breadcrumbSobresale camisetaBreadcrumb'>{camiseta.name}</p>
+                                </li>
+                            </ul>
+                        </nav>
                         <section>
                             <h1 className='tituloDetalleCamiseta'>{camiseta.name}</h1>
                             <div className='d-flex justify-content-center'>

@@ -16,9 +16,9 @@ const Subastas = () => {
 
     return (
         <main className='px-3'>
-            <section className='d-flex mt-2 mb-2'>
+            <section className='d-flex mt-3 mb-2'>
                 <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
-                <p className='ms-1'>{titulo}</p>
+                <p className='breadcrumb ms-1'>{titulo}</p>
             </section>
             <section>
                 <h1 className='tituloSubastas'>Subastas activas</h1>

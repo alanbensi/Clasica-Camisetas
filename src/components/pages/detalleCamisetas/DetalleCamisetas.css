@@ -1,3 +1,19 @@
+.breadcrumb-item+.breadcrumb-item::before, .breadcrumb-item+.breadcrumb-item {
+    padding: 0 0.2rem 0 0!important;
+}
+
+.breadcrumbSobresale {
+    display: inline-block;
+    overflow-x: hidden;
+    max-width: 150px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.camisetaBreadcrumb {
+    max-width: 120px;
+}
+
 .tituloDetalleCamiseta {
     font-family: 'Bebas Neue', cursive;
     font-size: 32px;

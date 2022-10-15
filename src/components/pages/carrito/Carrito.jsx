@@ -68,7 +68,7 @@ const Carrito = () => {
         <main className='px-3'>
             <section className='d-flex mt-2 mb-2'>
                 <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
-                <p className='ms-1'>{titulo}</p>
+                <p className='breadcrumb ms-1'>{titulo}</p>
             </section>
             <section>
                 <h1 className='tituloCarrito'>Carrito de compras</h1>
@@ -99,13 +99,11 @@ const Carrito = () => {
                     (
                     <>
                         <div>
-                            {/* <h3 className='subtotalCarrito'>Subtotal (sin envío): ${item.precioNormal}</h3> */}
                             <p className='envioGratisCarrito'>Envío gratis</p>
                             <p className='precioFinalCarrito'>Precio final ${precioTotal}</p>
                         </div>
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>
-                                {/* <h3 className='totalCarrito'>Total: ${item.precioNormal}</h3> */}
                                 <Link className='estiloLinks' to="/Detalle-de-compra" ><Boton estilo="botonIniciarCompra botonAzul" texto="Iniciar compra" /></Link>
                             </div>
                         </div>

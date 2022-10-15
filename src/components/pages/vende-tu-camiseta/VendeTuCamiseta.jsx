@@ -15,9 +15,9 @@ const VendeTuCamiseta = () => {
     return (
         <div>
             <Banner />
-            <div className='d-flex containerBreadcrumb mt-2'>
+            <div className='d-flex containerBreadcrumb mt-3 px-3'>
                 <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
-                <p className='ms-1'>{titulo}</p> 
+                <p className='breadcrumb ms-1'>{titulo}</p> 
             </div>
             <div className='containerVenderCamiseta'>
                 <h1>VENDÉ TU CAMISETA</h1>

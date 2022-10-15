@@ -79,7 +79,7 @@ const Inicio = () => {
                         </Row>
                         {
                             data.length !==0 && 
-                            <Link to="/Productos/ofertas" className='estiloLinks'>
+                            <Link to="/Productos/Ofertas" className='estiloLinks'>
                                 <Boton estilo="botonAzul botonLogin" texto="Ver más ofertas" />
                             </Link>
                         }

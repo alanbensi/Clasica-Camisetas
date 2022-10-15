@@ -13,7 +13,7 @@ const Colecciones = () => {
     const {nombreColeccion} = useParams ();
     let url; 
 
-    if (nombreColeccion === "ofertas") {
+    if (nombreColeccion === "Ofertas") {
         url='/productsWithDiscount';
     } else if (nombreColeccion === "Todos los productos") {
         url='/products';
@@ -47,7 +47,17 @@ const Colecciones = () => {
                     <div className='divContainerProductos'>
                         <div className='divBreadcrumb d-flex mt-2'>
                             <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
-                            <p className='ms-1 tituloAyuda'>""""""""</p>
+                            {
+                                nombreColeccion === "Todos los productos" ? 
+                                (<p className='breadcrumb px-1'>{nombreColeccion}</p>)
+                                :
+                                (
+                                <>
+                                    <Link className='breadcrumb px-1' to='/Productos/Todos los productos'>Productos {'>'}</Link>
+                                    <p className='breadcrumb px-1'> {nombreColeccion}</p>
+                                </>
+                                )
+                            }
                         </div>
                         <h1 className='titTempActual'>{nombreColeccion}</h1>
                         <Container className='mt-3'>
