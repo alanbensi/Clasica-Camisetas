@@ -4,7 +4,7 @@ import './DetalleDeCompra.css'
 import iconoMP from '../../../assets/LOGO Mercado-Pago.png'
 import Boton from '../../atoms/boton/Boton'
 import ModalBootstrap from '../../moleculs/ModalBootstrap/ModalBootstrap';
-import ModalDetalleCompra from '../../moleculs/ModalDetalleCompra/ModalDetalleCompra';
+import ModalDetalleCompra from '../../atoms/ModalDetalleCompra/ModalDetalleCompra';
 
 const DetalleDeCompra = () => {
 

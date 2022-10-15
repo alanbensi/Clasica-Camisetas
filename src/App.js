@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import Inicio from './components/pages/inicio/Inicio';
 import NavClasica from './components/moleculs/navClasica/NavClasica'; 
 import Footer from './components/moleculs/footer/Footer';
@@ -23,6 +23,14 @@ import Colecciones from './components/pages/Colecciones/Colecciones';
 import CartProvider from './components/context/CartContext';
 
 function App() {
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0,0);
+  }, [location.pathname]);
+  
+
   return (
     <>
       <CartProvider>
