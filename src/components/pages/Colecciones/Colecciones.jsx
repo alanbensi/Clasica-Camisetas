@@ -11,7 +11,7 @@ import './Colecciones.css';
 const Colecciones = () => {
 
     const {nombreColeccion} = useParams ();
-    const { fetchData, data, loading } = useFetchData(`/products/collections/${nombreColeccion}`);
+    const { fetchData, data, loading } = useFetchData(nombreColeccion === "ofertas" ? ('/productsWithDiscount'): (`/products/collections/${nombreColeccion}`));
 
     useEffect(() => {
         fetchData();
@@ -43,7 +43,7 @@ const Colecciones = () => {
                             <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
                             <p className='ms-1 tituloAyuda'>{titulo}</p>
                         </div>
-                        <h1 className='titTempActual'>Camisetas de la temporada actual</h1>
+                        <h1 className='titTempActual'>{nombreColeccion}</h1>
                         <Container className='mt-3'>
                             <Row>
                                 {data.length !== 0 ?
