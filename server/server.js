@@ -249,7 +249,7 @@ app.post('/products', adminAuth, (req, res) => {
 });
 
 //  Get all products
-app.get('/products', validateUser, (req, res) => {
+app.get('/products', (req, res) => {
     sequelize.query('SELECT * FROM products',
         { type: sequelize.QueryTypes.SELECT }
     ).then((response) => {

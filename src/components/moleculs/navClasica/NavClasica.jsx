@@ -70,17 +70,22 @@ const NavClasica = () => {
                                     </div>
                                 )
                             }
-                            
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                                 <NavLink to ='/' className='d-flex estiloLinks'>
                                     <Icon icon="bytesize:home" width= '20px'/>
                                     <p className='ms-3'>Inicio</p>
                                 </NavLink>
                             </Navbar.Toggle>
+                            <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
+                                <NavLink to='/Productos/Todos los productos' className='d-flex estiloLinks'>
+                                    <Icon icon="ion:shirt-outline" width='20px' />
+                                    <p className='ms-3'>Productos</p>
+                                </NavLink>
+                            </Navbar.Toggle>
                             <div className='estiloLinks d-flex'>
                                 <div className='d-flex'>
-                                    <Icon icon="ion:shirt-outline" width= '20px' /> 
-                                    <NavDropdown id="nav-dropdown-dark-example" title="Productos" className='dropdownProductos ms-3 mb-3'>
+                                    <Icon icon="tabler:category" width= '20px' /> 
+                                    <NavDropdown id="nav-dropdown-dark-example" title="Colecciones" className='dropdownProductos ms-3 mb-3'>
                                         <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='w-100'>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
                                                 <NavLink to='/Productos/Camisetas temporada actual' className="estiloLinks">

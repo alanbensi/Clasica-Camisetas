@@ -11,18 +11,24 @@ import './Colecciones.css';
 const Colecciones = () => {
 
     const {nombreColeccion} = useParams ();
-    const { fetchData, data, loading } = useFetchData(nombreColeccion === "ofertas" ? ('/productsWithDiscount'): (`/products/collections/${nombreColeccion}`));
+    let url; 
+
+    if (nombreColeccion === "ofertas") {
+        url='/productsWithDiscount';
+    } else if (nombreColeccion === "Todos los productos") {
+        url='/products';
+    } else {
+        url=`/products/collections/${nombreColeccion}`;
+    }
+    
+
+    const { fetchData, data, loading } = useFetchData (url);
 
     useEffect(() => {
         fetchData();
     }, [nombreColeccion])
 
-    const ruta = useLocation();
-    const [titulo, setTitulo] = useState("");
-    useEffect(() => {
-        const rutaSinBarra = ruta.pathname.replace("/", " ");
-        setTitulo(rutaSinBarra);
-    }, [ruta]);
+    
 
     const mediaQuery = window.matchMedia('(min-width: 768px)');
     let vistaComputadora = mediaQuery.matches;
@@ -41,7 +47,7 @@ const Colecciones = () => {
                     <div className='divContainerProductos'>
                         <div className='divBreadcrumb d-flex mt-2'>
                             <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
-                            <p className='ms-1 tituloAyuda'>{titulo}</p>
+                            <p className='ms-1 tituloAyuda'>""""""""</p>
                         </div>
                         <h1 className='titTempActual'>{nombreColeccion}</h1>
                         <Container className='mt-3'>

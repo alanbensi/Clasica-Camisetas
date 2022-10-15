@@ -14,23 +14,29 @@ const Footer = () => {
                     <p className='categoriasFooter'>Explorar</p>
                     <ul>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/'>Inicio</Link> </li>
-                        <li className='listaFooter'> 
-                            <Link className='anchorFooter' to='/Productos/Camisetas temporada actual'>Camisetas temporada actual
-                            </Link> 
+                        <li className='listaFooter'> <Link className='anchorFooter' to='/'>Productos</Link> </li>
+                        <li className='listaFooter anchorFooter'>
+                            Colecciones:
+                            <ul>
+                                <li className='testAlan'> 
+                                    <Link className='anchorFooter' to='/Productos/Camisetas temporada actual'>Camisetas temporada actual
+                                    </Link> 
+                                </li>
+                                <li className='listaFooter testAlan'>
+                                    <Link className='anchorFooter' to='/Productos/Retros de coleccion'>Retros de coleccion
+                                    </Link>
+                                </li>
+                                <li className='listaFooter testAlan'>
+                                    <Link className='anchorFooter' to='/Productos/Otros equipos'>Otros equipos
+                                    </Link>
+                                </li>
+                                <li className='listaFooter testAlan'>
+                                    <Link className='anchorFooter' to='/Productos/Entrenamiento y salidas'>Entrenamiento y salidas
+                                    </Link>
+                                </li>
+                                <li className='listaFooter'> <Link className='anchorFooter' to='/Subastas'>Subastas</Link> </li>
+                            </ul>
                         </li>
-                        <li className='listaFooter'>
-                            <Link className='anchorFooter' to='/Productos/Retros de coleccion'>Retros de coleccion
-                            </Link>
-                        </li>
-                        <li className='listaFooter'>
-                            <Link className='anchorFooter' to='/Productos/Otros equipos'>Otros equipos
-                            </Link>
-                        </li>
-                        <li className='listaFooter'>
-                            <Link className='anchorFooter' to='/Productos/Entrenamiento y salidas'>Entrenamiento y salidas
-                            </Link>
-                        </li>
-                        <li className='listaFooter'> <Link className='anchorFooter' to='/Subastas'>Subastas</Link> </li>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/Ayuda'>Ayuda</Link> </li>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/Vende-tu-camiseta'>Vende tu camiseta</Link> </li>
                     </ul>
