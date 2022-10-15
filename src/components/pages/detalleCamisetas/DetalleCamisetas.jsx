@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import './DetalleCamisetas.css'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react';
 import Boton from '../../atoms/boton/Boton';
 import { Icon } from '@iconify/react';
@@ -10,6 +10,7 @@ import { Form } from 'react-bootstrap';
 import { CartContext } from '../../context/CartContext';
 import ModalBootstrap from '../../moleculs/ModalBootstrap/ModalBootstrap';
 import ModalMediosPago from '../../atoms/modalMediosPago/ModalMediosPago';
+import Swal from 'sweetalert';
 
 const DetalleCamisetas = () => {
 
@@ -48,17 +49,79 @@ const DetalleCamisetas = () => {
     let carrito = [];
     if (localStorage.getItem('Carrito')) { carrito = JSON.parse(localStorage.getItem('Carrito')) }
 
+
+    const redirect = useNavigate();
+    const handleSwal = (info)=> {
+        if (info.buttons.length >1) {
+            Swal({
+                title: info.title,
+                text: info.text,
+                icon: info.icon,
+                buttons: info.buttons,
+                timer: info.timer
+            })
+            .then(resp => {
+                if(resp) {
+                    redirect (info.link)
+                }
+            })
+        } else {
+            Swal({
+                title: info.title,
+                text: info.text,
+                icon: info.icon,
+                buttons: info.buttons,
+                timer: info.timer
+            })
+        }
+    }
+
+
     const agregarAlCarrito = () => {
         const compra = camiseta;
         compra.precioFinal = camiseta.discount ? (precioFinalConDescuento): (precioFinalSinDescuento);
         compra.cantidad = cantidadSelect; 
-        
         if (carrito.some(item=>item.id == compra.id)) {
-            alert ("Esta camiseta ya esta en el carrito, para agregar más cantidad por favor modificar allí.")
+            handleSwal({
+                title: "Esta camiseta ya esta agregada al carrito",
+                text: "Si querés modificar la cantidad, podés hacerlo desde el carrito",
+                icon: 'warning',
+                buttons: ['Cerrar','Ir al carrito'],
+                link: "/Carrito-de-compras",
+                timer: ''
+            });
         }else {
             carrito.push(compra);
             localStorage.setItem("Carrito", JSON.stringify(carrito));
             setCarritoContexto (carrito.length);
+            handleSwal({
+                title: "Camiseta agregada con exito!",
+                text: "La camiseta se agregó exitosamente al carrito.",
+                icon: 'success',
+                buttons: ['Cerrar'],
+                timer: '2000'
+            });
+        }
+    };
+
+    const comprarCarrito = () => {
+        const compra = camiseta;
+        compra.precioFinal = camiseta.discount ? (precioFinalConDescuento) : (precioFinalSinDescuento);
+        compra.cantidad = cantidadSelect;
+        if (carrito.some(item => item.id == compra.id)) {
+            handleSwal({
+                title: "Esta camiseta ya esta agregada al carrito",
+                text: "Si querés modificar la cantidad, podés hacerlo desde el carrito",
+                icon: 'warning',
+                buttons: ['Cerrar', 'Ir al carrito'],
+                link: "/Carrito-de-compras",
+                timer: ''
+            });
+        } else {
+            carrito.push(compra);
+            localStorage.setItem("Carrito", JSON.stringify(carrito));
+            setCarritoContexto(carrito.length);
+            redirect("/Carrito-de-compras");
         }
     };
 
@@ -114,9 +177,7 @@ const DetalleCamisetas = () => {
                                     select.map((item) => (<option key={item.label} value={item.value}>{item.label}</option>))
                                 }
                             </Form.Select>
-                            <Link to="../Carrito-de-compras" className='estiloLinkDetalleBoton'>
-                                <Boton onClick={agregarAlCarrito} estilo='botonAzul botonLogin' texto='Comprar' />
-                            </Link>
+                            <Boton onClick={comprarCarrito} estilo='botonAzul botonLogin' texto='Comprar' />
                             <Boton onClick={agregarAlCarrito} estilo='botonBlanco botonLogin agregarCarritoDetalleCamiseta' texto='Agregar al carrito' />
                         </section>
                         <section className='d-flex mt-4 mb-2'>
