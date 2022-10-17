@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ContadorCarrito from '../../atoms/contadorCarrito/ContadorCarrito';
 import './Carrito.css'
 import { Icon } from '@iconify/react';
 import Boton from '../../atoms/boton/Boton'
 import { CartContext } from '../../context/CartContext';
+import { UserContext } from '../../context/UserContext';
+import Swal from 'sweetalert';
 
 
 const Carrito = () => {
 
     const cartContext = useContext (CartContext);
     const {setCarritoContexto} = cartContext;
+
+    const userContext = useContext(UserContext);
+    const { userID } = userContext;
 
     const ruta = useLocation();
     const [titulo, setTitulo] = useState("");
@@ -26,6 +31,102 @@ const Carrito = () => {
     const borrarItem = (id)=> {
         setCarrito (carrito.filter((item)=>item.id !== id));        
     };
+
+    const redirect = useNavigate();
+    const handleSwal = (info) => {
+        if (info.buttons.length > 1) {
+            Swal({
+                title: info.title,
+                text: info.text,
+                icon: info.icon,
+                buttons: info.buttons,
+                timer: info.timer
+            })
+                .then(resp => {
+                    if (resp) {
+                        redirect(info.link2);
+                    }else {
+                        redirect(info.link);
+                    }
+                })
+        } else {
+            Swal({
+                title: info.title,
+                text: info.text,
+                icon: info.icon,
+                buttons: info.buttons,
+                timer: info.timer
+            })
+        }
+    }
+
+    const iniciarCompra = ()=> {
+        if (userID) {
+            redirect('/Detalle-de-compra'); 
+        } else {
+            handleSwal({
+                title: "No tendrás seguimiento!",
+                text: "El seguimiento de tu compra solo podrá ser realizado en caso de que estés registrado.",
+                icon: 'warning',
+                buttons: ['Continuar', 'Ir al registro'],
+                link: "/Detalle-de-compra",
+                link2: "/login",
+                timer: ''
+            });
+        }
+    }
+
+    // const handleSwal = (info) => {
+    //     if (info.buttons.length > 1) {
+    //         Swal({
+    //             title: info.title,
+    //             text: info.text,
+    //             icon: info.icon,
+    //             buttons: info.buttons,
+    //             timer: info.timer
+    //         })
+    //             .then(resp => {
+    //                 if (resp.buttons.continuar) {
+    //                     redirect(info.buttons.continuar.link);
+    //                 } else {
+    //                     redirect(info.buttons.registrarse.link2);
+    //                 }
+    //             })
+    //     } else {
+    //         Swal({
+    //             title: info.title,
+    //             text: info.text,
+    //             icon: info.icon,
+    //             buttons: info.buttons,
+    //             timer: info.timer
+    //         })
+    //     }
+    // }
+
+    // const iniciarCompra = ()=> {
+    //     if (userID) {
+    //         redirect('/Detalle-de-compra'); 
+    //     } else {
+    //         handleSwal({
+    //             title: "No tendrás seguimiento!",
+    //             text: "El seguimiento de tu compra solo podrá ser realizado en caso de que estés registrado.",
+    //             icon: 'warning',
+    //             buttons: {
+    //                 continuar: {
+    //                     text: "Continuar",
+    //                     className: "",
+    //                     link: "/Detalle-de-compra"
+    //                 }, 
+    //                 registrarse: {
+    //                     text: "Ir al registro",
+    //                     className: "botonAzul botonLogin",
+    //                     link2: "/Registrate"
+    //                 }
+    //             },
+    //             timer: ''
+    //         });
+    //     }
+    // }
 
     useEffect (()=>{
         if (localStorage.getItem('Carrito')) {setCarrito(JSON.parse(localStorage.getItem('Carrito')))};
@@ -104,7 +205,7 @@ const Carrito = () => {
                         </div>
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>
-                                <Link className='estiloLinks' to="/Detalle-de-compra" ><Boton estilo="botonIniciarCompra botonAzul" texto="Iniciar compra" /></Link>
+                                <Boton onClick={iniciarCompra} estilo="botonIniciarCompra botonAzul" texto="Iniciar compra" />
                             </div>
                         </div>
                     </>

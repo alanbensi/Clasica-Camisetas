@@ -98,7 +98,7 @@ const DetalleCamisetas = () => {
                 text: "La camiseta se agregó exitosamente al carrito.",
                 icon: 'success',
                 buttons: ['Cerrar'],
-                timer: '2000'
+                timer: '3000'
             });
         }
     };

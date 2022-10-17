@@ -13,7 +13,7 @@
 }
 
 .botonAzul {
-    background-color:rgba(0, 53, 148, 1);
+    background-color:rgba(0, 53, 148, 1) !important;
     color: white;
 }
 

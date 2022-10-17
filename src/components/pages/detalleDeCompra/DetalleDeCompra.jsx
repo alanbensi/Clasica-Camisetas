@@ -68,6 +68,7 @@ const DetalleDeCompra = () => {
                         <div className='containerResumenPedido'>
                             <div>
                                 <p>PRODUCTOS</p>
+                                
                                 <p>ACA VA CAMISETA.TITULO</p>
                                 <p>ACA VA CAMISETA.TITULO</p>
                                 <p>TOTAL</p>
@@ -102,7 +103,7 @@ const DetalleDeCompra = () => {
                 <p className='textoMPDetalle'>Te llevamos a nuestro sitio para completar el pago</p>
             </section>
             <section className='mx-3'>
-                <p className='textoTerminosCondiciones'>Al continuar, aceptas nuestros <a className='terminosCondiciones' href="">Términos y Condiciones</a></p>
+                <p className='textoTerminosCondiciones'>Al continuar, aceptas nuestros <a className='terminosCondiciones' href="/">Términos y Condiciones</a></p>
                 <Boton estilo="botonNav botonAzul botonDetalleCompra" texto ="Realizar el pedido"></Boton>
                 <p>Sus datos personales se utilizarán para procesar su pedido y respaldar su experiencia en este sitio web.</p>
             </section>

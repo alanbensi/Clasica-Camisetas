@@ -50,7 +50,6 @@ const NavClasica = () => {
                 <Navbar.Collapse id="responsive-navbar-nav" className='navbarDesplegado'>
                     <Nav className="me-auto">
                         <div className='containerLinksNavbar'>
-                            {/* <p className='mb-2'>Bienvenido</p> */}
                             {
                                 !userID ? 
                                 (

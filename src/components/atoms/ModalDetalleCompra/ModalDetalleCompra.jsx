@@ -10,7 +10,7 @@ const ModalDetalleCompra = () => {
     return (
         <>
             {carritoLocal.map((item) => (
-                <div>
+                <div key={item.id}>
                     <div className='d-flex justify-content-around my-4'>
                         <img className='imgCardCarrito' src={item.images} alt={item.name} />
                         <div className='w-100'>
