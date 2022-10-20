@@ -17,6 +17,8 @@ const Inicio = () => {
     const userContext = useContext (UserContext);
     const { tokenDecode } = userContext;
 
+    console.log (userContext);
+
     const { fetchData, data, loading } = useFetchData('/productsWithDiscount');
 
     const ofertasMobile = data.slice(0,6);
@@ -43,7 +45,6 @@ const Inicio = () => {
                         : 
                         (<Slider />)
                     }
-                    
                     <div className='contenedorEnviosGratis'>
                         <Icon icon="carbon:delivery" width='32px' color='white' />
                         <p className='textoEnviosGratis'>Envios gratis a todo el pais</p>

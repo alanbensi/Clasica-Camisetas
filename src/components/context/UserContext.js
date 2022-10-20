@@ -27,7 +27,7 @@ const UserProvider = (props) => {
     }, [token])
 
     return (
-        <UserContext.Provider value={{userID, userAdmin, setToken, username}}>
+        <UserContext.Provider value={{userID, userAdmin, setToken, username, token}}>
             {props.children}
         </UserContext.Provider>
     )

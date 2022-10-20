@@ -66,9 +66,9 @@ const Carrito = () => {
         } else {
             handleSwal({
                 title: "No tendrás seguimiento!",
-                text: "El seguimiento de tu compra solo podrá ser realizado en caso de que estés registrado.",
+                text: "El seguimiento de tu compra solo podrá ser realizado en caso de que estés logueado.",
                 icon: 'warning',
-                buttons: ['Continuar', 'Ir al registro'],
+                buttons: ['Continuar', 'Ir al login'],
                 link: "/Detalle-de-compra",
                 link2: "/login",
                 timer: ''

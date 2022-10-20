@@ -11,11 +11,14 @@ import { CartContext } from '../../context/CartContext';
 import ModalBootstrap from '../../moleculs/ModalBootstrap/ModalBootstrap';
 import ModalMediosPago from '../../atoms/modalMediosPago/ModalMediosPago';
 import Swal from 'sweetalert';
+import { UserContext } from '../../context/UserContext';
 
 const DetalleCamisetas = () => {
 
     const cartContext = useContext(CartContext);
     const { setCarritoContexto } = cartContext;
+    const userContext = useContext(UserContext);
+    const { userAdmin } = userContext;
 
     const ruta = useLocation();
     const [camiseta, setCamiseta] = useState({});
@@ -153,8 +156,20 @@ const DetalleCamisetas = () => {
                                 </li>
                             </ul>
                         </nav>
-                        <section>
+                        <section className='sectionDetalleCamiseta'>
                             <h1 className='tituloDetalleCamiseta'>{camiseta.name}</h1>
+                            {
+                                userAdmin ?
+                                    (
+                                    <span className='iconoEditar'>
+                                        <Link className='estiloLinks' to='/'>
+                                            <Icon icon="el:pencil-alt" />
+                                        </Link>
+                                    </span>
+                                    )
+                                    :
+                                    (null)
+                            }
                             <div className='d-flex justify-content-center'>
                                 <div className='contenedorImgDetalle'>
                                     <img className='imgDetalle' src={camiseta.images} alt={camiseta.name} />

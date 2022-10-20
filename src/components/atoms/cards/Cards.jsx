@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Card  from 'react-bootstrap/Card'
-import './Cards.css'
-
+import { UserContext } from '../../context/UserContext';
+import './Cards.css';
 const Cards = (props) => {
 
     const calculoDescuento = (props.discount * props.precio) / 100;

@@ -64,24 +64,6 @@ const DetalleDeCompra = () => {
                         }
                     </form>
                     <div>
-                        <h2 className='tituloResumenPedido'>Resumen del pedido</h2>
-                        <div className='containerResumenPedido'>
-                            <div>
-                                <p>PRODUCTOS</p>
-                                
-                                <p>ACA VA CAMISETA.TITULO</p>
-                                <p>ACA VA CAMISETA.TITULO</p>
-                                <p>TOTAL</p>
-                            </div>
-                            <div>
-                                <p>SUBTOTAL</p>
-                                <p>$22000</p>
-                                <p>$15786</p>
-                                <p>$21118</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
                         <h2 className='tituloMercadoPago'>Método de pago</h2>
                         <div className='d-flex justify-content-between'>
                             <div className='d-flex align-items-center'>

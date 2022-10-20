@@ -14,7 +14,7 @@ import { UserContext } from '../../context/UserContext';
 const NavClasica = () => {
 
     const userContext = useContext (UserContext);
-    const {userID, setToken, username} = userContext;
+    const {userID, setToken, username, userAdmin} = userContext;
 
     const cartContext = useContext (CartContext); 
     const {carritoContexto}= cartContext; 
@@ -135,10 +135,22 @@ const NavClasica = () => {
                                 </NavLink>
                             </Navbar.Toggle>
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
-                                <NavLink to={userID ? (`/Mi-cuenta/${userID}`) : ('/Login')} className='d-flex estiloLinks'>
-                                    <Icon icon="codicon:account" width= '20px' />
-                                    <p className='ms-3'>Mi cuenta</p>
-                                </NavLink>
+                                {
+                                    userAdmin? 
+                                    (
+                                    <NavLink to='/admin/usuarios' className='d-flex estiloLinks'>
+                                        <Icon icon="codicon:account" width='20px' />
+                                        <p className='ms-3'>Ver todos los usuarios</p>
+                                    </NavLink>
+                                    )
+                                    :
+                                    (<NavLink to = { userID?(`/Mi-cuenta/${userID}`) : ('/Login')} className='d-flex estiloLinks'>
+                                        <Icon icon="codicon:account" width= '20px' />
+                                        <p className='ms-3'>Mi cuenta</p>
+                                    </NavLink>
+                                    )
+                                }
+                                
                             </Navbar.Toggle>
                             {
                                 userID ? 

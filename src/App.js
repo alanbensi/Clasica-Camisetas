@@ -21,6 +21,8 @@ import DetalleSubastas from './components/pages/detalleSubasta/DetalleSubastas';
 import NuevaOfertaSubasta from './components/pages/nuevaOfertaSubasta/NuevaOfertaSubasta';
 import Colecciones from './components/pages/Colecciones/Colecciones';
 import CartProvider from './components/context/CartContext';
+import AdminUsuarios from './components/pages/adminUsuarios/AdminUsuarios';
+import AdminDetalleUsuarios from './components/pages/adminDetalleUsuarios/AdminDetalleUsuarios';
 
 function App() {
 
@@ -53,6 +55,8 @@ function App() {
           <Route exact path='/Mi-cuenta/:id' element={<MiCuenta />} />
           <Route exact path='/Carrito-de-compras' element= {<Carrito />} />
           <Route exact path='/Detalle-de-compra' element={<DetalleDeCompra />} />
+          <Route exact path='/admin/usuarios' element={<AdminUsuarios />} />
+          <Route exact path='/admin/usuarios/:id' element={<AdminDetalleUsuarios />} />
         </Routes>
         <Footer />
       </CartProvider>
