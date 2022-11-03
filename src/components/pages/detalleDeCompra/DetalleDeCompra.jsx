@@ -36,6 +36,8 @@ const DetalleDeCompra = () => {
                         <input required type="text" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...'/>
                         <label htmlFor="dniDetallePedido">DNI *</label>
                         <input required type="text" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...'/>
+                        <label htmlFor="cuitDetallePedido">CUIT/CUIL *</label>
+                        <input required type="text" name="cuitDetallePedido" id="cuitDetallePedido" placeholder='Ingresá tu número de CUIT/CUIL...' />
                         <label htmlFor="cpDetallePedido">CODIGO POSTAL *</label>
                         <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...'/>
                         <label htmlFor="envioDetallePedido">ENVIO *</label>
@@ -46,10 +48,6 @@ const DetalleDeCompra = () => {
                         <div>
                             <input required className='radioDetallePedido me-3' type="radio" value="Retiro en sucursal de correo argentino" name="envioDetallePedido" id="envioCorreoArgentino" onChange={envioDomicilio} />
                             Retiro en sucursal de Correo Argentino
-                        </div>
-                        <div className='mb-3'>
-                            <input required className='radioDetallePedido me-3' type="radio" value="Retiro en punto de entrega" name="envioDetallePedido" id="retiro" onChange={envioDomicilio}/>
-                            Retiro en punto de entrega
                         </div>
                         {envio === "Domicilio" && 
                         <div className='contenedorEnvioDomicilio'>

@@ -1,0 +1,23 @@
+.tituloFormAdminCamiseta {
+    font-family: 'Bebas Neue', cursive;
+}
+
+.formAdminCamisetas {
+    margin: 0.5rem 0 1.5rem 0; 
+}
+
+.containerSelectFormAdmin {
+    display: flex;
+    flex-direction: column;
+}
+
+.containerSelectFormAdmin label {
+    margin-bottom: 1rem;
+}
+
+.containerSelectFormAdmin select {
+    width: 98%;
+    padding: 0.5rem;
+    border-radius: 5px;
+    border: 0.6px solid #000000;
+}

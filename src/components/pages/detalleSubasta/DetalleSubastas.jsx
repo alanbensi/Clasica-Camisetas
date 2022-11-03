@@ -43,32 +43,9 @@ const DetalleSubastas = () => {
                 <div className='mt-2'>
                     <p>Siguiente oferta mínima: USD "OFERTA * 0.10"</p>
                 </div>
-                <div>
-                    <Link className='verOfertasSubastas estiloLinks' to="/Detalle-subastas/Nueva-oferta">HACER UNA OFERTA</Link>
-                </div>
                 <div className='containerDescripcionSubastas'>
                     <h2 className='subtituloDetalleSubastas'>DESCRIPCIÓN</h2>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut maiores commodi fugit nulla, voluptatibus inventore obcaecati numquam incidunt provident officia veritatis voluptates earum voluptatum itaque minima aliquid hic amet sint.</p>
-                    <div>
-                        <table className='tablaDescripcionSubasta'>
-                            <tr>
-                                <td>EQUIPO</td>
-                                <td>Info dinamica</td>                                  
-                            </tr>
-                            <tr>
-                                <td>OBJETO</td>
-                                <td>Info dinamica</td>
-                            </tr>
-                            <tr>
-                                <td>DEPORTISTA</td>
-                                <td>Info dinamica</td>
-                            </tr>
-                            <tr>
-                                <td>ESTADO</td>
-                                <td>Info dinamica</td>
-                            </tr>
-                        </table>
-                    </div>
                 </div>
                 <div className='containerBotonHacerOferta'>
                     <Link className='estiloLinks' to="/Detalle-subastas/Nueva-oferta">

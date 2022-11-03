@@ -3,7 +3,6 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import fotoTempActual from '../../../assets/camiseta 1.png'
 import fotoRetroDeColeccion from '../../../assets/Camiseta 8.png'
-import fotoCategoriaOtros from '../../../assets/Camiseta 7.png'
 import fotoCategoriaEntrenamientos from '../../../assets/camiseta 4.png'
 import './CategoriasInicioDesktop.css'
 
@@ -11,7 +10,7 @@ const CategoriasInicioDesktop = () => {
     return (
         <section>
             <Container className='px-5 contenedorCatInicioDesktop'>
-                <Row>
+                <Row className='contenedorColCatDesktop'>
                     <Col lg={3} md={3}>
                         <Link to='/Productos/Camisetas temporada actual' className='estiloLinks'>
                             <div className="cardCatInicioDesktop">
@@ -25,14 +24,6 @@ const CategoriasInicioDesktop = () => {
                             <div className="cardCatInicioDesktop">
                                 <h3 className='titulocardCatInicioDesktop'>Retros de colección</h3>
                                 <img className="imgCatInicioDesktop" src={fotoRetroDeColeccion} alt="Retros de coleccion" />
-                            </div>
-                        </Link>
-                    </Col>
-                    <Col lg={3} md={3} >
-                        <Link to='/Productos/Otros equipos' className='estiloLinks'>
-                            <div className="cardCatInicioDesktop">
-                                <h3 className='titulocardCatInicioDesktop'>Otros equipos</h3>
-                                <img className="imgCatInicioDesktop" src={fotoCategoriaOtros} alt="Otros" />
                             </div>
                         </Link>
                     </Col>

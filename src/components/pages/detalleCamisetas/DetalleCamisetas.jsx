@@ -83,7 +83,7 @@ const DetalleCamisetas = () => {
         const compra = camiseta;
         compra.precioFinal = camiseta.discount ? (precioFinalConDescuento): (precioFinalSinDescuento);
         compra.cantidad = cantidadSelect; 
-        if (carrito.some(item=>item.id == compra.id)) {
+        if (carrito.some(item=>item.id === compra.id)) {
             handleSwal({
                 title: "Esta camiseta ya esta agregada al carrito",
                 text: "Si querés modificar la cantidad, podés hacerlo desde el carrito",
@@ -162,7 +162,7 @@ const DetalleCamisetas = () => {
                                 userAdmin ?
                                     (
                                     <span className='iconoEditar'>
-                                        <Link className='estiloLinks' to='/'>
+                                        <Link className='estiloLinks' to={`/admin/formularioCamisetas/${camiseta.id}`}>
                                             <Icon icon="el:pencil-alt" />
                                         </Link>
                                     </span>

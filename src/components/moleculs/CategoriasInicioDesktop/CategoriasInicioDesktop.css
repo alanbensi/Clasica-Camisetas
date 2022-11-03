@@ -4,6 +4,10 @@
     padding: 0 3rem;
 }
 
+.contenedorColCatDesktop {
+    justify-content: space-evenly;
+}
+
 .cardCatInicioDesktop {
     width: 10rem;
     height: 12.5rem;

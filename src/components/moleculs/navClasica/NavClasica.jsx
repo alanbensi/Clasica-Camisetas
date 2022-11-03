@@ -84,7 +84,7 @@ const NavClasica = () => {
                             <div className='estiloLinks d-flex'>
                                 <div className='d-flex'>
                                     <Icon icon="tabler:category" width= '20px' /> 
-                                    <NavDropdown id="nav-dropdown-dark-example" title="Colecciones" className='dropdownProductos ms-3 mb-3'>
+                                    <NavDropdown id="nav-dropdown-dark-example" title="Categorías" className='dropdownProductos ms-3 mb-3'>
                                         <Navbar.Toggle as="div" bsPrefix='estiloLinks' className='w-100'>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
                                                 <NavLink to='/Productos/Camisetas temporada actual' className="estiloLinks">
@@ -94,11 +94,6 @@ const NavClasica = () => {
                                             <NavDropdown.Item className='paginasDropdownProductos'>
                                                 <NavLink to='/Productos/Retros de coleccion' className="estiloLinks">
                                                     Retros de coleccion
-                                                </NavLink>
-                                            </NavDropdown.Item>
-                                            <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/Productos/Otros equipos' className="estiloLinks">
-                                                    Otros equipos
                                                 </NavLink>
                                             </NavDropdown.Item>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
@@ -138,10 +133,17 @@ const NavClasica = () => {
                                 {
                                     userAdmin? 
                                     (
-                                    <NavLink to='/admin/usuarios' className='d-flex estiloLinks'>
-                                        <Icon icon="codicon:account" width='20px' />
-                                        <p className='ms-3'>Ver todos los usuarios</p>
-                                    </NavLink>
+                                    <>
+                                        <NavLink to='/admin/usuarios' className='d-flex estiloLinks'>
+                                            <Icon icon="codicon:account" width='20px' />
+                                            <p className='ms-3'>Ver todos los usuarios</p>
+                                        </NavLink>
+                                        <NavLink to='/admin/formularioCamisetas' className='d-flex estiloLinks'>
+                                            <Icon icon="carbon:add-alt" width='20px' />
+                                            <p className='ms-3'>Agregar productos</p>
+                                        </NavLink>
+                                    </>
+                                    
                                     )
                                     :
                                     (<NavLink to = { userID?(`/Mi-cuenta/${userID}`) : ('/Login')} className='d-flex estiloLinks'>

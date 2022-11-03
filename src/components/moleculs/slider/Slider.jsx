@@ -29,14 +29,6 @@ const Slider = () => {
                     </Link>
                 </Carousel.Item>
                 <Carousel.Item interval={3500}>
-                    <Link to='/Productos/Otros equipos' className='estiloLinks'>
-                        <div className ="cardCarrusel">
-                            <h3 className='tituloCardCarrusel'>Otros equipos</h3>
-                            <img className="imagenesCarrusel" src={fotoCategoriaOtros} alt="Otros" />
-                        </div>
-                    </Link>
-                </Carousel.Item>
-                <Carousel.Item interval={3500}>
                     <Link to='/Productos/Entrenamiento y salidas' className='estiloLinks'>
                         <div className="cardCarrusel">
                             <h3 className='tituloCardCarrusel'>Entrenamientos y salidas</h3>

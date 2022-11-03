@@ -16,7 +16,7 @@ const Footer = () => {
                         <li className='listaFooter'> <Link className='anchorFooter' to='/'>Inicio</Link> </li>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/'>Productos</Link> </li>
                         <li className='listaFooter anchorFooter'>
-                            Colecciones:
+                            Categorías:
                             <ul>
                                 <li className='testAlan'> 
                                     <Link className='anchorFooter' to='/Productos/Camisetas temporada actual'>Camisetas temporada actual
@@ -24,10 +24,6 @@ const Footer = () => {
                                 </li>
                                 <li className='listaFooter testAlan'>
                                     <Link className='anchorFooter' to='/Productos/Retros de coleccion'>Retros de coleccion
-                                    </Link>
-                                </li>
-                                <li className='listaFooter testAlan'>
-                                    <Link className='anchorFooter' to='/Productos/Otros equipos'>Otros equipos
                                     </Link>
                                 </li>
                                 <li className='listaFooter testAlan'>
@@ -70,7 +66,6 @@ const Footer = () => {
                 </div>
             </div> 
             <div>
-                {/* LINEA CSS */}
                 <div className='containerFooter containerCopyrightFooter'>
                     <p className='parrafoCopyrightFooter'>Copyright CLASICA CAMISETAS - 2022. <br /> Todos los derechos reservados.</p>
                 </div>

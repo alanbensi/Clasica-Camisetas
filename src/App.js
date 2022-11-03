@@ -3,7 +3,7 @@ import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Inicio from './components/pages/inicio/Inicio';
 import NavClasica from './components/moleculs/navClasica/NavClasica'; 
-import Footer from './components/moleculs/footer/Footer';
+import Footer from './components/moleculs/footer/Footer'
 import VendeTuCamiseta from './components/pages/vende-tu-camiseta/VendeTuCamiseta.jsx';
 import Login from './components/pages/login/Login';
 import Registrate from './components/pages/registrate/Registrate';
@@ -23,6 +23,7 @@ import Colecciones from './components/pages/Colecciones/Colecciones';
 import CartProvider from './components/context/CartContext';
 import AdminUsuarios from './components/pages/adminUsuarios/AdminUsuarios';
 import AdminDetalleUsuarios from './components/pages/adminDetalleUsuarios/AdminDetalleUsuarios';
+import AdminFormCamisetas from './components/pages/adminFormCamisetas/AdminFormCamisetas';
 
 function App() {
 
@@ -57,6 +58,8 @@ function App() {
           <Route exact path='/Detalle-de-compra' element={<DetalleDeCompra />} />
           <Route exact path='/admin/usuarios' element={<AdminUsuarios />} />
           <Route exact path='/admin/usuarios/:id' element={<AdminDetalleUsuarios />} />
+          <Route exact path='/admin/formularioCamisetas' element={<AdminFormCamisetas />} />
+          <Route exact path='/admin/formularioCamisetas/:id' element={<AdminFormCamisetas />} />
         </Routes>
         <Footer />
       </CartProvider>

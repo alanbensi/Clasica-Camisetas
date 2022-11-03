@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Acordeon from '../../moleculs/acordeon/Acordeon';
 import Banner from '../../atoms/banner/Banner';
+import { Icon } from '@iconify/react';
 
 const Ayuda = () => {
 
@@ -47,8 +48,13 @@ const Ayuda = () => {
                         <Acordeon keyPregunta="2" pregunta="Pregunta número 2" respuesta="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                     </div>
                     <div className='mt-5'>
-                        <p>¿Necesitas más ayuda? <Link to='/' className='linkContactanos'>Contactanos</Link></p>
+                        <p>¿Necesitas más ayuda? <a href="http://wa.me/+5491131867585?&text=Hola, quería hacer una consulta acerca de" className='linkContactanos' target="_blank" rel="noopener noreferrer">Contactanos</a></p>
                     </div>
+                </section>
+                <section>
+                    <a href="https://wa.me/+5491131867585?&text=Hola, quería hacer una consulta acerca de" target="blank">
+                        <Icon className='botonWhatsapp' icon="logos:whatsapp-icon" />
+                    </a>
                 </section>
             </main>
         </>
