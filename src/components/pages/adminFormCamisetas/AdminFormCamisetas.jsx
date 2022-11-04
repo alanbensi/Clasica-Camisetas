@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Boton from '../../atoms/boton/Boton';
 import './AdminFormCamisetas.css';
 import { useFetchData } from "../../../hooks/useFetch";
 import AdminEditarCamiseta from '../../atoms/adminEditarCamiseta/AdminEditarCamiseta';
@@ -15,10 +14,8 @@ const AdminFormCamisetas = () => {
         fetchData();
     }, [id])
 
-    console.log('cacatulo', data);
     return (
         <main className='px-3 py-3'>
-
             {
                 id ?
                     (data.map((item) => (
@@ -35,7 +32,6 @@ const AdminFormCamisetas = () => {
                         </>
                     )
             }
-
         </main>
     )
 }

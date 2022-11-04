@@ -29,7 +29,7 @@ const NavClasica = () => {
     return (
         <header>
             <Navbar collapseOnSelect expand="md" className='bgNavbar'>
-                <div className='navDesktop d-flex justify-content-between w-100'>
+                <div className='navDesktop align-items-center d-flex justify-content-between w-100'>
                     <div className='containerLogoNavbar'>
                         <div className='estiloLinks'>
                             <Link to='/'>
@@ -37,6 +37,15 @@ const NavClasica = () => {
                             </Link>
                         </div>
                     </div>
+                    { userID ?
+                        (
+                        <div>
+                            <p className='saludoUsuario'>Hola {username}!</p>
+                        </div>
+                        )
+                        :
+                        null
+                    }
                     <div className='containerIconosNavbar'>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" className='iconoHamburguesa' />
                         <div className='estiloLinks'>
@@ -51,7 +60,7 @@ const NavClasica = () => {
                     <Nav className="me-auto">
                         <div className='containerLinksNavbar'>
                             {
-                                !userID ? 
+                                !userID &&
                                 (
                                     <div className='d-flex justify-content-evenly'>
                                         <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
@@ -62,12 +71,6 @@ const NavClasica = () => {
                                         </Navbar.Toggle>
                                     </div>
                                 ) 
-                                :
-                                (
-                                    <div>
-                                        <p className='saludoUsuario'>Hola {username}!</p>
-                                    </div>
-                                )
                             }
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                                 <NavLink to ='/' className='d-flex estiloLinks'>

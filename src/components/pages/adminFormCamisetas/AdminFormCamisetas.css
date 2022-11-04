@@ -21,3 +21,7 @@
     border-radius: 5px;
     border: 0.6px solid #000000;
 }
+
+.botonEditarCamiseta {
+    text-align: center;
+}
