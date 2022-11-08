@@ -21,7 +21,7 @@ const AdminFormCamisetas = () => {
                     (data.map((item) => (
                         <>
                             <h1 className='tituloFormAdminCamiseta'>Editar producto</h1>
-                            <AdminEditarCamiseta name={item.name} discount={item.discount} price={item.price} stock={item.stock} collection={item.collection} description={item.description} />
+                            <AdminEditarCamiseta id={item.id} name={item.name} discount={item.discount} price={item.price} stock={item.stock} collection={item.collection} description={item.description} />
                         </>
                     )))
                     :

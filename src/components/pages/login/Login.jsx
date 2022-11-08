@@ -55,7 +55,7 @@ const Login = () => {
         fetch('http://127.0.0.1:3001/login', fetchOptions)
             .then(res => res.json())
             .then(res => res.error ? seterror(true) : usuarioLogueado(res.token));
-        };
+    };
 
     return (
         <>
