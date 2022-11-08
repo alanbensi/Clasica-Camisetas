@@ -86,26 +86,23 @@ function validateUser (req, res, next){
 
 //  Login user
 app.post('/login', (req, res) => {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
     // checks if there´s a missing value, returns an error if there is
-    if (!password || (!username && !password) || (!email && !password)){
+    if (!password || (!email && !password)){
         res.status(400);
         res.json({ error: `Faltan campos obligatorios.` });
         return;
     }
-    // get the condition to search by
-    const searchBy = username ? username : email;
-    const querySearchBy = username ? 'SELECT * FROM users WHERE username = ?' : 'SELECT * FROM users WHERE email = ?';
     // searches all user information
-    sequelize.query(querySearchBy,
-        {replacements: [searchBy], type: sequelize.QueryTypes.SELECT }
+    sequelize.query('SELECT * FROM users WHERE email = ?',
+        {replacements: [email], type: sequelize.QueryTypes.SELECT }
     ).then((response) => {
         //checks if the found info and the submitted are the same
         //when they are, responds a token with the user id, username and admin info gotten from the select query
         if (response[0].password === password) {
             let payload = {
                 id: response[0].id,
-                username: response[0].username,
+                email: response[0].email,
                 admin: response[0].admin
             }
             res.status(200);
@@ -124,28 +121,28 @@ app.post('/login', (req, res) => {
 //  Create user
 //  Admin is false in every insert 
 app.post('/users', (req, res) => {
-    const { username, name, surname, email, password, address, phone } = req.body;
+    const { name, surname, email, password, phone } = req.body;
     // checks if there´s a missing value, returns an error if there is
-    if (!username || !name || !surname || !email || !password || !address || !phone){
+    if (!name || !surname || !email || !password || !phone){
         res.status(400);
         res.json({error: `Faltan campos obligatorios.`})
         return;
     }
-    //checks that the same username or email isn´t already save
-    sequelize.query('SELECT username, email FROM users WHERE username = ? OR email = ?',
-        {replacements: [username, email], type: sequelize.QueryTypes.SELECT, raw: true }
+    //checks that the same email isn´t already save
+    sequelize.query('SELECT email FROM users WHERE email = ?',
+        {replacements: [email], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
         if (response.length !== 0) {
-            throw new Error ('Email o nombre de usuario ya en uso.') 
+            throw new Error ('Email ya en uso.') 
         }
         // creates the user in db with the values sent in the body of the request
         // admin is always false
         const fullname = `${name} ${surname}`
-        sequelize.query('INSERT INTO users (username, name, surname, fullname, email, password, address, phone, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            {replacements: [username, name, surname, fullname, email, password, address, phone, false]})
+        sequelize.query('INSERT INTO users (name, surname, fullname, email, password, phone, status, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            {replacements: [name, surname, fullname, email, password, phone, true, false]})
         .then((response) => {
-            res.status(201).json({ message: `El usuario ${username} fue creado exitosamente`,
-                user: {username: username, fullname: fullname, email: email, address: address, phone: phone}});
+            res.status(201).json({ message: `El usuario fue creado exitosamente.`,
+                user: {fullname: fullname, email: email, phone: phone}});
         })
     }).catch (function (err) {
         res.status(409).json({ error: err.message});
@@ -153,32 +150,84 @@ app.post('/users', (req, res) => {
 });
 
 //  Gets users if the user making the request is an admin
-// all users, user by id, username or email
+// all users, user by id or email
 app.get('/users', adminAuth, (req, res) => {
     const searchBy = Object.keys(req.query)[0];
     if (searchBy) {
         // searches user by the query param sent
-        sequelize.query(`SELECT * FROM users WHERE ${searchBy} = ?`,
-            {replacements: [req.query[searchBy]], type: sequelize.QueryTypes.SELECT, raw: true}
+        sequelize.query(`SELECT * FROM users WHERE ${searchBy} = ? AND status = ?`,
+            {replacements: [req.query[searchBy], true], type: sequelize.QueryTypes.SELECT, raw: true}
         ).then(([response]) => {
             if (response) {
                 // when user exists, sends response
-                res.status(200).send(response);
+                const { id, name, surname, fullname, email, phone, created_at } = response;
+                const user = {
+                    id,
+                    name,
+                    surname,
+                    fullname,
+                    email,
+                    phone,
+                    created_at
+                }
+                res.status(200).send(user);
             } else {
                 // when the user is not found, throws error
-                throw new Error (`Usuario con ${searchBy}: ${req.query[searchBy]} no pudo ser encontrado`);
+                throw new Error (`Usuario con ${searchBy}: ${req.query[searchBy]} no pudo ser encontrado.`);
             }
         }).catch(function (err){
             res.status(404);
             res.json({ error: err.message });
         });
     } else {
-        sequelize.query('SELECT * FROM users',
-            { type: sequelize.QueryTypes.SELECT }
+        sequelize.query('SELECT * FROM users WHERE status = ?',
+            { replacements: [true], type: sequelize.QueryTypes.SELECT }
         ).then((response) => {
-            res.status(200).json(response);
+            let allUsers = response.map((user) => {
+                const { id, name, surname, fullname, email, phone, created_at } = user;
+                return {
+                    id,
+                    name,
+                    surname,
+                    fullname,
+                    email,
+                    phone,
+                    created_at
+                }
+            });
+            res.status(200).json(allUsers);
         })
     }
+});
+
+// Get User By ID
+app.get('/users/id/:id', validateUser, (req, res) => {
+    const id = req.params.id;
+    // searches user by id and active status
+    sequelize.query(`SELECT * FROM users WHERE id = ? AND status = ?`,
+        {replacements: [id, true], type: sequelize.QueryTypes.SELECT, raw: true}
+    ).then(([response]) => {
+        if (response) {
+            // when user exists, sends response
+            const { id, name, surname, fullname, email, phone, created_at } = response;
+            const user = {
+                id,
+                name,
+                surname,
+                fullname,
+                email,
+                phone,
+                created_at
+            }
+            res.status(200).send(user);
+        } else {
+            // when the user is not found, throws error
+            throw new Error (`Usuario con Id ${id} no pudo ser encontrado.`);
+        }
+    }).catch(function (err){
+        res.status(404);
+        res.json({ error: err.message });
+    });
 });
 
 // Check existing email
@@ -187,16 +236,16 @@ app.get('/users/checkEmail', (req, res) => {
     // checks if there´s a missing value, returns an error if there is
     if (!email){
         res.status(400);
-        res.json({error: 'Este campo es obligatorio'})
+        res.json({error: 'Este campo es obligatorio.'})
         return;
     }
     //checks that the email isn´t already in use
-    sequelize.query(`SELECT email FROM users WHERE email = ?`,
-        {replacements: [email], type: sequelize.QueryTypes.SELECT, raw: true }
+    sequelize.query(`SELECT email FROM users WHERE email = ? AND status = ?`,
+        {replacements: [email, true], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
         // Matching username or email
         if (response.length !== 0) {
-            throw new Error ('Email ya en uso') 
+            throw new Error ('Email ya en uso.') 
         } else {
             // No matching, response with no content
             res.status(204).json();
@@ -204,6 +253,67 @@ app.get('/users/checkEmail', (req, res) => {
     }).catch (function (err) {
         res.status(409).json({ error: err.message });
     });
+});
+
+//  Edit user
+app.put('/users/:id', validateUser, (req, res) => {
+    const id = req.params.id;
+    const { name, surname, password, phone } = req.body;
+    if (!name || !surname || !phone){
+        // if nothing was sent in the body of the request, returns an error
+        res.status(400).json({error: 'Faltan valores requeridos.'});
+        return;
+    }
+    // checks the existence of an active user by the id sent
+    sequelize.query('SELECT * FROM users WHERE id = ? AND status = ?',
+        {replacements: [id, true], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) =>{
+        // if the user doesn´t exists or is inactive, returns an error
+        if (response.length == 0){
+            res.status(404);
+            throw new Error (`El usuario con Id ${id} no pudo ser encontrado.`);
+        }
+        // when the product by id is found and the product name is not in other product, makes the edition
+        const fullname = `${name} ${surname}`;
+        let setQuery = password ? 
+            `SET name = "${name}", surname = "${surname}", fullname = "${fullname}", password = "${password}", phone = ${phone}` :
+            `SET name = "${name}", surname = "${surname}", fullname = "${fullname}", phone = ${phone}`;
+        sequelize.query(`UPDATE users 
+            ${setQuery}
+            WHERE id = ?`,
+            { replacements: [id] }
+        ).then((response) => {
+            res.status(200).send('Usuario editado exitosamente.')
+        });
+    }).catch(function(err){
+        res.json({error: err.message});
+    })
+});
+
+//  Inactive user
+app.put('/users/inactive/:id', validateUser, (req, res) => {
+    const id = req.params.id;
+    // checks the existence of an active user by the id sent
+    sequelize.query('SELECT * FROM users WHERE id = ? AND status = ?',
+        {replacements: [id, true], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) =>{
+        // if the user doesn´t exists or is inactive, returns an error
+        if (response.length == 0){
+            res.status(404);
+            throw new Error (`El usuario con Id ${id} no pudo ser encontrado.`);
+        }
+        // when the product by id is found and the product name is not in other product, makes the edition
+        sequelize.query(
+            `UPDATE users 
+            SET status = false 
+            WHERE id = ?`, 
+            {replacements: [id]}
+        ).then((response) => {
+            res.status(200).send('Usuario desactivado exitosamente.')
+        });
+    }).catch(function(err){
+        res.json({error: err.message});
+    })
 });
 
 // PRODUCTS Endpoints
@@ -346,7 +456,6 @@ app.put('/products/:id', adminAuth, (req, res) => {
                 WHERE id = ?`, 
                 {replacements: [id]}
             ).then((response) => {
-                console.log(id)
                 res.status(200).send('Producto editado exitosamente.')
             });
         }).catch(function(err){
