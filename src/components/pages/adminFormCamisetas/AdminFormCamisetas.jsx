@@ -19,10 +19,10 @@ const AdminFormCamisetas = () => {
             {
                 id ?
                     (data.map((item) => (
-                        <>
+                        <div key={item.id}>
                             <h1 className='tituloFormAdminCamiseta'>Editar producto</h1>
-                            <AdminEditarCamiseta id={item.id} name={item.name} discount={item.discount} price={item.price} stock={item.stock} collection={item.collection} description={item.description} />
-                        </>
+                            <AdminEditarCamiseta id={item.id} name={item.name} images={item.images} discount={item.discount} price={item.price} stock={item.stock} collection={item.collection} description={item.description} />
+                        </div>
                     )))
                     :
                     (

@@ -5,8 +5,8 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Icon } from '@iconify/react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './NavClasica.css'
-import logoClasica from '../../../assets/LOGO-clasica.png'
+import './NavClasica.css';
+import logoClasica from '../../../assets/LOGO-clasica.png';
 import Boton from '../../atoms/boton/Boton';
 import { CartContext } from '../../context/CartContext';
 import { UserContext } from '../../context/UserContext';
@@ -25,6 +25,8 @@ const NavClasica = () => {
         setToken (""); 
         redirect("/");
     }
+
+    console.log(username);
 
     return (
         <header>

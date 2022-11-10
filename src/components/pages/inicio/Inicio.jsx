@@ -15,7 +15,7 @@ import { UserContext } from '../../context/UserContext';
 const Inicio = () => {
 
     const userContext = useContext (UserContext);
-    const { tokenDecode } = userContext;
+    const { tokenDecode, userAdmin  } = userContext;
 
     console.log (userContext);
 
@@ -82,6 +82,12 @@ const Inicio = () => {
                             data.length !==0 && 
                             <Link to="/Productos/Ofertas" className='estiloLinks'>
                                 <Boton estilo="botonAzul botonLogin" texto="Ver más ofertas" />
+                            </Link>
+                        }
+                        {
+                            userAdmin &&
+                            <Link to="/admin/formularioCamisetas" className='estiloLinks'>
+                                <Boton estilo="botonBlanco botonLogin" texto="Agregar productos" />
                             </Link>
                         }
                     </Container>

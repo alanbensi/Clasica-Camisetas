@@ -103,7 +103,8 @@ app.post('/login', (req, res) => {
             let payload = {
                 id: response[0].id,
                 email: response[0].email,
-                admin: response[0].admin
+                admin: response[0].admin,
+                username: response[0].username
             }
             res.status(200);
             // produces the token with jwt

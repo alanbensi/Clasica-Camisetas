@@ -1,7 +1,10 @@
-import React, { useContext } from 'react'
-import Boton from '../boton/Boton'
+import React, { useContext } from 'react';
+import Boton from '../boton/Boton';
 import { useForm } from "react-hook-form";
 import { UserContext } from '../../context/UserContext';
+import Swal from 'sweetalert';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const AdminEditarCamiseta = (props) => {
@@ -10,7 +13,34 @@ const AdminEditarCamiseta = (props) => {
     const { token } = userContext;
     const {register, errors, handleSubmit} = useForm();    
 
+    const redirect = useNavigate();
+    const handleSwal = (info) => {
+        if (info.buttons.length > 1) {
+            Swal({
+                title: info.title,
+                text: info.text,
+                icon: info.icon,
+                buttons: info.buttons,
+                timer: info.timer
+            })
+                .then(resp => {
+                    if (resp) {
+                        redirect(info.link)
+                    }
+                })
+        } else {
+            Swal({
+                title: info.title,
+                text: info.text,
+                icon: info.icon,
+                buttons: info.buttons,
+                timer: info.timer
+            })
+        }
+    }
+
     const onSubmit = (data) => {
+        debugger;
         const fetchOptions = {
             method: 'PUT',
             headers: { 
@@ -21,20 +51,37 @@ const AdminEditarCamiseta = (props) => {
         };
         fetch(`http://127.0.0.1:3001/products/${props.id}`, fetchOptions)
             .then(res => {
-                if(res.status === 200){
-                    console.log('ok')
+                if(res.status === 204){
+                    handleSwal({
+                        title: "El producto se modifico con exito!",
+                        icon: 'success',
+                        buttons: ['Cerrar', 'Ir a la camiseta'],
+                        link: `/Detalle-Camisetas/${props.id}`,
+                        timer: ''
+                    });
                 }else{
-                    console.log('ups')
+                    console.log (res.status, "ABCDEF")
+                    handleSwal({
+                        title: "Ocurrió un error.",
+                        text: "Asegurate de estar completando todos los campos!",
+                        icon: 'error',
+                        link: `/Detalle-Camisetas/${props.id}`,
+                        buttons: 'Cerrar',
+                        timer: ''
+                    });
                 }
             })
     }
+
+    
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="nombreCamiseta">Nombre del producto: </label>
             <input className='inputRegistrate formAdminCamisetas' name='name' type="text" placeholder='Nombre del producto...' defaultValue={props.name} {...register("name")} />
             <label htmlFor="imgCamiseta">Imagen: </label>
-            <input className='inputRegistrate formAdminCamisetas' name='images' type="file" placeholder='Imagen...' /* {...register("images")} */ />
+            <img className= "miniFoto" src={props.images} alt={props.name} />
+            <input className='inputRegistrate formAdminCamisetas' name='images' type="text" placeholder='Imagen...' defaultValue={props.images} {...register("images")} />
             <label htmlFor="descuentoCamiseta">Descuento: (Si no tiene descuento, poner 0) </label>
             <input className='inputRegistrate formAdminCamisetas' name='discount' type="number" placeholder='Descuento...' defaultValue={props.discount} {...register("discount")} />
             <label htmlFor="precioCamiseta">Precio: </label>

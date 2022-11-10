@@ -18,7 +18,7 @@ const DetalleCamisetas = () => {
     const cartContext = useContext(CartContext);
     const { setCarritoContexto } = cartContext;
     const userContext = useContext(UserContext);
-    const { userAdmin } = userContext;
+    const { userAdmin, token} = userContext;
 
     const ruta = useLocation();
     const [camiseta, setCamiseta] = useState({});
@@ -53,8 +53,8 @@ const DetalleCamisetas = () => {
 
 
     const redirect = useNavigate();
-    const handleSwal = (info)=> {
-        if (info.buttons.length >1) {
+    const handleSwal = (info) => {
+        if (info.buttons.length > 1) {
             Swal({
                 title: info.title,
                 text: info.text,
@@ -62,11 +62,11 @@ const DetalleCamisetas = () => {
                 buttons: info.buttons,
                 timer: info.timer
             })
-            .then(resp => {
-                if(resp) {
-                    redirect (info.link)
-                }
-            })
+                .then(resp => {
+                    if (resp) {
+                        redirect(info.link)
+                    }
+                })
         } else {
             Swal({
                 title: info.title,
@@ -81,21 +81,21 @@ const DetalleCamisetas = () => {
 
     const agregarAlCarrito = () => {
         const compra = camiseta;
-        compra.precioFinal = camiseta.discount ? (precioFinalConDescuento): (precioFinalSinDescuento);
-        compra.cantidad = cantidadSelect; 
-        if (carrito.some(item=>item.id === compra.id)) {
+        compra.precioFinal = camiseta.discount ? (precioFinalConDescuento) : (precioFinalSinDescuento);
+        compra.cantidad = cantidadSelect;
+        if (carrito.some(item => item.id === compra.id)) {
             handleSwal({
                 title: "Esta camiseta ya esta agregada al carrito",
                 text: "Si querés modificar la cantidad, podés hacerlo desde el carrito",
                 icon: 'warning',
-                buttons: ['Cerrar','Ir al carrito'],
+                buttons: ['Cerrar', 'Ir al carrito'],
                 link: "/Carrito-de-compras",
                 timer: ''
             });
-        }else {
+        } else {
             carrito.push(compra);
             localStorage.setItem("Carrito", JSON.stringify(carrito));
-            setCarritoContexto (carrito.length);
+            setCarritoContexto(carrito.length);
             handleSwal({
                 title: "Camiseta agregada con exito!",
                 text: "La camiseta se agregó exitosamente al carrito.",
@@ -110,7 +110,7 @@ const DetalleCamisetas = () => {
         const compra = camiseta;
         compra.precioFinal = camiseta.discount ? (precioFinalConDescuento) : (precioFinalSinDescuento);
         compra.cantidad = cantidadSelect;
-        if (carrito.some(item => item.id == compra.id)) {
+        if (carrito.some(item => item.id === compra.id)) {
             handleSwal({
                 title: "Esta camiseta ya esta agregada al carrito",
                 text: "Si querés modificar la cantidad, podés hacerlo desde el carrito",
@@ -134,6 +134,46 @@ const DetalleCamisetas = () => {
 
     const handleClick = (e) => {
         setCantidadSelect(parseInt(e.target.value));
+    }
+
+    const eliminarProducto = () => {
+        Swal({
+            title: "¿Estás seguro que deseas borrar este producto?",
+            text: "Tendrás que volver a agregarlo desde la plataforma",
+            icon: "warning",
+            buttons: {
+                cancel: "Salir",
+                catch: {
+                    text: "Eliminar",
+                    className: "botonRojo"
+                }},
+        }).then((willDelete) => {
+                if (willDelete) {
+                    const fetchOptions = {
+                        method: 'DELETE',
+                        headers: { 
+                            "Content-Type": "application/json",  
+                            "authorization": `Bearer ${token}`
+                        },
+                    }
+                    fetch(`http://127.0.0.1:3001/products/${camiseta.id}`, fetchOptions)
+                        .then(res => {
+                            if (res.status === 200) {
+                                Swal("La camiseta se elimino con exito!", {
+                                    icon: "success",
+                                });
+                            } else {
+                                Swal({
+                                    title: "Ocurrió un error.",
+                                    text: "LA CONCHA DE LA LORA",
+                                    icon: 'error',
+                                    buttons: 'Cerrar',
+                                    timer: ''
+                                });
+                            }
+                        })
+                }
+            });
     }
 
     return (
@@ -161,11 +201,16 @@ const DetalleCamisetas = () => {
                             {
                                 userAdmin ?
                                     (
-                                    <span className='iconoEditar'>
-                                        <Link className='estiloLinks' to={`/admin/formularioCamisetas/${camiseta.id}`}>
-                                            <Icon icon="el:pencil-alt" />
-                                        </Link>
-                                    </span>
+                                        <div>
+                                            <span className='iconoEditar'>
+                                                <Link className='estiloLinks' to={`/admin/formularioCamisetas/${camiseta.id}`}>
+                                                    <Icon icon="el:pencil-alt" />
+                                                </Link>
+                                            </span>
+                                            <span onClick={eliminarProducto} className='iconoEliminar'>
+                                                <Icon icon="fluent:delete-28-regular" />
+                                            </span>
+                                        </div>
                                     )
                                     :
                                     (null)
@@ -173,7 +218,7 @@ const DetalleCamisetas = () => {
                             <div className='d-flex justify-content-center'>
                                 <div className='contenedorImgDetalle'>
                                     <img className='imgDetalle' src={camiseta.images} alt={camiseta.name} />
-                                    {camiseta.discount !== 0 && 
+                                    {camiseta.discount !== 0 &&
                                         <div className='contenedorDescuentoDetalle'>
                                             <p>-{camiseta.discount}%</p>
                                         </div>
@@ -190,7 +235,7 @@ const DetalleCamisetas = () => {
                                     <h2 className='ms-2'>${precioFinalConDescuento}</h2>
                                 </div>)
                             }
-                            <ModalBootstrap clase='metodosDetalleCamisetas' textoBoton='Ver métodos de pago' titulo= 'Métodos de pago' contenido={<ModalMediosPago />} />
+                            <ModalBootstrap clase='metodosDetalleCamisetas' textoBoton='Ver métodos de pago' titulo='Métodos de pago' contenido={<ModalMediosPago />} />
                         </section>
                         <section className=''>
                             <Form.Select onChange={(e) => { handleClick(e) }} aria-label="Default select example">
