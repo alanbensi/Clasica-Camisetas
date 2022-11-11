@@ -320,9 +320,9 @@ app.put('/users/inactive/:id', validateUser, (req, res) => {
 
 //  Create product
 app.post('/products', adminAuth, (req, res) => {
-    const { name, images, discount, price, stock, collection, description } = req.body;
+    const { name, images, discount, price, price_usd, stock, collection, description } = req.body;
     // checks if there´s a missing value, returns an error if there is
-    if (!name || !price || !discount || !stock) {
+    if (!name || !price || !price_usd || !discount || !stock) {
         res.status(400);
         res.json({ error: 'Faltan campos obligatorios.' })
         return;
@@ -337,8 +337,8 @@ app.post('/products', adminAuth, (req, res) => {
             throw new Error (`El producto ${name} ya existe.`) 
         }
         //creates the product in db with the values sent in the body of the request
-        sequelize.query('INSERT INTO products (name, images, discount, price, stock, collection, description) VALUES (?, ?, ?, ?, ?, ?, ?)',
-            {replacements: [name, images, discount, price, stock, collection, description]})
+        sequelize.query('INSERT INTO products (name, images, discount, price, price_usd, stock, collection, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+            {replacements: [name, images, discount, price, price_usd, stock, collection, description]})
         .then(() => {
             res.status(201).json({ 
                 message: `Producto ${name} creado exitosamente.`,
@@ -347,6 +347,7 @@ app.post('/products', adminAuth, (req, res) => {
                     images: images,
                     discount: discount,
                     price: price,
+                    price_usd: price_usd,
                     stock: stock,
                     collection: collection,
                     description: description
@@ -360,8 +361,8 @@ app.post('/products', adminAuth, (req, res) => {
 
 //  Get all products
 app.get('/products', validateUser, (req, res) => {
-    sequelize.query('SELECT * FROM products',
-        { type: sequelize.QueryTypes.SELECT }
+    sequelize.query('SELECT * FROM products WHERE stock > ?',
+        { replacements: [0], type: sequelize.QueryTypes.SELECT }
     ).then((response) => {
         res.status(200).json(response);
     });
@@ -391,8 +392,8 @@ app.get('/products/collections/:collection', validateUser, (req, res) => {
     //extracts collection param from req
     let collection = req.params.collection;
     //search by the collection sent in the request
-    sequelize.query('SELECT * FROM products WHERE collection = ?',
-        {replacements: [collection], type: sequelize.QueryTypes.SELECT, raw: true }
+    sequelize.query('SELECT * FROM products WHERE collection = ? AND stock > ?',
+        {replacements: [collection, 0], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
         //checks if there are any product by collection sent in req
         if (response.length == 0) { 
@@ -408,8 +409,8 @@ app.get('/products/collections/:collection', validateUser, (req, res) => {
 // Get products with discount
 app.get('/productsWithDiscount', validateUser, (req, res) => {
     //search products with any discount
-    sequelize.query('SELECT * FROM products WHERE discount > ?',
-        {replacements: [0], type: sequelize.QueryTypes.SELECT, raw: true }
+    sequelize.query('SELECT * FROM products WHERE discount > ? AND stock > ?',
+        {replacements: [0, 0], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
         //checks if there are any product with discount
         if (response.length === 0) { 
@@ -425,14 +426,14 @@ app.get('/productsWithDiscount', validateUser, (req, res) => {
 //  Edit product
 app.put('/products/:id', adminAuth, (req, res) => {
     let id = req.params.id;
-    const { name, images, discount, price, stock, collection, description } = req.body;
-    if (!name || !price || !discount || !stock){
+    const { name, images, discount, price, price_usd, stock, collection, description } = req.body;
+    if (!name || !price || !price_usd || !discount || !stock){
         // if nothing was sent in the body of the request, returns an error
         res.status(400).json({error: 'Faltan valores requeridos.'});
         return;
     }
     // checks the existence of the product by the id sent
-    sequelize.query('SELECT * FROM products WHERE id = ? ',
+    sequelize.query('SELECT * FROM products WHERE id = ?',
         {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) =>{
         // if the product doesn´t exists, returns an error
@@ -441,7 +442,7 @@ app.put('/products/:id', adminAuth, (req, res) => {
             throw new Error (`El producto con Id ${id} no pudo ser encontrado.`);
         }
         // checks the existence of a product by the product name sent
-        sequelize.query('SELECT * FROM products WHERE name = ? ',
+        sequelize.query('SELECT * FROM products WHERE name = ?',
             {replacements: [name], type: sequelize.QueryTypes.SELECT, raw: true }
         ).then((response) =>{
             // if product name exists in other product, returns error
@@ -452,7 +453,7 @@ app.put('/products/:id', adminAuth, (req, res) => {
             // when the product by id is found and the product name is not in other product, makes the edition
             sequelize.query(
                 `UPDATE products 
-                SET name = "${name}", images = "${images}", discount = "${discount}", price = "${price}", stock = "${stock}", collection = "${collection}", description = "${description}" 
+                SET name = "${name}", images = "${images}", discount = "${discount}", price = "${price}", price_usd = "${price_usd}", stock = "${stock}", collection = "${collection}", description = "${description}" 
                 WHERE id = ?`, 
                 {replacements: [id]}
             ).then((response) => {
@@ -480,6 +481,195 @@ app.delete('/products/:id', adminAuth, (req, res) => {
         }
         // when the product by id exits, gets deleted
         sequelize.query('DELETE FROM products WHERE id = ?',
+            {replacements: [id]}
+        ).then((response) => {
+            res.status(204).json();
+        });
+    }).catch(function(err){
+        res.json({error: err.message});
+    });
+});
+
+// ORDERS Endpoints
+
+//  Create Order
+app.post('/orders', validateUser, (req, res) => {
+    const { id } = req.tokenData
+    const { order, order_items } = req.body;
+    // checks if the user with the id sent in the order exists
+    sequelize.query('SELECT id FROM users WHERE id = ?',
+        {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true}
+    ).then( async function (response) {
+        try {
+            let total = 0;
+            let totalUsd = 0;
+            // if there´s no user with the id sent, throws a not found error
+            if (response.length == 0){
+                res.status(404)
+                throw new Error (`El usuario con Id ${id} no pudo ser encontrado.`);
+            }
+            // when the user exists 
+            await Promise.all(order_items.map(async (item) => {
+                // gets the price, price in usd and stock of every item of the products table sent in order_items
+                const [itemPrice] = await sequelize.query('SELECT price, price_usd, stock FROM products WHERE id = ?',
+                { replacements: [item.product_id], type: sequelize.QueryTypes.SELECT, raw: true });
+                // if any of the products by id can't be found throws an error
+                if (!itemPrice){
+                    res.status(404)
+                    throw new Error (`El producto con Id ${item.product_id} no pudo ser encontrado.`);
+                }
+                // reduces stock by quantity ordered
+                let newStock = itemPrice.stock - item.quantity;
+                sequelize.query(`UPDATE products SET stock = "${newStock}" WHERE id = ?`, 
+                { replacements: [item.product_id] });
+                // adds the price of each item multiplied by the quantity
+                total += (itemPrice.price * item.quantity);
+                totalUsd += (itemPrice.price_usd * item.quantity);
+            }))
+            // after the price of the whole order is obtained, creates the order
+            sequelize.query('INSERT INTO orders (user_id, total, total_usd, order_status, payment, payment_status, address) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                {replacements: [id, total, totalUsd, "Nuevo", order.payment, "Pendiente", order.address]}
+            ).then((response) => {
+                // creates a register for every ordered item
+                order_items.forEach(item => {
+                    sequelize.query('INSERT INTO order_items (order_id, product_id, quantity) VALUES (?, ?, ?)',
+                    {replacements: [response[0], item.product_id, item.quantity]}); 
+                });
+                res.status(201).json({message: "La orden fue creada con éxito"});
+            });
+        } catch (err) {
+            res.json({ error: err.message });
+        }
+    }); 
+});
+
+//  Get all orders for admin or all orders for user id
+app.get('/orders', validateUser, (req, res) => {
+    const { id, admin } = req.tokenData;
+    // when the user logged in is an admin, returns all orders
+    if (admin === 1) {
+        sequelize.query('SELECT orders.*, users.fullname FROM orders JOIN users ON orders.user_id = users.id JOIN order_items ON orders.id = order_items.order_id JOIN products ON order_items.product_id = products.id GROUP BY order_items.order_id',
+            {type: sequelize.QueryTypes.SELECT, raw: true}
+        ).then(async function(response) {
+            try {
+                const ordersWithItems = [];
+                await Promise.all(response.map(async function(order){
+                    await sequelize.query('SELECT * FROM order_items WHERE order_id = ?',
+                        {replacements: [order.id], type: sequelize.QueryTypes.SELECT, raw: true }
+                    ).then((res) => {
+                        ordersWithItems.push({
+                            ...order,
+                            items: res
+                        });
+                    })
+                }))
+                res.status(200).json(ordersWithItems);
+            } catch (err) {
+                res.status(404).json({ error: err.message });
+            }
+        })
+    } 
+    // when the user logged in is not an admin, returns all orders made by that user
+    else if (admin === 0) {
+        sequelize.query('SELECT orders.*, users.fullname FROM orders JOIN users ON orders.user_id = users.id JOIN order_items ON orders.id = order_items.order_id JOIN products ON order_items.product_id = products.id WHERE orders.user_id = ? GROUP BY order_items.order_id',
+            {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true}
+        ).then(async function(response) {
+            try {
+                const ordersWithItems = [];
+                await Promise.all(response.map(async function(order){
+                    await sequelize.query('SELECT * FROM order_items WHERE order_id = ?',
+                        {replacements: [order.id], type: sequelize.QueryTypes.SELECT, raw: true }
+                    ).then((res) => {
+                        ordersWithItems.push({
+                            ...order,
+                            items: res
+                        });
+                    })
+                }))
+                res.status(200).json(ordersWithItems);
+            } catch (err) {
+                res.status(404).json({ error: err.message });
+            }
+        })
+    }
+});
+
+//  Get order by id 
+app.get('/orders/:id', adminAuth, (req, res) => {
+    const id = req.params.id;
+    // searches order by the id sent in path
+    sequelize.query('SELECT orders.*, users.fullname FROM orders JOIN users ON orders.user_id = users.id JOIN order_items ON orders.id = order_items.order_id JOIN products ON order_items.product_id = products.id WHERE orders.id = ?',
+        {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true}
+    ).then(([response]) => {
+        let orderData = response;
+        // if the order id can´t be found, throws error
+        if(!(response.id)){
+            res.status(404);
+            throw new Error (`La orden con id ${id} no pudo ser encontrada.`);
+        }
+        // when order exists, get order items
+        sequelize.query('SELECT * FROM order_items WHERE order_id = ?',
+            {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true }
+        ).then((response) => {
+            orderData = {
+                ...orderData,
+                items: response
+            }
+            // sends formatted response
+            res.status(200).json(orderData);
+        })
+    }).catch(function (err){
+        res.json({ error: err.message});
+    });
+});
+
+//  Edit status of the order by order id
+app.put('/orders/:id', adminAuth, (req, res) => {
+    const id = req.params.id;
+    const { order_status, payment, payment_status, address } = req.body;
+    if (!order_status || !payment || !payment_status || !address ){
+        // if nothing was sent in the body of the request, returns an error
+        res.status(400).json({error: `Faltan campos obligatorios.`});
+        return;
+    }
+    // checks the existence of the order by the id sent
+    sequelize.query('SELECT * FROM orders WHERE id = ?',
+        {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) =>{
+        // if the order doesn´t exists, returns an error
+        if (response.length == 0){
+            res.status(404);
+            throw new Error (`La orden con id ${id} no pudo ser encontrada.`);
+        }
+        // when the order by id is found, makes the edition
+        sequelize.query(
+            `UPDATE orders 
+            SET order_status = "${order_status}", payment = "${payment}", payment_status = "${payment_status}", address = "${address}" 
+            WHERE id = ?`, 
+            {replacements: [id]}
+        ).then((response) => { 
+            res.status(200).send('La orden fue editada exitosamente.');
+        });
+        // if order status was changed to cancelled, product stock returns to original state
+    }).catch(function(err){
+        res.json({error: err.message});
+    })
+});
+
+//  Delete order 
+app.delete('/orders/:id', adminAuth, (req, res) => {
+    const id = req.params.id;
+    // checks if the order by id exists
+    sequelize.query('SELECT * FROM orders WHERE id = ?',
+        {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true }
+    ).then((response) =>{
+        // if the order by id doesn´t exist, throws an error
+        if (response.length == 0){
+            res.status(404)
+            throw new Error (`La orden con id ${id} no pudo ser encontrada.`);
+        }
+        // when the order by id exits, gets deleted
+        sequelize.query('DELETE orders, order_items FROM orders JOIN order_items ON order_items.order_id = orders.id WHERE id = ?',
             {replacements: [id]}
         ).then((response) => {
             res.status(204).json();
