@@ -27,7 +27,7 @@ const Footer = () => {
                                     </Link>
                                 </li>
                                 <li className='listaFooter testAlan'>
-                                    <Link className='anchorFooter' to='/Productos/Entrenamiento y salidas'>Entrenamiento y salidas
+                                    <Link className='anchorFooter' to='/Productos/Entrenamientos y salidas'>Entrenamientos y salidas
                                     </Link>
                                 </li>
                                 <li className='listaFooter'> <Link className='anchorFooter' to='/Subastas'>Subastas</Link> </li>
