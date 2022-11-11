@@ -19,6 +19,16 @@ footer {
     margin-top: 1rem;
 }
 
+.productosFooter a {
+    color: white;
+    padding: 1.5rem 0;
+    margin-top: -1rem;
+}
+
+.pruebaAlan {
+    background-color: rgba(0, 53, 148, 1);
+}
+
 .imgMediosPagoFooter, .iconoRedesFooter {
     margin-right: 1rem;
 }
@@ -62,4 +72,27 @@ footer {
     text-decoration: none;
 }
 
+.testAlan {
+    margin-left: 2rem;
+    list-style: none;
+}
 
+@media (min-width:768px) {
+    .contenedorGeneralFooter {
+        display: flex;
+        justify-content: space-evenly;
+        border-bottom: solid 2px white;
+    }
+    .containerPagosFooter {
+        width: 100px;
+    }
+    .containerPagosFooter img {
+        margin: 1rem 0;
+    }
+    .containerIconosFooter {
+        border: none;
+    }
+    .parrafoCopyrightFooter {
+        text-align: center;
+    }
+}

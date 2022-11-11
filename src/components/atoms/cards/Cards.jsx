@@ -1,18 +1,36 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Card  from 'react-bootstrap/Card'
-import './Cards.css'
-
+import { UserContext } from '../../context/UserContext';
+import './Cards.css';
 const Cards = (props) => {
+
+    const calculoDescuento = (props.discount * props.precio) / 100;
+
+    const precioFinal = props.precio - calculoDescuento;
 
     return (
         <Card className='cards'>
-            <Card.Img variant="top" src={props.img} />
-            <Card.Body>
+            <Card.Img className='cardsImage' variant="top" src={props.img} />
+            <Card.Body className='reducirPaddingCard'>
                 <h3 className='textoCard tituloCard'>{props.titulo}</h3>
             </Card.Body>
             {props.precio &&  
                 <Card.Footer className='cardFooter'>
-                    <h3 className='textoCard tituloFooterCard'>{props.precioAntiguo ?<span className='spanPrecioAntiguo'>{props.precioAntiguo}</span>: false}{props.precio}</h3>
+                    {
+                        props.discount ? 
+                        (
+                            <h3 className='tituloFooterCard'>
+                                <span className='spanPrecioAntiguo'>${props.precio}</span>
+                                ${precioFinal}
+                            </h3>
+                        )
+                        :
+                        (
+                            <h3 className='tituloFooterCard'>
+                                ${props.precio}
+                            </h3>
+                        )
+                    }
                 </Card.Footer>
             }
         </Card>

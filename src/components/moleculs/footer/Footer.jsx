@@ -9,13 +9,30 @@ import iconoCorreoArg from '../../../assets/LOGO Correo Argentino.jpg'
 const Footer = () => {
     return (
         <footer>
-            <div>
+            <div className='contenedorGeneralFooter'>
                 <div className='containerFooter containerExplorarFooter'>
                     <p className='categoriasFooter'>Explorar</p>
                     <ul>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/'>Inicio</Link> </li>
-                        <li className='listaFooter'> <Link className='anchorFooter' to='/'>Categorias</Link> </li>
-                        <li className='listaFooter'> <Link className='anchorFooter' to='/Subastas'>Subastas</Link> </li>
+                        <li className='listaFooter'> <Link className='anchorFooter' to='/'>Productos</Link> </li>
+                        <li className='listaFooter anchorFooter'>
+                            Categorías:
+                            <ul>
+                                <li className='testAlan'> 
+                                    <Link className='anchorFooter' to='/Productos/Camisetas temporada actual'>Camisetas temporada actual
+                                    </Link> 
+                                </li>
+                                <li className='listaFooter testAlan'>
+                                    <Link className='anchorFooter' to='/Productos/Retros de coleccion'>Retros de coleccion
+                                    </Link>
+                                </li>
+                                <li className='listaFooter testAlan'>
+                                    <Link className='anchorFooter' to='/Productos/Entrenamiento y salidas'>Entrenamiento y salidas
+                                    </Link>
+                                </li>
+                                <li className='listaFooter'> <Link className='anchorFooter' to='/Subastas'>Subastas</Link> </li>
+                            </ul>
+                        </li>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/Ayuda'>Ayuda</Link> </li>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/Vende-tu-camiseta'>Vende tu camiseta</Link> </li>
                     </ul>
@@ -49,10 +66,8 @@ const Footer = () => {
                 </div>
             </div> 
             <div>
-                {/* LINEA CSS */}
                 <div className='containerFooter containerCopyrightFooter'>
                     <p className='parrafoCopyrightFooter'>Copyright CLASICA CAMISETAS - 2022. <br /> Todos los derechos reservados.</p>
-                    <p className='parrafoCopyrightFooter'>Defensa de las y los consumidores. <br /> Para reclamos <a className='' href="/">ingrese aqui</a></p>
                 </div>
             </div>
         </footer>

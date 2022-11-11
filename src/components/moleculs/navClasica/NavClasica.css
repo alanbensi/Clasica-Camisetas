@@ -8,10 +8,9 @@
 }
 
 .saludoUsuario {
-    font-size: 12px;
-    padding-left: 2rem;
+    font-size: 15px;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
 }
 
 .containerIconosNavbar {
@@ -29,13 +28,21 @@
 .linkIconoCarrito {
     width: 100%;
     height: 100%;
+    position: relative;
 }
 
-/* .linkIconoCarritoActive {
-    pointer-events: none !important;
-} */
-
-
+.contadorIconoCarrito {
+    border-radius: 50%;
+    background-color: rgba(0, 10, 148, 1);
+    color: white;
+    font-weight: 500;
+    position: absolute;
+    width: 20px;
+    text-align: center;
+    right: -20px;
+    top: 5px;
+    font-size: 12px;
+}
 
 .iconoCarrito {
     font-size: 30px;
@@ -72,4 +79,28 @@
 
 .linksRouter {
     text-decoration: none;
+}
+
+
+@media (min-width: 768px) {
+    .navbar {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+    }
+    .navbarDesplegado {
+        background-color: inherit;
+        grid-area: 1 / 2 / 2 / 5;
+    }
+    .navDesktop{
+        grid-area: 1 / 1 / 2 / 6;
+    }    
+    .containerLinksNavbar {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .containerLinksNavbar svg, .puto {
+        display: none !important;
+    } 
 }

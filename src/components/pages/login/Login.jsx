@@ -1,25 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Login.css'
 import { Icon } from '@iconify/react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Boton from '../../atoms/boton/Boton';
+import { UserContext } from '../../context/UserContext';
 
 const Login = () => {
+
+    const userContext = useContext (UserContext);
+    const {setToken} = userContext;
 
     const [error, seterror] = useState(false)
     const [tipoInput, settipoInput] = useState("password");
     const [emailValue, setEmailValue] = useState('');
 
     const handleBlurEmail = (value) =>{
-        console.log(value);
         setEmailValue(value);
     }
 
     const [passwordValue, setPasswordValue] = useState ('');
 
     const handleBlurPassword = (value) => {
-        console.log (value); 
         setPasswordValue (value);
     }
 
@@ -44,7 +46,8 @@ const Login = () => {
     const redirect = useNavigate ();
 
     const usuarioLogueado = (token)=> {
-        console.log ("LOGUEADO!", token);
+        setToken(token); 
+        localStorage.setItem ("token", token);
         redirect ("/");
     }
 
@@ -52,7 +55,7 @@ const Login = () => {
         fetch('http://127.0.0.1:3001/login', fetchOptions)
             .then(res => res.json())
             .then(res => res.error ? seterror(true) : usuarioLogueado(res.token));
-        };
+    };
 
     return (
         <>

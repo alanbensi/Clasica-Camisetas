@@ -1,5 +1,19 @@
+.cards {
+    margin-bottom: 1rem;
+    min-height: 100%;
+}
+
+.cardsImage {
+    height: 150px;
+    object-fit: contain;
+}
+
+.reducirPaddingCard {
+    padding-bottom: 0 !important;
+}
+
 .textoCard {
-    font-size: 15px;
+    font-size: 16px;
     text-align: center;
 }
 
@@ -15,14 +29,22 @@
 .tituloFooterCard {
     color: white;
     margin-top: 0.3rem;
-}
-
-.cards {
-    margin-bottom: 1rem;
+    font-size: 15px;
+    text-align: center;
 }
 
 .spanPrecioAntiguo {
     font-weight: 100;
     margin-right: 10px;
     text-decoration: line-through;
+}
+
+
+@media (min-width: 1024px) {
+    .textoCard {
+        font-size: 18px;
+    }
+    .tituloFooterCard {
+        font-size: 16px;
+    }
 }

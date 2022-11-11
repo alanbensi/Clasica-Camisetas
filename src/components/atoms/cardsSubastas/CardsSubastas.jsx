@@ -4,13 +4,13 @@ import './CardsSubastas.css';
 import { useCountdown } from '../../../hooks/useCountdown';
 
 const CardsSubastas = (props) => {
-    const date= '';
-    const time='';
+    const date = '22/10/2022';
+    const time ='00:00';
 
     const {timeCounter ,daysLeft, hoursLeft, minutesLeft, secondsLeft} = useCountdown(date, time);
     
     setInterval(() => {
-       timeCounter()
+        timeCounter()
     }, 1000)
 
     return (

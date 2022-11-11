@@ -1,0 +1,44 @@
+.contenedorCatInicioDesktop {
+    max-width: 100% !important;
+    overflow-x: hidden;
+    padding: 0 3rem;
+}
+
+.contenedorColCatDesktop {
+    justify-content: space-evenly;
+}
+
+.cardCatInicioDesktop {
+    width: 10rem;
+    height: 12.5rem;
+    margin: 20px auto;
+    margin-bottom: 3rem;
+    box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.25);
+}
+
+.titulocardCatInicioDesktop {
+    font-size: 14px;
+    text-align: center;
+    padding: 0.8rem 0;
+}
+
+.imgCatInicioDesktop {
+    width: 10rem;
+    height: 12.5rem;
+    object-fit: contain;
+    margin-top: -1rem;
+}
+
+.tempActualDesktop {
+    margin-top: -2rem;
+}
+
+@media (min-width: 1024px) {
+    .cardCatInicioDesktop, .imgCatInicioDesktop {
+        width: 14rem;
+        height: 16.5rem;
+    }
+    .tempActualDesktop {
+        margin-top: -1rem;
+    }
+}

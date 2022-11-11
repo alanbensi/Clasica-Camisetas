@@ -1,33 +1,22 @@
 import { Icon } from '@iconify/react';
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import './DetalleDeCompra.css'
 import iconoMP from '../../../assets/LOGO Mercado-Pago.png'
 import Boton from '../../atoms/boton/Boton'
+import ModalBootstrap from '../../moleculs/ModalBootstrap/ModalBootstrap';
+import ModalDetalleCompra from '../../atoms/ModalDetalleCompra/ModalDetalleCompra';
 
 const DetalleDeCompra = () => {
 
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    
     const [envio, setEnvio] = useState("");
     const envioDomicilio = (e) => {
         setEnvio (e.target.value);
-    } 
+    }
 
     return (
         <main>
             <section>
-                <Button className='botonModal' onClick={handleShow}>
-                    Ver detalles del pedido
-                    <Icon className='iconoArrowModal' icon="dashicons:arrow-down" />
-                </Button>
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton />
-                    <Modal.Body>ACA VAN LAS CARDS DE LAS CAMISETAS DEL CARRITO.</Modal.Body>
-                </Modal>
+                <ModalBootstrap clase='botonModal' textoBoton='Ver detalles del pedido' titulo='Detalle de pedido' contenido= {<ModalDetalleCompra />} icono={true} />
             </section>
             <section className='mx-3'>
                 <div>
@@ -47,6 +36,8 @@ const DetalleDeCompra = () => {
                         <input required type="text" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...'/>
                         <label htmlFor="dniDetallePedido">DNI *</label>
                         <input required type="text" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...'/>
+                        <label htmlFor="cuitDetallePedido">CUIT/CUIL *</label>
+                        <input required type="text" name="cuitDetallePedido" id="cuitDetallePedido" placeholder='Ingresá tu número de CUIT/CUIL...' />
                         <label htmlFor="cpDetallePedido">CODIGO POSTAL *</label>
                         <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...'/>
                         <label htmlFor="envioDetallePedido">ENVIO *</label>
@@ -57,10 +48,6 @@ const DetalleDeCompra = () => {
                         <div>
                             <input required className='radioDetallePedido me-3' type="radio" value="Retiro en sucursal de correo argentino" name="envioDetallePedido" id="envioCorreoArgentino" onChange={envioDomicilio} />
                             Retiro en sucursal de Correo Argentino
-                        </div>
-                        <div className='mb-3'>
-                            <input required className='radioDetallePedido me-3' type="radio" value="Retiro en punto de entrega" name="envioDetallePedido" id="retiro" onChange={envioDomicilio}/>
-                            Retiro en punto de entrega
                         </div>
                         {envio === "Domicilio" && 
                         <div className='contenedorEnvioDomicilio'>
@@ -74,23 +61,6 @@ const DetalleDeCompra = () => {
                         </div>
                         }
                     </form>
-                    <div>
-                        <h2 className='tituloResumenPedido'>Resumen del pedido</h2>
-                        <div className='containerResumenPedido'>
-                            <div>
-                                <p>PRODUCTOS</p>
-                                <p>ACA VA CAMISETA.TITULO</p>
-                                <p>ACA VA CAMISETA.TITULO</p>
-                                <p>TOTAL</p>
-                            </div>
-                            <div>
-                                <p>SUBTOTAL</p>
-                                <p>$22000</p>
-                                <p>$15786</p>
-                                <p>$21118</p>
-                            </div>
-                        </div>
-                    </div>
                     <div>
                         <h2 className='tituloMercadoPago'>Método de pago</h2>
                         <div className='d-flex justify-content-between'>
@@ -113,7 +83,7 @@ const DetalleDeCompra = () => {
                 <p className='textoMPDetalle'>Te llevamos a nuestro sitio para completar el pago</p>
             </section>
             <section className='mx-3'>
-                <p className='textoTerminosCondiciones'>Al continuar, aceptas nuestros <a className='terminosCondiciones' href="">Términos y Condiciones</a></p>
+                <p className='textoTerminosCondiciones'>Al continuar, aceptas nuestros <a className='terminosCondiciones' href="/">Términos y Condiciones</a></p>
                 <Boton estilo="botonNav botonAzul botonDetalleCompra" texto ="Realizar el pedido"></Boton>
                 <p>Sus datos personales se utilizarán para procesar su pedido y respaldar su experiencia en este sitio web.</p>
             </section>

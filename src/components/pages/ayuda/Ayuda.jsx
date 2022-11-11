@@ -2,9 +2,9 @@ import React from 'react'
 import './Ayuda.css'
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Icon } from '@iconify/react';
-import Boton from '../../atoms/boton/Boton';
 import Acordeon from '../../moleculs/acordeon/Acordeon';
+import Banner from '../../atoms/banner/Banner';
+import { Icon } from '@iconify/react';
 
 const Ayuda = () => {
 
@@ -15,41 +15,46 @@ const Ayuda = () => {
         setTitulo(rutaSinBarra);
     }, [ruta]);
 
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    let vistaComputadora = mediaQuery.matches;
+
     return (
         <>
-            <main className='px-3'>
-                <section className='d-flex mt-2'>
+            <main>
+                {
+                    vistaComputadora &&
+                    <Banner />
+                }
+                <section className='sectionBreadcrumb d-flex'>
                     <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
-                    <h1 className='ms-1 tituloAyuda'>{titulo}</h1>
+                    <p className='ms-1 breadcrumb'>{titulo}</p>
                 </section>
-                <section className='d-flex'>
-                    <div className='containerAyudaBuscar w-75'>
-                        <input type="search" placeholder='Buscar en ayuda...' className='inputAyudaBuscar ' />
-                        <Icon icon="akar-icons:search" className='iconoAyudaBuscar' />
-                    </div>
-                    <Boton estilo = 'botonAzul botonBusquedaAyuda' texto = 'Buscar' />
-                </section>
-                <section>
-                    <div>
+                <section className='sectionAyudaDesktop'>
+                    <div className='contenedorCategoriasFaqs'>
                         <h2 className='tituloCategoriasFaqs'>COMPRAS</h2>
                         <Acordeon keyPregunta="1" pregunta="Pregunta número 1" respuesta= "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                         <Acordeon keyPregunta="2" pregunta="Pregunta número 2" respuesta="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                         <Acordeon keyPregunta="3" pregunta="Pregunta número 3" respuesta="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                     </div>
-                    <div>
+                    <div className='contenedorCategoriasFaqs'>
                         <h2 className='tituloCategoriasFaqs'>SUBASTAS</h2>
                         <Acordeon keyPregunta="1" pregunta="Pregunta número 1" respuesta="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                         <Acordeon keyPregunta="2" pregunta="Pregunta número 2" respuesta="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                         <Acordeon keyPregunta="3" pregunta="Pregunta número 3" respuesta="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                     </div>
-                    <div>
+                    <div className='contenedorCategoriasFaqs'>
                         <h2 className='tituloCategoriasFaqs'>ENVIOS</h2>
                         <Acordeon keyPregunta="1" pregunta="Pregunta número 1" respuesta="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                         <Acordeon keyPregunta="2" pregunta="Pregunta número 2" respuesta="Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae fugit temporibus laborum, quod deserunt sed at, amet, vel sequi porro dolores. Velit eum itaque deserunt molestias quisquam, nemo temporibus!" />
                     </div>
                     <div className='mt-5'>
-                        <p>¿Necesitas más ayuda? <Link to='/' className='linkContactanos'>Contactanos</Link></p>
+                        <p>¿Necesitas más ayuda? <a href="http://wa.me/+5491131867585?&text=Hola, quería hacer una consulta acerca de" className='linkContactanos' target="_blank" rel="noopener noreferrer">Contactanos</a></p>
                     </div>
+                </section>
+                <section>
+                    <a href="https://wa.me/+5491131867585?&text=Hola, quería hacer una consulta acerca de" target="blank">
+                        <Icon className='botonWhatsapp' icon="logos:whatsapp-icon" />
+                    </a>
                 </section>
             </main>
         </>

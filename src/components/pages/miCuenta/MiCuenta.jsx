@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import './MiCuenta.css'
 
 const MiCuenta = () => {
+
+    const {id} = useParams(); 
+    console.log (id, "pepe"); 
 
     const ruta = useLocation();
     const [titulo, setTitulo] = useState("");
@@ -33,9 +36,9 @@ const MiCuenta = () => {
 
     return (
         <main className='px-3'>
-            <section className='d-flex mt-2 mb-2'>
+            <section className='d-flex mt-3 mb-2'>
                 <Link className='breadcrumb' to='/'>Inicio {'>'}</Link>
-                <p className='ms-1'>{titulo}</p>
+                <p className='breadcrumb ms-1'>Mi cuenta</p>
             </section>
             <section>
                 <div>

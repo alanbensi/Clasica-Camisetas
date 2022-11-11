@@ -103,7 +103,8 @@ app.post('/login', (req, res) => {
             let payload = {
                 id: response[0].id,
                 email: response[0].email,
-                admin: response[0].admin
+                admin: response[0].admin,
+                username: response[0].username
             }
             res.status(200);
             // produces the token with jwt
@@ -360,7 +361,7 @@ app.post('/products', adminAuth, (req, res) => {
 });
 
 //  Get all products
-app.get('/products', validateUser, (req, res) => {
+app.get('/products', (req, res) => {
     sequelize.query('SELECT * FROM products WHERE stock > ?',
         { replacements: [0], type: sequelize.QueryTypes.SELECT }
     ).then((response) => {
@@ -369,7 +370,7 @@ app.get('/products', validateUser, (req, res) => {
 });
 
 //  Get product by id
-app.get('/products/:id', validateUser, (req, res) => {
+app.get('/products/:id', (req, res) => {
     //extracts id param from req
     let id = req.params.id;
     //search by the id sent in the request
@@ -388,7 +389,7 @@ app.get('/products/:id', validateUser, (req, res) => {
 });
 
 // Get products by collection
-app.get('/products/collections/:collection', validateUser, (req, res) => {
+app.get('/products/collections/:collection', (req, res) => {
     //extracts collection param from req
     let collection = req.params.collection;
     //search by the collection sent in the request
@@ -407,7 +408,7 @@ app.get('/products/collections/:collection', validateUser, (req, res) => {
 });
 
 // Get products with discount
-app.get('/productsWithDiscount', validateUser, (req, res) => {
+app.get('/productsWithDiscount', (req, res) => {
     //search products with any discount
     sequelize.query('SELECT * FROM products WHERE discount > ? AND stock > ?',
         {replacements: [0, 0], type: sequelize.QueryTypes.SELECT, raw: true }

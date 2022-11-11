@@ -5,14 +5,13 @@ import './ContadorCarrito.css'
 const ContadorCarrito = ({camiseta, carrito, handleClick}) => {
 
     const [cantidadCamisetas, setcantidadCamisetas] = useState(contador);
-    const [contador, setContador] = useState(parseInt(camiseta.cantidad));
+    const [contador, setContador] = useState(camiseta.cantidad);
     const [errorMsj, setErrorMsj] = useState('');
 
     const sumarCamisetasCarrito = ()=> {
         
         if(contador < parseInt(camiseta.stock)){
             setContador (contador + 1);
-            handleClick();
         }
         else{
             setErrorMsj(`Stock máximo: ${camiseta.stock} unidades`)
@@ -21,20 +20,20 @@ const ContadorCarrito = ({camiseta, carrito, handleClick}) => {
     const restarCamisetasCarrito = () => {
         if (contador !== 1){
             setContador (contador - 1);
-            handleClick();
         }
     }
 
     useEffect (()=>{
+        handleClick(contador,camiseta.id);
         setcantidadCamisetas (contador)
         if(contador < parseInt(camiseta.stock)){
             setErrorMsj('')
         }
-        const filterCarrito = carrito.filter((item) => item.id === camiseta.id);     
-        filterCarrito[0].cantidad = contador;
-        let otrasCamisetas = carrito.filter((item) => item.id !== camiseta.id);
-        otrasCamisetas.push(filterCarrito);
-        localStorage.setItem("Carrito", JSON.stringify(otrasCamisetas));
+        // const filterCarrito = carrito.filter((item) => item.id === camiseta.id);     
+        // filterCarrito[0].cantidad = contador;
+        // let otrasCamisetas = carrito.filter((item) => item.id !== camiseta.id);
+        // otrasCamisetas.push(filterCarrito);
+        // localStorage.setItem("Carrito", JSON.stringify(otrasCamisetas));
     },[contador])
 
     return (

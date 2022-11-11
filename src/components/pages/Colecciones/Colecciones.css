@@ -1,0 +1,28 @@
+.divContainerProductos {
+    padding: 1rem;
+}
+
+.titTempActual {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 29px;
+}
+
+.noHayProductos {
+    text-align: center;
+}
+
+.container {
+    max-width: 100% !important;
+}
+
+@media (min-width: 768px) and (max-width:1024px) {
+    .divContainerProductos {
+        padding: 0 4.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .divContainerProductos {
+        padding: 1rem 9.5rem 2rem 9.5rem;
+    }
+}
