@@ -40,7 +40,6 @@ const AdminEditarCamiseta = (props) => {
     }
 
     const onSubmit = (data) => {
-        debugger;
         const fetchOptions = {
             method: 'PUT',
             headers: { 
@@ -51,7 +50,7 @@ const AdminEditarCamiseta = (props) => {
         };
         fetch(`http://127.0.0.1:3001/products/${props.id}`, fetchOptions)
             .then(res => {
-                if(res.status === 204){
+                if(res.status !== 204){
                     handleSwal({
                         title: "El producto se modifico con exito!",
                         icon: 'success',

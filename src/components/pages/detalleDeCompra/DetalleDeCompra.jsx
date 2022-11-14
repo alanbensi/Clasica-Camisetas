@@ -10,13 +10,13 @@ const DetalleDeCompra = () => {
 
     const [envio, setEnvio] = useState("");
     const envioDomicilio = (e) => {
-        setEnvio (e.target.value);
+        setEnvio(e.target.value);
     }
 
     return (
         <main>
             <section>
-                <ModalBootstrap clase='botonModal' textoBoton='Ver detalles del pedido' titulo='Detalle de pedido' contenido= {<ModalDetalleCompra />} icono={true} />
+                <ModalBootstrap clase='botonModal' textoBoton='Ver detalles del pedido' titulo='Detalle de pedido' contenido={<ModalDetalleCompra />} icono={true} />
             </section>
             <section className='mx-3'>
                 <div>
@@ -31,34 +31,44 @@ const DetalleDeCompra = () => {
                         <label htmlFor="apellidosDetallePedido">APELLIDOS *</label>
                         <input required type="text" name="apellidosetallePedido" id="apellidosDetallePedido" placeholder='Ingresá tus apellidos...' />
                         <label htmlFor="correoDetallePedido">CORREO ELECTRÓNICO *</label>
-                        <input required type="text" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...'/>
+                        <input required type="text" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...' />
                         <label htmlFor="telefonoDetallePedido">TELEFONO *</label>
-                        <input required type="text" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...'/>
+                        <input required type="text" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...' />
                         <label htmlFor="dniDetallePedido">DNI *</label>
-                        <input required type="text" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...'/>
+                        <input required type="text" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...' />
                         <label htmlFor="cuitDetallePedido">CUIT/CUIL *</label>
                         <input required type="text" name="cuitDetallePedido" id="cuitDetallePedido" placeholder='Ingresá tu número de CUIT/CUIL...' />
                         <label htmlFor="cpDetallePedido">CODIGO POSTAL *</label>
-                        <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...'/>
+                        <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...' />
                         <label htmlFor="envioDetallePedido">ENVIO *</label>
                         <div className='d-flex align-items-center'>
                             <input required className='radioDetallePedido me-3' type="radio" value="Domicilio" name="envioDetallePedido" id="envioDomicilio" onChange={envioDomicilio} />
-                            Envío a domicilio    
+                            Envío a domicilio
                         </div>
                         <div>
-                            <input required className='radioDetallePedido me-3' type="radio" value="Retiro en sucursal de correo argentino" name="envioDetallePedido" id="envioCorreoArgentino" onChange={envioDomicilio} />
+                            <input required className='radioDetallePedido me-3' type="radio" value="Sucursal" name="envioDetallePedido" id="envioCorreoArgentino" onChange={envioDomicilio} />
                             Retiro en sucursal de Correo Argentino
                         </div>
-                        {envio === "Domicilio" && 
-                        <div className='contenedorEnvioDomicilio'>
-                            <h2 className='tituloDetallesCompra mb-3'>Envío a domicilio</h2>
-                            <label htmlFor="nombreDetallePedido">DIRECCIÓN *</label>
-                            <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu dirección...' />
-                            <label htmlFor="nombreDetallePedido">CIUDAD *</label>
-                            <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...'/>
-                            <label htmlFor="nombreDetallePedido">PROVINCIA *</label>
-                            <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...'/>
-                        </div>
+                        {envio === "Domicilio" &&
+                            <div className='contenedorEnvioDomicilio'>
+                                <h2 className='tituloDetallesCompra mb-3'>Envío a domicilio</h2>
+                                <label htmlFor="nombreDetallePedido">DIRECCIÓN *</label>
+                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu dirección...' />
+                                <label htmlFor="nombreDetallePedido">CIUDAD *</label>
+                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...' />
+                                <label htmlFor="nombreDetallePedido">PROVINCIA *</label>
+                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...' />
+                            </div>
+                        }
+                        {
+                            envio === "Sucursal" &&
+                            <div className='mt-3'>
+                                <a href="https://www.correoargentino.com.ar/formularios/sucursales" target="_blank" rel="noopener noreferrer">Ver las sucursales de Correo Argentino</a>
+                                <div className='mt-3'>
+                                    <label htmlFor="">Por favor escribinos tu sucursal más cercana: </label>
+                                    <input type="text" />
+                                </div>
+                            </div>
                         }
                     </form>
                     <div>
@@ -70,7 +80,7 @@ const DetalleDeCompra = () => {
                             </div>
                             <img className='logoMercadoPago' src={iconoMP} alt="Mercado pago" />
                         </div>
-                        
+
                     </div>
                 </div>
             </section>
@@ -84,7 +94,7 @@ const DetalleDeCompra = () => {
             </section>
             <section className='mx-3'>
                 <p className='textoTerminosCondiciones'>Al continuar, aceptas nuestros <a className='terminosCondiciones' href="/">Términos y Condiciones</a></p>
-                <Boton estilo="botonNav botonAzul botonDetalleCompra" texto ="Realizar el pedido"></Boton>
+                <Boton estilo="botonNav botonAzul botonDetalleCompra" texto="Realizar el pedido"></Boton>
                 <p>Sus datos personales se utilizarán para procesar su pedido y respaldar su experiencia en este sitio web.</p>
             </section>
         </main>

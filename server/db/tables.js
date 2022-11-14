@@ -4,19 +4,19 @@ const Sequelize = require('sequelize');
 const sequelize = require('../server.js');
 
 const queries = [
-    // {
-    //     table: 'users', 
-    //     layout: `id INT PRIMARY KEY AUTO_INCREMENT,
-    //             name VARCHAR(255) NOT NULL,
-    //             surname VARCHAR(255) NOT NULL,
-    //             fullname VARCHAR(255) NOT NULL, 
-    //             email VARCHAR(255) UNIQUE NOT NULL, 
-    //             password VARCHAR(100) NOT NULL,
-    //             phone VARCHAR(50) NOT NULL,
-    //             admin BOOLEAN NOT NULL,
-    //             status BOOLEAN NOT NULL,
-    //             created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
-    // },
+    {
+        table: 'users', 
+        layout: `id INT PRIMARY KEY AUTO_INCREMENT,
+                name VARCHAR(255) NOT NULL,
+                surname VARCHAR(255) NOT NULL,
+                fullname VARCHAR(255) NOT NULL, 
+                email VARCHAR(255) UNIQUE NOT NULL, 
+                password VARCHAR(100) NOT NULL,
+                phone VARCHAR(50) NOT NULL,
+                admin BOOLEAN NOT NULL,
+                status BOOLEAN NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
+    },
     {
         table: 'products',
         layout: `id INT PRIMARY KEY AUTO_INCREMENT,

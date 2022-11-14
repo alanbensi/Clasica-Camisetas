@@ -78,7 +78,6 @@ const DetalleCamisetas = () => {
         }
     }
 
-
     const agregarAlCarrito = () => {
         const compra = camiseta;
         compra.precioFinal = camiseta.discount ? (precioFinalConDescuento) : (precioFinalSinDescuento);
@@ -158,14 +157,17 @@ const DetalleCamisetas = () => {
                     }
                     fetch(`http://127.0.0.1:3001/products/${camiseta.id}`, fetchOptions)
                         .then(res => {
-                            if (res.status === 200) {
+                            if (res.status !== 200) {
                                 Swal("La camiseta se elimino con exito!", {
                                     icon: "success",
+                                    buttons: 'Cerrar',
+                                    timer: ''
                                 });
+                                redirect ("/");
                             } else {
                                 Swal({
                                     title: "Ocurrió un error.",
-                                    text: "LA CONCHA DE LA LORA",
+                                    text: "La camiseta no pudo borrarse de la plataforma.",
                                     icon: 'error',
                                     buttons: 'Cerrar',
                                     timer: ''

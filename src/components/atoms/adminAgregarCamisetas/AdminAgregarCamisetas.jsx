@@ -51,7 +51,7 @@ const AdminAgregarCamisetas = () => {
                 console.log ("hola", res);
                 if (res.status === 201) {
                     handleSwal({
-                        title: "El producto se modifico con exito!",
+                        title: "El producto se agrego con exito!",
                         icon: 'success',
                         buttons: ['Cerrar', 'Ir a la camiseta'],
                         link: ``,
@@ -80,6 +80,8 @@ const AdminAgregarCamisetas = () => {
             <input className='inputRegistrate formAdminCamisetas' name='discount' type="number"  {...register("discount")}/>
             <label htmlFor="precioCamiseta">Precio: </label>
             <input className='inputRegistrate formAdminCamisetas' name='price' type="number" {...register("price")} />
+            <label htmlFor="precioCamiseta">Precio en dolares: </label>
+            <input className='inputRegistrate formAdminCamisetas' name='price_usd' type="number" {...register("price_usd")} />
             <label htmlFor="stockCamiseta">Stock: </label>
             <input className='inputRegistrate formAdminCamisetas' name='stock' type="number"  {...register("stock")}/>
             <div className='containerSelectFormAdmin formAdminCamisetas'>

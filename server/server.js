@@ -241,7 +241,7 @@ app.get('/users/checkEmail', (req, res) => {
         return;
     }
     //checks that the email isn´t already in use
-    sequelize.query(`SELECT email FROM users WHERE email = ? AND status = ?`,
+    sequelize.query(`SELECT email FROM users WHERE email = ?`,
         {replacements: [email, true], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
         // Matching username or email

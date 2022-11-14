@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useFetchData } from '../../../hooks/useFetch';
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '../../context/UserContext';
 import { Icon } from '@iconify/react';import { Link } from 'react-router-dom';
 ;
 
