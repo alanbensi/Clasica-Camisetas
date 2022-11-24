@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import Card  from 'react-bootstrap/Card'
-import { UserContext } from '../../context/UserContext';
 import './Cards.css';
 const Cards = (props) => {
 

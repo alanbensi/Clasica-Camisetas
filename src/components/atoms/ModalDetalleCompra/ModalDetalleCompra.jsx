@@ -20,7 +20,6 @@ const ModalDetalleCompra = () => {
                             </div>
                         </div>
                     </div>
-                    <hr />
                 </div>
             ))}
         </>

@@ -26,8 +26,6 @@ const NavClasica = () => {
         redirect("/");
     }
 
-    console.log(username);
-
     return (
         <header>
             <Navbar collapseOnSelect expand="md" className='bgNavbar'>
@@ -102,8 +100,8 @@ const NavClasica = () => {
                                                 </NavLink>
                                             </NavDropdown.Item>
                                             <NavDropdown.Item className='paginasDropdownProductos'>
-                                                <NavLink to='/Productos/Entrenamiento y salidas' className="estiloLinks">
-                                                    Entrenamiento y salidas
+                                                <NavLink to='/Productos/Entrenamientos y salidas' className="estiloLinks">
+                                                    Entrenamientos y salidas
                                                 </NavLink>
                                             </NavDropdown.Item>
                                         </Navbar.Toggle>

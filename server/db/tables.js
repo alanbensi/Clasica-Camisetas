@@ -18,31 +18,31 @@ const queries = [
                 status BOOLEAN NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
     },
-    // {
-    //     table: 'products',
-    //     layout: `id INT PRIMARY KEY AUTO_INCREMENT,
-    //             name VARCHAR(100) UNIQUE NOT NULL,
-    //             images VARCHAR(1000),
-    //             discount INT NOT NULL,
-    //             price DECIMAL(12, 2) NOT NULL,
-    //             price_usd DECIMAL(12, 2) NOT NULL,
-    //             stock INT NOT NULL,
-    //             collection VARCHAR(50),
-    //             description TEXT,
-    //             created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
-    // },
-    // {
-    //     table:'orders',
-    //     layout: `id INT PRIMARY KEY AUTO_INCREMENT, 
-    //             user_id INT NOT NULL, 
-    //             total DECIMAL(12, 2) NOT NULL,
-    //             total_usd DECIMAL(12, 2) NOT NULL,
-    //             order_status VARCHAR(100), 
-    //             payment VARCHAR(10),
-    //             payment_status VARCHAR(100),
-    //             address VARCHAR(255) NOT NULL,
-    //             created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
-    // },
+    {
+        table: 'products',
+        layout: `id INT PRIMARY KEY AUTO_INCREMENT,
+                name VARCHAR(100) UNIQUE NOT NULL,
+                images VARCHAR(1000),
+                discount INT NOT NULL,
+                price DECIMAL(12, 2) NOT NULL,
+                price_usd DECIMAL(12, 2) NOT NULL,
+                stock INT NOT NULL,
+                collection VARCHAR(50),
+                description TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
+    },
+    {
+        table:'orders',
+        layout: `id INT PRIMARY KEY AUTO_INCREMENT, 
+                user_id INT NOT NULL, 
+                total DECIMAL(12, 2) NOT NULL,
+                total_usd DECIMAL(12, 2) NOT NULL,
+                order_status VARCHAR(100), 
+                payment VARCHAR(10),
+                payment_status VARCHAR(100),
+                address VARCHAR(255) NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
+    },
     {
         table:'order_items',
         layout: `id INT PRIMARY KEY AUTO_INCREMENT,

@@ -19,6 +19,7 @@ const UserProvider = (props) => {
             setUserID(tokenDecode.id);
             setUserAdmin(tokenDecode.admin);
             setUsername(tokenDecode.username);
+            console.log ("token decode", tokenDecode)
         }else {
             setUserID(0);
             setUserAdmin(0);
@@ -26,11 +27,15 @@ const UserProvider = (props) => {
         }
     }, [token])
 
+
     return (
         <UserContext.Provider value={{userID, userAdmin, setToken, username, token}}>
             {props.children}
         </UserContext.Provider>
     )
 }
+
+
+
 
 export default UserProvider
