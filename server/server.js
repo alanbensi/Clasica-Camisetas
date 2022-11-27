@@ -142,8 +142,10 @@ app.post('/users', (req, res) => {
         sequelize.query('INSERT INTO users (username, name, surname, fullname, email, password, phone, status, admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
             {replacements: [username, name, surname, fullname, email, password, phone, true, false]})
         .then((response) => {
-            res.status(201).json({ message: `El usuario fue creado exitosamente.`,
-                user: {username, fullname, email, phone}});
+            res.status(201).json({
+                message: `El usuario fue creado exitosamente.`,
+                user: {username, fullname, email, phone
+            }});
         })
     }).catch (function (err) {
         res.status(409).json({ error: err.message});
@@ -164,9 +166,10 @@ app.get('/users', validateUser, (req, res) => {
             ).then(([response]) => {
                 if (response) {
                     // when user exists, sends formatted user
-                    const { id, name, surname, fullname, email, phone, created_at } = response;
+                    const { id, username, name, surname, fullname, email, phone, created_at } = response;
                     const user = {
                         id,
+                        username,
                         name,
                         surname,
                         fullname,
@@ -190,9 +193,10 @@ app.get('/users', validateUser, (req, res) => {
                 { replacements: [true], type: sequelize.QueryTypes.SELECT }
             ).then((response) => {
                 let allUsers = response.map((user) => {
-                    const { id, name, surname, fullname, email, phone, created_at } = user;
+                    const { id, username, name, surname, fullname, email, phone, created_at } = user;
                     return {
                         id,
+                        username,
                         name,
                         surname,
                         fullname,
@@ -213,9 +217,10 @@ app.get('/users', validateUser, (req, res) => {
         ).then(([response]) => {
             if (response) {
                 // when user exists, sends response
-                const { id, name, surname, fullname, email, phone, created_at } = response;
+                const { id, username, name, surname, fullname, email, phone, created_at } = response;
                 const user = {
                     id,
+                    username,
                     name,
                     surname,
                     fullname,
@@ -248,7 +253,7 @@ app.get('/users/checkEmail', (req, res) => {
     sequelize.query(`SELECT email FROM users WHERE email = ? AND status = ?`,
         {replacements: [email, true], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) => {
-        // Matching username or email
+        // Matching email
         if (response.length !== 0) {
             throw new Error ('Email ya en uso.') 
         } else {
@@ -433,7 +438,7 @@ app.get('/productsWithDiscount', (req, res) => {
 app.put('/products/:id', adminAuth, (req, res) => {
     let id = req.params.id;
     const { name, images, discount, price, price_usd, stock, collection, description } = req.body;
-    if (!name || !price || !price_usd || !discount || !stock){
+    if (!name || !images || !price || !price_usd || !discount || !stock || !collection || !description){
         // if nothing was sent in the body of the request, returns an error
         res.status(400).json({error: 'Faltan valores requeridos.'});
         return;
@@ -550,11 +555,14 @@ app.post('/orders', validateUser, (req, res) => {
     }); 
 });
 
-//  Get all orders for admin or all orders for user id
+//  Get all orders or orders by any user id for admin or all orders for logged user id
 app.get('/orders', validateUser, (req, res) => {
     const { id, admin } = req.tokenData;
-    // when the user logged in is an admin, returns all orders
-    if (admin === 1) {
+    const { userId } = req.body;
+    // user id to search by depending on whether the logged user is an admin or not
+    const idToUse = admin === 1 ? userId : id;
+    // when the user logged in is an admin and an user id was not sent in body, returns all orders
+    if (admin === 1 && userId == null) {
         sequelize.query('SELECT orders.*, users.fullname FROM orders JOIN users ON orders.user_id = users.id JOIN order_items ON orders.id = order_items.order_id JOIN products ON order_items.product_id = products.id GROUP BY orders.id',
             {type: sequelize.QueryTypes.SELECT, raw: true}
         ).then(async function(response) {
@@ -582,14 +590,15 @@ app.get('/orders', validateUser, (req, res) => {
         })
     } 
     // when the user logged in is not an admin, returns all orders made by that user
-    else if (admin === 0) {
+    // and when the user logged in is an admin and an user id was sent in body, returns all orders by sent id
+    else {
         sequelize.query('SELECT orders.*, users.fullname FROM orders JOIN users ON orders.user_id = users.id JOIN order_items ON orders.id = order_items.order_id JOIN products ON order_items.product_id = products.id WHERE orders.user_id = ? GROUP BY orders.id',
-            {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true}
+            {replacements: [idToUse], type: sequelize.QueryTypes.SELECT, raw: true}
         ).then(async function(response) {
             try {
                 if (response.length === 0){
                     res.status(404)
-                    throw new Error (`El usuario no ha hecho ningun pedido.`);
+                    throw new Error (`El usuario no ha hecho ningún pedido.`);
                 }
                 const ordersWithItems = [];
                 await Promise.all(response.map(async function(order){
@@ -622,7 +631,7 @@ app.get('/orders/:id', adminAuth, (req, res) => {
         // if the order id can´t be found, throws error
         if(!(response.id)){
             res.status(404);
-            throw new Error (`La orden con id ${id} no pudo ser encontrada.`);
+            throw new Error (`La orden con Id ${id} no pudo ser encontrada.`);
         }
         // when order exists, get order items
         sequelize.query(`SELECT order_items.*, products.name, products.images
@@ -641,37 +650,6 @@ app.get('/orders/:id', adminAuth, (req, res) => {
     });
 });
 
-//  Get order by user id 
-app.get('/orders/byUser/:id', adminAuth, (req, res) => {
-    const id = req.params.id;
-    // searches order by the user id sent in path
-    sequelize.query('SELECT orders.*, users.fullname FROM orders JOIN users ON orders.user_id = users.id JOIN order_items ON orders.id = order_items.order_id JOIN products ON order_items.product_id = products.id WHERE users.id = ? GROUP BY orders.id',
-            {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true}
-        ).then(async function(response) {
-            try {
-                if (response.length === 0){
-                    res.status(404)
-                    throw new Error (`No hay pedidos del usuario con Id ${id}.`);
-                }
-                const ordersWithItems = [];
-                await Promise.all(response.map(async function(order){
-                    await sequelize.query(`SELECT order_items.*, products.name, products.images
-                        FROM order_items JOIN products ON order_items.product_id = products.id WHERE order_id = ? GROUP BY order_items.id`,
-                        {replacements: [order.id], type: sequelize.QueryTypes.SELECT, raw: true }
-                    ).then((res) => {
-                        ordersWithItems.push({
-                            ...order,
-                            items: res
-                        });
-                    })
-                }))
-                res.status(200).json(ordersWithItems);
-            } catch (err) {
-                res.json({ error: err.message });
-            }
-        })
-});
-
 //  Edit status of the order by order id
 app.put('/orders/:id', adminAuth, (req, res) => {
     const id = req.params.id;
@@ -688,7 +666,7 @@ app.put('/orders/:id', adminAuth, (req, res) => {
         // if the order doesn´t exists, returns an error
         if (response.length == 0){
             res.status(404);
-            throw new Error (`La orden con id ${id} no pudo ser encontrada.`);
+            throw new Error (`La orden con Id ${id} no pudo ser encontrada.`);
         }
         // when the order by id is found, makes the edition
         sequelize.query(
@@ -715,7 +693,7 @@ app.delete('/orders/:id', adminAuth, (req, res) => {
         // if the order by id doesn´t exist, throws an error
         if (response.length == 0){
             res.status(404)
-            throw new Error (`La orden con id ${id} no pudo ser encontrada.`);
+            throw new Error (`La orden con Id ${id} no pudo ser encontrada.`);
         }
         // when the order by id exits, gets deleted
         sequelize.query('DELETE orders, order_items FROM orders JOIN order_items ON order_items.order_id = orders.id WHERE id = ?',
@@ -742,10 +720,11 @@ app.get('/all', validateUser, (req, res) => {
         let userInfo = {};
         if (response) {
             // when user exists, sends response
-            const { id, name, surname, fullname, email, phone, created_at } = response;
+            const { id, username, name, surname, fullname, email, phone, created_at } = response;
             userInfo = {
                 user: {
                     id,
+                    username,
                     name,
                     surname,
                     fullname,
