@@ -94,9 +94,12 @@ app.post('/login', (req, res) => {
         return;
     }
     // searches all user information
-    sequelize.query('SELECT * FROM users WHERE email = ?',
-        {replacements: [email], type: sequelize.QueryTypes.SELECT }
+    sequelize.query('SELECT * FROM users WHERE email = ? AND status = ?',
+        {replacements: [email, true], type: sequelize.QueryTypes.SELECT }
     ).then((response) => {
+        if (response.length === 0) {
+            throw new Error ('Inicio de sesión fallido: Usuario no encontrado.');
+        }
         //checks if the found info and the submitted are the same
         //when they are, responds a token with the user id, username and admin info gotten from the select query
         if (response[0].password === password) {
@@ -112,10 +115,10 @@ app.post('/login', (req, res) => {
             // responds the token formed
             res.json({ token });
         } else {
-            throw new Error ();
+            throw new Error ('Inicio de sesión fallido: Email o contraseña incorrectos.');
         }
-    }).catch (() => {
-        res.status(401).json({ error: 'Inicio de sesión fallido: Email o contraseña incorrectos.' });
+    }).catch (function (err) {
+        res.status(401).json({ error: err.message });
     });
 });
 
@@ -508,8 +511,8 @@ app.post('/orders', validateUser, (req, res) => {
     const { id } = req.tokenData
     const { order, order_items } = req.body;
     // checks if the user with the id sent in the order exists
-    sequelize.query('SELECT id FROM users WHERE id = ?',
-        {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true}
+    sequelize.query('SELECT id FROM users WHERE id = ? AND status = ?',
+        {replacements: [id, true], type: sequelize.QueryTypes.SELECT, raw: true}
     ).then(async function (response) {
         try {
             // if there´s no user with the id sent, throws a not found error
