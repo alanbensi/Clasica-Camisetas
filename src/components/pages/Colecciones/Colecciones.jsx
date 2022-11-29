@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link, useLocation, useParams } from 'react-router-dom';
+import { info } from 'sass';
 import { useFetchData } from "../../../hooks/useFetch";
 import Banner from '../../atoms/banner/Banner';
 import Cards from '../../atoms/cards/Cards';
@@ -25,30 +26,62 @@ const Colecciones = () => {
 
     const { fetchData, data, loading } = useFetchData (url);
 
+    const [Info, setInfo] = useState([]);
+
     useEffect(() => {
         fetchData();
     }, [url])
     
+    useEffect(() => {
+        setInfo(data); 
+    }, [data])
+
     const mediaQuery = window.matchMedia('(min-width: 768px)');
     let vistaComputadora = mediaQuery.matches;
 
-    // const [listado, setListado] = useState([])
-    
-    // useEffect(() => {
-    //     const test = async()=>{
-    //         await fetchData();
-    //         setListado(data);
+    const calculoPrecioTotal = (price, discount) => {
+        const calculoDescuento = (parseInt(discount) * parseInt(price)) / 100;
+        return parseInt(price) - calculoDescuento;
+    }
+
+    const precioMenorMayor = ()=> {
+        if (Info.length > 0) {
+            let _informacion = [...Info]
+            _informacion.sort((p1, p2) => (calculoPrecioTotal(p1.price, p1.discount) > calculoPrecioTotal(p2.price, p2.discount)) ? 1 : (calculoPrecioTotal(p1.price, p1.discount) < calculoPrecioTotal(p2.price, p2.discount)) ? -1 : 0);
+            setInfo(_informacion);
+        }
+    }
+
+    const precioMayorMenor = () => {
+        if (Info.length > 0) {
+            let _informacion = [...Info]
+            _informacion.sort((p1, p2) => (calculoPrecioTotal(p1.price, p1.discount) < calculoPrecioTotal(p2.price, p2.discount)) ? 1 : (calculoPrecioTotal(p1.price, p1.discount) > calculoPrecioTotal(p2.price, p2.discount)) ? -1 : 0);
+            setInfo(_informacion);
+        }
+    }
+
+    const masAntiguo = () => {
+        if (Info.length > 0) {
+            let _informacion = [...Info]
+            _informacion.sort((p1, p2) => (p1.created_at) > (p2.created_at) ? 1 : (p1.created_at) < (p2.created_at) ? -1 : 0);
+            setInfo(_informacion);
+        }
+    }
+
+    const masReciente = () => {
+        if (Info.length > 0) {
+            let _informacion = [...Info]
+            _informacion.sort((p1, p2) => (p1.created_at) < (p2.created_at) ? 1 : (p1.created_at) > (p2.created_at) ? -1 : 0);
+            setInfo(_informacion);
+        }
+    }
+
+    // const enOferta = () => {
+    //     if (Info.length > 0) {
+    //         let _informacion = [...Info]
+    //         _informacion.filter(oferta=> oferta.discount? oferta.discount : null);
+    //         setInfo(_informacion);
     //     }
-    //     test(); 
-    // }, [nombreColeccion])
-    
-    // const precioMenorMayor = ()=> {
-    //     console.log ("hola", listado);
-    //     const listaOrdenada = [...data].sort((a, b) => {
-    //         return a.price > b.price ? 1:-1
-    //     })
-    //     debugger
-    //     setListado(listaOrdenada);
     // }
 
     return (
@@ -78,11 +111,11 @@ const Colecciones = () => {
                             }
                         </div>
                         <h1 className='titTempActual'>{nombreColeccion}</h1>
-                        <Filtrado />
+                        <Filtrado precioMenorMayor={precioMenorMayor} precioMayorMenor={precioMayorMenor} masAntiguo={masAntiguo} masReciente = {masReciente}  />
                         <Container className='mt-3'>
                             <Row>
-                                {data.length !== 0 ?
-                                    (data.map((camiseta) => (
+                                {Info.length > 0 ?
+                                    (Info.map((camiseta) => (
                                         <Col className='cardMargin' key={camiseta.id} lg={3} md={3} xs={6}>
                                             <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
                                                 <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} />

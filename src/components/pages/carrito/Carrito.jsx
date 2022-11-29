@@ -76,58 +76,6 @@ const Carrito = () => {
         }
     }
 
-    // const handleSwal = (info) => {
-    //     if (info.buttons.length > 1) {
-    //         Swal({
-    //             title: info.title,
-    //             text: info.text,
-    //             icon: info.icon,
-    //             buttons: info.buttons,
-    //             timer: info.timer
-    //         })
-    //             .then(resp => {
-    //                 if (resp.buttons.continuar) {
-    //                     redirect(info.buttons.continuar.link);
-    //                 } else {
-    //                     redirect(info.buttons.registrarse.link2);
-    //                 }
-    //             })
-    //     } else {
-    //         Swal({
-    //             title: info.title,
-    //             text: info.text,
-    //             icon: info.icon,
-    //             buttons: info.buttons,
-    //             timer: info.timer
-    //         })
-    //     }
-    // }
-
-    // const iniciarCompra = ()=> {
-    //     if (userID) {
-    //         redirect('/Detalle-de-compra'); 
-    //     } else {
-    //         handleSwal({
-    //             title: "No tendrás seguimiento!",
-    //             text: "El seguimiento de tu compra solo podrá ser realizado en caso de que estés registrado.",
-    //             icon: 'warning',
-    //             buttons: {
-    //                 continuar: {
-    //                     text: "Continuar",
-    //                     className: "",
-    //                     link: "/Detalle-de-compra"
-    //                 }, 
-    //                 registrarse: {
-    //                     text: "Ir al registro",
-    //                     className: "botonAzul botonLogin",
-    //                     link2: "/Registrate"
-    //                 }
-    //             },
-    //             timer: ''
-    //         });
-    //     }
-    // }
-
     useEffect (()=>{
         if (localStorage.getItem('Carrito')) {setCarrito(JSON.parse(localStorage.getItem('Carrito')))};
     },[cambioContador]);
@@ -200,7 +148,6 @@ const Carrito = () => {
                     (
                     <>
                         <div>
-                            <p className='envioGratisCarrito'>Envío gratis</p>
                             <p className='precioFinalCarrito'>Precio final ${precioTotal}</p>
                         </div>
                         <div className='mb-3'>

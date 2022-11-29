@@ -149,7 +149,8 @@ const NavClasica = () => {
                                     
                                     )
                                     :
-                                    (<NavLink to = { userID?(`/Mi-cuenta/${userID}`) : ('/Login')} className='d-flex estiloLinks'>
+                                    (userID &&
+                                    <NavLink to = { userID?(`/Mi-cuenta/${userID}`) : ('/Login')} className='d-flex estiloLinks'>
                                         <Icon icon="codicon:account" width= '20px' />
                                         <p className='ms-3'>Mi cuenta</p>
                                     </NavLink>

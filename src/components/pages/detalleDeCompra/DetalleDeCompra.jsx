@@ -40,6 +40,7 @@ const DetalleDeCompra = () => {
                         <input required type="text" name="cuitDetallePedido" id="cuitDetallePedido" placeholder='Ingresá tu número de CUIT/CUIL...' />
                         <label htmlFor="cpDetallePedido">CODIGO POSTAL *</label>
                         <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...' />
+                        <a className='mb-4' href="https://www.correoargentino.com.ar/formularios/cpa" target="_blank" rel="noopener noreferrer">No conozco mi código postal</a>
                         <label htmlFor="envioDetallePedido">ENVIO *</label>
                         <div className='d-flex align-items-center'>
                             <input required className='radioDetallePedido me-3' type="radio" value="Domicilio" name="envioDetallePedido" id="envioDomicilio" onChange={envioDomicilio} />
@@ -58,6 +59,10 @@ const DetalleDeCompra = () => {
                                 <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...' />
                                 <label htmlFor="nombreDetallePedido">PROVINCIA *</label>
                                 <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...' />
+                                <select name="" id="">
+                                    <option value="argentina">Argentina</option>
+                                    <option value="OtroPais">Otro pais</option>
+                                </select>
                             </div>
                         }
                         {
