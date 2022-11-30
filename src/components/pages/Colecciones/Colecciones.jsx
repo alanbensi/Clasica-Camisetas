@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { info } from 'sass';
 import { useFetchData } from "../../../hooks/useFetch";
 import Banner from '../../atoms/banner/Banner';
 import Cards from '../../atoms/cards/Cards';
@@ -46,7 +45,7 @@ const Colecciones = () => {
 
     const precioMenorMayor = ()=> {
         if (Info.length > 0) {
-            let _informacion = [...Info]
+            let _informacion = Info.length === data.length ? [...Info] : data;
             _informacion.sort((p1, p2) => (calculoPrecioTotal(p1.price, p1.discount) > calculoPrecioTotal(p2.price, p2.discount)) ? 1 : (calculoPrecioTotal(p1.price, p1.discount) < calculoPrecioTotal(p2.price, p2.discount)) ? -1 : 0);
             setInfo(_informacion);
         }
@@ -54,7 +53,7 @@ const Colecciones = () => {
 
     const precioMayorMenor = () => {
         if (Info.length > 0) {
-            let _informacion = [...Info]
+            let _informacion = Info.length === data.length ? [...Info] : data;
             _informacion.sort((p1, p2) => (calculoPrecioTotal(p1.price, p1.discount) < calculoPrecioTotal(p2.price, p2.discount)) ? 1 : (calculoPrecioTotal(p1.price, p1.discount) > calculoPrecioTotal(p2.price, p2.discount)) ? -1 : 0);
             setInfo(_informacion);
         }
@@ -62,7 +61,7 @@ const Colecciones = () => {
 
     const masAntiguo = () => {
         if (Info.length > 0) {
-            let _informacion = [...Info]
+            let _informacion = Info.length === data.length ? [...Info] : data;
             _informacion.sort((p1, p2) => (p1.created_at) > (p2.created_at) ? 1 : (p1.created_at) < (p2.created_at) ? -1 : 0);
             setInfo(_informacion);
         }
@@ -70,19 +69,20 @@ const Colecciones = () => {
 
     const masReciente = () => {
         if (Info.length > 0) {
-            let _informacion = [...Info]
+            let _informacion = Info.length === data.length ? [...Info] : data;
             _informacion.sort((p1, p2) => (p1.created_at) < (p2.created_at) ? 1 : (p1.created_at) > (p2.created_at) ? -1 : 0);
             setInfo(_informacion);
         }
     }
 
-    // const enOferta = () => {
-    //     if (Info.length > 0) {
-    //         let _informacion = [...Info]
-    //         _informacion.filter(oferta=> oferta.discount? oferta.discount : null);
-    //         setInfo(_informacion);
-    //     }
-    // }
+     const enOferta = () => {
+        if (Info.length > 0) {
+            let _informacion = [...Info]
+            const newArray = _informacion.filter(oferta=> parseInt(oferta.discount) > 0);
+            console.log('en oferta ', newArray)
+             setInfo(newArray);
+         }
+     }
 
     return (
         <main>
@@ -111,7 +111,13 @@ const Colecciones = () => {
                             }
                         </div>
                         <h1 className='titTempActual'>{nombreColeccion}</h1>
-                        <Filtrado precioMenorMayor={precioMenorMayor} precioMayorMenor={precioMayorMenor} masAntiguo={masAntiguo} masReciente = {masReciente}  />
+                        <Filtrado 
+                            precioMenorMayor={precioMenorMayor}
+                            precioMayorMenor={precioMayorMenor}
+                            masAntiguo={masAntiguo}
+                            masReciente={masReciente}
+                            enOferta={enOferta}
+                        />
                         <Container className='mt-3'>
                             <Row>
                                 {Info.length > 0 ?

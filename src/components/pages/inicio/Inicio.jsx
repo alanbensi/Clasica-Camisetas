@@ -21,8 +21,8 @@ const Inicio = () => {
 
     const { fetchData, data, loading } = useFetchData('/productsWithDiscount');
 
-    const ofertasMobile = data.slice(0, 6);
-    const ofertasDesktop = data.slice(0, 8);
+    const ofertasMobile = !data.error ? data.slice(0, 6) : [];
+    const ofertasDesktop = !data.error  ? data.slice(0, 8) : [];
 
     useEffect(() => {
         fetchData();
