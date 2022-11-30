@@ -7,6 +7,7 @@ const queries = [
     {
         table: 'users', 
         layout: `id INT PRIMARY KEY AUTO_INCREMENT,
+                username VARCHAR(100) UNIQUE NOT NULL,
                 name VARCHAR(255) NOT NULL,
                 surname VARCHAR(255) NOT NULL,
                 fullname VARCHAR(255) NOT NULL, 
@@ -47,7 +48,10 @@ const queries = [
         layout: `id INT PRIMARY KEY AUTO_INCREMENT,
                 order_id INT NOT NULL, 
                 product_id INT NOT NULL,
-                quantity INT NOT NULL`
+                quantity INT NOT NULL,
+                price DECIMAL(12, 2) NOT NULL,
+                price_usd DECIMAL(12, 2) NOT NULL,
+                discount INT NOT NULL`
     }
 ]
 // Create database tables
