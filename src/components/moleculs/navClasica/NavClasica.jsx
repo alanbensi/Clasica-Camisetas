@@ -145,8 +145,11 @@ const NavClasica = () => {
                                             <Icon icon="carbon:add-alt" width='20px' />
                                             <p className='ms-3'>Agregar productos</p>
                                         </NavLink>
+                                        <NavLink to='/Subastas' className='d-flex estiloLinks'>
+                                            <Icon icon="carbon:add-alt" width='20px' />
+                                            <p className='ms-3'>Agregar subastas</p>
+                                        </NavLink>
                                     </>
-                                    
                                     )
                                     :
                                     (userID &&
