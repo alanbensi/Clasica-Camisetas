@@ -86,10 +86,10 @@ const Registrate = () => {
             .then(res => {
                 if (res.status === 201) {
                     handleSwal({
-                        title: "Enviar mail al usuario",
+                        title: "Te registraste con exito!",
                         icon: 'success',
-                        buttons: ['Cerrar', 'Inicio'],
-                        link: `/`,
+                        buttons: 'Login',
+                        link: `/Login`,
                         timer: ''
                     });
                 } else {
@@ -115,6 +115,7 @@ const Registrate = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <input className='inputRegistrate' type="text" placeholder='Nombres' {...register("name")}/>
                         <input className='inputRegistrate' type="text" placeholder='Apellidos' {...register("surname")}/>
+                        <input className='inputRegistrate' type="text" placeholder='Nombre de usuario' {...register("username")} />
                         <input className='inputRegistrate' type="email" placeholder='Email' onBlur={(e) => checkEmail(e)}{...register("email")}/>
                         {errorMsj && <p>{errorMsj}</p>}
                         <input className='inputRegistrate' type="number" placeholder='Número de teléfono' {...register("phone")}/>

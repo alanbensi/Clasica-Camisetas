@@ -24,6 +24,7 @@ import CartProvider from './components/context/CartContext';
 import AdminUsuarios from './components/pages/adminUsuarios/AdminUsuarios';
 import AdminDetalleUsuarios from './components/pages/adminDetalleUsuarios/AdminDetalleUsuarios';
 import AdminFormCamisetas from './components/pages/adminFormCamisetas/AdminFormCamisetas';
+import EditarMiCuenta from './components/pages/editarMiCuenta/EditarMiCuenta';
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
           <Route exact path='/Detalle-subastas/Nueva-oferta' element={<NuevaOfertaSubasta />} />
           <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
           <Route exact path='/Mi-cuenta/:id' element={<MiCuenta />} />
+          <Route exact path='/Editar-mi-cuenta/:id' element={<EditarMiCuenta />} />
           <Route exact path='/Carrito-de-compras' element= {<Carrito />} />
           <Route exact path='/Detalle-de-compra' element={<DetalleDeCompra />} />
           <Route exact path='/admin/usuarios' element={<AdminUsuarios />} />

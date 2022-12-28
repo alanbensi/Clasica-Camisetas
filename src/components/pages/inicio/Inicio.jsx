@@ -52,7 +52,10 @@ const Inicio = () => {
                     <h2 className='titOfertasInicio'>OFERTAS</h2>
                     <Container>
                         <Row>
-                            {data.length !== 0 ?
+                            {data.length === 0 || data.error ?
+                                (<p className='noHayOfertas'>Actualmente no hay productos en oferta. Podés buscar los productos deseados en su respectiva categoria.
+                                </p>)
+                                :
                                 (vistaComputadora ?
                                     (
                                         ofertasDesktop.map((camiseta) => (
@@ -73,9 +76,6 @@ const Inicio = () => {
                                         ))
                                     )
                                 )
-                                :
-                                (<p className='noHayOfertas'>Actualmente no hay productos en oferta. Podés buscar los productos deseados en su respectiva categoria.
-                                </p>)
                             }
                         </Row>
                         {
