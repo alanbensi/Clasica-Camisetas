@@ -60,7 +60,7 @@ const NavClasica = () => {
                 },
                 '& + .MuiSwitch-track': {
                     opacity: 1,
-                    backgroundColor:'#8796A5',
+                    backgroundColor:'#BF0D3E',
                 },
             },
         },
@@ -82,7 +82,7 @@ const NavClasica = () => {
         },
         '& .MuiSwitch-track': {
             opacity: 1,
-            backgroundColor: '#aab4be',
+            backgroundColor: '#75AADB',
             borderRadius: 20 / 2,
         },
     }));

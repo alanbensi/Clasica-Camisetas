@@ -36,6 +36,7 @@ const Registrate = () => {
     const checkEmail = (e) => {
         const emailValue = e.target.value;
         setEmail(emailValue);
+        console.log (emailValue, "email value")
     }
 
     useEffect(() => {        
@@ -120,15 +121,17 @@ const Registrate = () => {
                         {errors.surname ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
                         <input className='inputRegistrate' type="text" placeholder='Nombre de usuario *' {...register("username",{required:true})} />
                         {errors.username ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
-                        <input className='inputRegistrate' type="email" placeholder='Email *' onBlur={(e) => checkEmail(e)}{...register("email", {pattern: {value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ }})} />
-                        {errors.email ? (<p className='erroresForm'>El formato del mail es incorrecto</p>) : ("")}
+                        <input className='inputRegistrate' type="email" placeholder='Email *'{...register("email", {required: true , pattern: {value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/}})} />
+                        {errors.email && errors.email.type === "required" ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
+                        {errors.email && errors.email.type === "pattern" ? (<p className='erroresForm'>El formato del mail es incorrecto.</p>) : ("")}
                         <input className='inputRegistrate' type="number" placeholder='Número de teléfono *' {...register("phone", { required: true })} />
                         {errors.phone ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
                         <div className='containerInputPassword'>
-                            <input className='inputRegistrate' type={tipoInput} placeholder='Contraseña *' {...register("password", { required: true })} />
+                            <input className='inputRegistrate' type={tipoInput} placeholder='Contraseña *' {...register("password", { required: true, minLength: 8 })} />
                             <Icon onClick={mostrarContraseña} icon="clarity:eye-line" className='iconoOjoRegistrate' />
                         </div>
-                        {errors.password ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
+                        {errors.password && errors.password.type === "required" ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
+                        {errors.password && errors.password.type === "minLength" ? (<p className='erroresForm'>La contraseña debe tener al menos 8 caracteres</p>) : ("")}
                         <div className='containerInputPassword'>
                             <input className='inputRegistrate' type={tipoInput2} placeholder='Repetir contraseña *' {...register("confirmPassword", {
                                 required: true,
