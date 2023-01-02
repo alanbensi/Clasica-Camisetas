@@ -10,6 +10,7 @@ const UserProvider = (props) => {
     const [userID, setUserID] = useState(0);
     const [userAdmin, setUserAdmin] = useState(0);
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     let tokenDecode;
 
     useEffect(() => {
@@ -19,17 +20,19 @@ const UserProvider = (props) => {
             setUserID(tokenDecode.id);
             setUserAdmin(tokenDecode.admin);
             setUsername(tokenDecode.username);
+            setEmail(tokenDecode.email)
             console.log ("token decode", tokenDecode)
         }else {
             setUserID(0);
             setUserAdmin(0);
             setUsername("");
+            setEmail("");
         }
     }, [token])
 
 
     return (
-        <UserContext.Provider value={{userID, userAdmin, setToken, username, token,tokenDecode}}>
+        <UserContext.Provider value={{userID, userAdmin, setToken, username, token}}>
             {props.children}
         </UserContext.Provider>
     )

@@ -21,10 +21,11 @@ const DetalleDeCompra = () => {
 
     const [pais, setPais] = useState("");
     const paisDomicilio = (e) => {
+        console.log (e.target.value, "select")
         setPais(e.target.value);
     }
     
-    const [billetera, setBilletera] = useState ("");
+    const [billetera, setBilletera] = useState ("mp");
     const billeteraVirtual = (e) => {
         setBilletera (e.target.value);
     }
@@ -38,10 +39,6 @@ const DetalleDeCompra = () => {
     useEffect(() => {
         getInfoUser();
     }, []);
-
-    useEffect(() => {
-        console.log(dataUser, "hola")
-    }, [dataUser]);
 
     const [total, setTotal] = useState(0);
     const [totalUSD, setTotalUSD] = useState(0);
@@ -70,14 +67,14 @@ const DetalleDeCompra = () => {
         let sumaTotal = 0;
         let sumaTotalUSD = 0;
         carritoLocal.forEach(camiseta => {
-            if (billetera === "mercado pago") {
+            if (billetera === "mp") {
                 sumaTotal += camiseta.precioFinal;
                 console.log("SEEEEEEEEE")
             } else {
                 sumaTotalUSD += camiseta.price_usd;
             }
         });
-        if (billetera === "mercado pago") {
+        if (billetera === "mp") {
             setTotal(sumaTotal);
         } else if(billetera === "paypal") {
             setTotalUSD(sumaTotalUSD);
@@ -158,6 +155,7 @@ const DetalleDeCompra = () => {
                         link2: "/",
                         timer: ''
                     });
+                    localStorage.removeItem("Carrito");
                 } else {
                     handleSwal({
                         title: "Ocurrió un error creando la orden!",
@@ -174,7 +172,7 @@ const DetalleDeCompra = () => {
     return (
         <main>
             <section>
-                <ModalBootstrap clase='botonModal' textoBoton='Ver detalles del pedido' titulo='Detalle de pedido' contenido={<ModalDetalleCompra />} icono={true} />
+                <ModalBootstrap clase='botonModal' textoBoton='Ver detalles del pedido' titulo='Detalle de pedido' total={total} totalUSD={totalUSD} contenido={<ModalDetalleCompra />} icono={true} />
             </section>
             <section className='mx-3'>
                 <div>
@@ -189,7 +187,7 @@ const DetalleDeCompra = () => {
                         <label htmlFor="apellidosDetallePedido">APELLIDOS *</label>
                         <input required type="text" name="apellidosetallePedido" id="apellidosDetallePedido" placeholder='Ingresá tus apellidos...' defaultValue={dataUser.surname} />
                         <label htmlFor="correoDetallePedido">CORREO ELECTRÓNICO *</label>
-                        <input required type="email" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...' />
+                        <input required type="email" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...' defaultValue={dataUser.email} className= {dataUser.email ? "readOnlyInput" : ""}/>
                         <label htmlFor="telefonoDetallePedido">TELEFONO *</label>
                         <input required type="number" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...' defaultValue={dataUser.phone} />
                         <label htmlFor="dniDetallePedido">DNI *</label>
@@ -199,13 +197,6 @@ const DetalleDeCompra = () => {
                         <label htmlFor="cpDetallePedido">CODIGO POSTAL *</label>
                         <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...' onChange={(e)=> setCP(e.target.value)} />
                         <a className='mb-4' href="https://www.correoargentino.com.ar/formularios/cpa" target="_blank" rel="noopener noreferrer">No conozco mi código postal</a>
-                        <div>
-                            <label htmlFor="pais" className='d-block'>PAÍS *</label>
-                            <select name="" id="">
-                                <option value="argentina" onChange={paisDomicilio}>Argentina</option>
-                                <option value="OtroPais" onChange={paisDomicilio}>Otro pais</option>
-                            </select>
-                        </div>
                         <label htmlFor="envioDetallePedido">ENVIO *</label>
                         <div className='d-flex align-items-center'>
                             <input required className='radioDetallePedido me-3' type="radio" value="Domicilio" name="envioDetallePedido" id="envioDomicilio" onChange={envioDomicilio} />
@@ -237,22 +228,6 @@ const DetalleDeCompra = () => {
                             </div>
                         }
                     </form>
-                    {
-                        pais === "argentina" &&
-                        <div>
-                            <h2 className='tituloMercadoPago'>Método de pago</h2>
-                            <div className=''>
-                                <div className='d-flex align-items-center'>
-                                    <input required className='radioDetallePedido me-3' type="radio" value="mercado pago" name="billeteraVirtual" id="mercadoPago" onChange={billeteraVirtual} />
-                                    <img className='logoMercadoPago' src={iconoMP} alt="Mercado pago" />
-                                </div>
-                                <div>
-                                    <input required className='radioDetallePedido me-3' type="radio" value="paypal" name="billeteraVirtual" id="paypal" onChange={billeteraVirtual} />
-                                    <img className='logoMercadoPago' src={iconoPaypal} alt="Paypal" />
-                                </div>
-                            </div>                        
-                        </div>
-                    } 
                 </div>
             </section>
             <section className='containerMercadoPagoCompra'>

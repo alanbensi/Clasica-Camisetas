@@ -46,6 +46,11 @@
     border: solid 1px #979797;
 }
 
+.readOnlyInput {
+    pointer-events: none;
+    background-color: #e3e0e0;
+}
+
 .radioDetallePedido {
     width: 15px !important;
     height: 15px;

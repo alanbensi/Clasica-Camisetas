@@ -27,6 +27,7 @@ const Carrito = () => {
     const [carrito, setCarrito] = useState ([]);
     const [cambioContador, setCambioContador] = useState(true);
     const [precioTotal, setPrecioTotal] = useState(0);
+    const [precioTotalUSD, setPrecioTotalUSD] = useState (0); 
 
     const borrarItem = (id)=> {
         setCarrito (carrito.filter((item)=>item.id !== id));        
@@ -102,10 +103,13 @@ const Carrito = () => {
 
     const calculoPrecioTotal = ()=> {
         let cuenta= 0; 
+        let cuentaUSD = 0; 
         carrito.map(item => {
-            cuenta += (parseInt(item.cantidad) * parseInt(item.precioFinal))
+            cuenta += (parseInt(item.cantidad) * parseInt(item.precioFinal));
+            cuentaUSD += (parseInt(item.cantidad) * parseInt(item.price_usd));
         });
-        setPrecioTotal(cuenta);  
+        setPrecioTotal(cuenta);
+        setPrecioTotalUSD (cuentaUSD);
     }
 
     useEffect(() => {
@@ -149,6 +153,7 @@ const Carrito = () => {
                     <>
                         <div>
                             <p className='precioFinalCarrito'>Precio final ${precioTotal}</p>
+                            <p className='precioFinalCarrito'>Precio final ${precioTotalUSD}</p>
                         </div>
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>

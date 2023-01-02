@@ -44,6 +44,24 @@
     font-size: 12px;
 }
 
+.switchNav {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: end !important;
+}
+
+.switchTexto {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.switchTexto span {
+    font-weight: 400;
+}
+
 .iconoCarrito {
     font-size: 30px;
     margin-bottom: 0.15rem;
@@ -60,7 +78,7 @@
 }
 
 .containerLinksNavbar {
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem;
 }
 
 .dropdownProductos a {

@@ -51,6 +51,15 @@ const DetalleCamisetas = () => {
     let carrito = [];
     if (localStorage.getItem('Carrito')) { carrito = JSON.parse(localStorage.getItem('Carrito')) }
 
+    const localMoneda = JSON.parse(localStorage.getItem('switchMoneda')); 
+    console.log ("Esto funciona", localMoneda); 
+
+    const [divisa, setDivisa] = useState(localMoneda);
+    useEffect(() => {
+        setDivisa (localMoneda);
+        console.log("ESTO NO ACTUALIZA LPM", divisa); 
+    }, [divisa])
+
 
     const redirect = useNavigate();
     const handleSwal = (info) => {

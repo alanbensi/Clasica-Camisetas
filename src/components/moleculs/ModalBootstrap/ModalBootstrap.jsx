@@ -25,7 +25,15 @@ const ModalBootstrap = (props) => {
                 <Modal.Body>
                     {props.contenido}
                 </Modal.Body>
-                <Modal.Footer>
+                <Modal.Footer className='justify-content-between align-items-center'>
+                    <div>
+                        {
+                            props.total > 0 ? 
+                            (<p className='mb-0'>TOTAL: <span className='precioFinalModal'>${props.total}</span></p>)
+                            :
+                            (<p className='mb-0'>TOTAL: <span className='precioFinalModal'>{props.totalUSD} USD</span></p>)
+                        }
+                    </div>
                     <Button className='botonAzul botonLogin' onClick={handleClose}>
                         Cerrar
                     </Button>
