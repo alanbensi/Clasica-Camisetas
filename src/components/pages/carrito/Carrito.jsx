@@ -7,6 +7,7 @@ import Boton from '../../atoms/boton/Boton'
 import { CartContext } from '../../context/CartContext';
 import { UserContext } from '../../context/UserContext';
 import Swal from 'sweetalert';
+import { SwitchDivisaContext } from '../../context/SwitchDivisaContext';
 
 
 const Carrito = () => {
@@ -16,6 +17,10 @@ const Carrito = () => {
 
     const userContext = useContext(UserContext);
     const { userID } = userContext;
+
+    const switchDivisa = useContext(SwitchDivisaContext);
+    const { switchDivisaContexto } = switchDivisa; 
+
 
     const ruta = useLocation();
     const [titulo, setTitulo] = useState("");
@@ -135,7 +140,13 @@ const Carrito = () => {
                                 <h2 className='nombreCamisetaCardCarrito'>{item.name}</h2>
                                 <div className='d-flex align-items-center justify-content-between'>
                                     <ContadorCarrito handleClick= {contador} carrito={carrito} camiseta={item}/>
-                                    <p className='m-0'>${precioPorCantidad(item.precioFinal, item.cantidad)}</p>
+                                    <div>
+                                        {switchDivisaContexto ? 
+                                            (<p>{precioPorCantidad(item.price_usd, item.cantidad)} USD</p>)
+                                            :
+                                            (<p>${precioPorCantidad(item.precioFinal, item.cantidad)}</p>)
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div>
@@ -152,8 +163,11 @@ const Carrito = () => {
                     (
                     <>
                         <div>
-                            <p className='precioFinalCarrito'>Precio final ${precioTotal}</p>
-                            <p className='precioFinalCarrito'>Precio final ${precioTotalUSD}</p>
+                            {switchDivisaContexto ? 
+                                (<p className='precioFinalCarrito'>Precio final {precioTotalUSD} USD</p>)
+                                :
+                                (<p className='precioFinalCarrito'>Precio final ${precioTotal}</p>)
+                            }
                         </div>
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>
