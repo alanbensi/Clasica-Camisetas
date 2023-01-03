@@ -23,8 +23,6 @@ const DetalleCamisetas = () => {
     const switchDivisa = useContext(SwitchDivisaContext);
     const { switchDivisaContexto } = switchDivisa; 
 
-    console.log (switchDivisaContexto, "switch en detalle")
-
     const ruta = useLocation();
     const [camiseta, setCamiseta] = useState({});
     const [id, setId] = useState(0);
