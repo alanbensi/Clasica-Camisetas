@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { SwitchDivisaContext } from '../../context/SwitchDivisaContext';
 
 const ModalDetalleCompra = () => {
     const carritoLocal = JSON.parse(localStorage.getItem('Carrito'));
@@ -6,6 +7,9 @@ const ModalDetalleCompra = () => {
         const precioPorCantidad = precio * cantidad;
         return precioPorCantidad;
     }
+
+    const switchDivisa = useContext(SwitchDivisaContext);
+    const { switchDivisaContexto } = switchDivisa; 
 
     return (
         <>
@@ -16,7 +20,10 @@ const ModalDetalleCompra = () => {
                         <div className='w-100'>
                             <h2 className='nombreCamisetaCardCarrito'>{`${item.name} (${item.cantidad} U)`}</h2>
                             <div className='d-flex align-items-center justify-content-between'>
-                                <p className='m-0'>${precioPorCantidad(item.precioFinal, item.cantidad)}</p>
+                                {switchDivisaContexto ? 
+                                (<p className='m-0'>{precioPorCantidad(item.price_usd, item.cantidad)} USD</p>)
+                                :
+                                (<p className ='m-0'>${ precioPorCantidad(item.precioFinal, item.cantidad) }</p>)}
                             </div>
                         </div>
                     </div>

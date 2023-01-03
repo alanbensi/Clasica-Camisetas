@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert';
 import { useFetchData } from '../../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
+import { SwitchDivisaContext } from '../../context/SwitchDivisaContext';
 
 const DetalleDeCompra = () => {
 
@@ -33,6 +34,9 @@ const DetalleDeCompra = () => {
 
     const userContext = useContext(UserContext);
     const {token} = userContext;
+
+    const switchDivisa = useContext(SwitchDivisaContext);
+    const { switchDivisaContexto } = switchDivisa; 
 
     const { fetchData: getInfoUser, data: dataUser, loading: loadingUser } = useFetchData('/users', token);
 
@@ -74,9 +78,9 @@ const DetalleDeCompra = () => {
                 sumaTotalUSD += camiseta.price_usd;
             }
         });
-        if (billetera === "mp") {
+        if (!switchDivisaContexto) {
             setTotal(sumaTotal);
-        } else if(billetera === "paypal") {
+        } else {
             setTotalUSD(sumaTotalUSD);
         }
     }, [billetera])
