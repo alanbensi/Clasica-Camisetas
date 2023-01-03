@@ -39,6 +39,7 @@ function App() {
   return (
     <>
       <CartProvider>
+        <SwitchDivisaProvider>
           <NavClasica />
           <Routes>
             <Route exact path='/' element= {<Inicio />} />
@@ -65,6 +66,7 @@ function App() {
             <Route exact path='/admin/formularioCamisetas/:id' element={<AdminFormCamisetas />} />
           </Routes>
           <Footer />
+        </SwitchDivisaProvider>
       </CartProvider>
     </>
   );

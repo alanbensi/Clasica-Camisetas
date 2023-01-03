@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Boton from '../../atoms/boton/Boton';
 import { useFetchData } from '../../../hooks/useFetch';
@@ -13,15 +13,41 @@ const EditarMiCuenta = () => {
 
     const { fetchData: getInfoUser, data: dataUser, loading: loadingUser } = useFetchData('/users', token);
     
+    const [userName, setUserName] = useState("");
+    const [userSurname, setUserSurname] = useState("");
+    const [userPhone, setUserPhone] = useState("");
+
     useEffect(() => {
         getInfoUser();
     }, []);
     
     useEffect(() => {
-        console.log(dataUser, "hola")
+        if (dataUser.name) {
+            setUserName(dataUser.name);
+            setUserSurname (dataUser.surname);
+            setUserPhone (dataUser.phone);
+        }
     }, [dataUser]);
+
+    useEffect(() => {
+        if (userName && userSurname && userPhone){
+            reset({
+                name:userName,
+                surname: userSurname,
+                phone: userPhone
+            })
+        }
+    }, [userName, userSurname, userPhone]);
     
-    const { register, errors, handleSubmit } = useForm();  
+    const { register, errors, handleSubmit, reset } = useForm({
+        defaultValues: {
+            name: "",
+            surname: "", 
+            phone: 0
+        }
+    });  
+
+
 
     const redirect = useNavigate();
     const handleSwal = (info) => {
@@ -91,11 +117,11 @@ const EditarMiCuenta = () => {
             <h1 className='tituloEditarDatos'>Editar mis datos</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="name">Nombre</label>
-                <input className='inputRegistrate formAdminCamisetas' name='name' type="text" placeholder='Nombre...' defaultValue={dataUser.name} {...register("name")} />
+                <input className='inputRegistrate formAdminCamisetas' name='name' type="text" placeholder='Nombre...' {...register("name")} />
                 <label htmlFor="surname">Apellido</label>
-                <input className='inputRegistrate formAdminCamisetas' name='surname' type="text" placeholder='Apellido' defaultValue={dataUser.surname} {...register("surname")} />
+                <input className='inputRegistrate formAdminCamisetas' name='surname' type="text" placeholder='Apellido' {...register("surname")} />
                 <label htmlFor="phone">Telefono</label>
-                <input className='inputRegistrate formAdminCamisetas' name='phone' type="tel" placeholder='Telefono' defaultValue={dataUser.phone} {...register("phone")} />
+                <input className='inputRegistrate formAdminCamisetas' name='phone' type="tel" placeholder='Telefono' {...register("phone")} />
                 <Boton estilo='botonAzul botonLogin' onClick={handleSubmit(onSubmit)} texto='Editar datos' />
             </form>
         </main>

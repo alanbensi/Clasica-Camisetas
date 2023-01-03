@@ -12,6 +12,7 @@ import ModalBootstrap from '../../moleculs/ModalBootstrap/ModalBootstrap';
 import ModalMediosPago from '../../atoms/modalMediosPago/ModalMediosPago';
 import Swal from 'sweetalert';
 import { UserContext } from '../../context/UserContext';
+import {SwitchDivisaContext} from '../../context/SwitchDivisaContext';
 
 const DetalleCamisetas = () => {
     const urlBase = 'https://nombre-de-la-pagina.com'
@@ -19,6 +20,10 @@ const DetalleCamisetas = () => {
     const { setCarritoContexto } = cartContext;
     const userContext = useContext(UserContext);
     const { userAdmin, token} = userContext;
+    const switchDivisa = useContext(SwitchDivisaContext);
+    const { switchDivisaContexto } = switchDivisa; 
+
+    console.log (switchDivisaContexto, "switch en detalle")
 
     const ruta = useLocation();
     const [camiseta, setCamiseta] = useState({});
@@ -50,16 +55,6 @@ const DetalleCamisetas = () => {
 
     let carrito = [];
     if (localStorage.getItem('Carrito')) { carrito = JSON.parse(localStorage.getItem('Carrito')) }
-
-    const localMoneda = JSON.parse(localStorage.getItem('switchMoneda')); 
-    console.log ("Esto funciona", localMoneda); 
-
-    const [divisa, setDivisa] = useState(localMoneda);
-    useEffect(() => {
-        setDivisa (localMoneda);
-        console.log("ESTO NO ACTUALIZA LPM", divisa); 
-    }, [divisa])
-
 
     const redirect = useNavigate();
     const handleSwal = (info) => {
@@ -187,6 +182,17 @@ const DetalleCamisetas = () => {
             });
     }
 
+    const [descuentoCamiseta, setDescuentoCamiseta] = useState(0);
+
+    useEffect(() => {
+        if (switchDivisaContexto) {
+            setDescuentoCamiseta (0);
+        }else {
+            setDescuentoCamiseta (camiseta.discount);
+        }
+    }, [[],switchDivisaContexto]);
+    
+
     return (
         <>
             {loading ?
@@ -229,22 +235,37 @@ const DetalleCamisetas = () => {
                             <div className='d-flex justify-content-center'>
                                 <div className='contenedorImgDetalle'>
                                     <img className='imgDetalle' src={camiseta.images} alt={camiseta.name} />
-                                    {camiseta.discount !== 0 &&
-                                        <div className='contenedorDescuentoDetalle'>
-                                            <p>-{camiseta.discount}%</p>
-                                        </div>
+                                    {descuentoCamiseta !== 0 && !switchDivisaContexto ?
+                                        (<div className='contenedorDescuentoDetalle'>
+                                            <p>-{descuentoCamiseta}%</p>
+                                        </div>)
+                                        :
+                                        ("")
                                     }
                                 </div>
                             </div>
-                            {camiseta.discount === 0 ?
+                            {descuentoCamiseta === 0 && !switchDivisaContexto &&
                                 (<div className='mt-3 ms-3'>
                                     <h2>${precioFinalSinDescuento}</h2>
                                 </div>)
-                                :
+                            }
+                            {descuentoCamiseta === 0 && switchDivisaContexto && 
+                                (<div className='mt-3 ms-3'>
+                                    <h2>{camiseta.price_usd} USD</h2>
+                                </div>
+                                )
+                            }
+                            {descuentoCamiseta !== 0 && !switchDivisaContexto && 
                                 (<div className='mt-3 ms-3 d-flex align-items-center'>
                                     <h2 className='precioNormal'>${precioFinalSinDescuento}</h2>
                                     <h2 className='ms-2'>${precioFinalConDescuento}</h2>
                                 </div>)
+                            }
+                            {descuentoCamiseta !== 0 && switchDivisaContexto &&
+                                (<div className='mt-3 ms-3'>
+                                    <h2>{camiseta.price_usd} USD</h2>
+                                </div>
+                                )
                             }
                             <ModalBootstrap clase='metodosDetalleCamisetas' textoBoton='Ver métodos de pago' titulo='Métodos de pago' contenido={<ModalMediosPago />} />
                         </section>

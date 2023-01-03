@@ -12,6 +12,7 @@ import { CartContext } from '../../context/CartContext';
 import { UserContext } from '../../context/UserContext';
 import { FormControlLabel, FormGroup, Switch } from '@mui/material';
 import styled from 'styled-components';
+import {SwitchDivisaContext} from '../../context/SwitchDivisaContext';
 
 
 const NavClasica = () => {
@@ -21,6 +22,9 @@ const NavClasica = () => {
 
     const cartContext = useContext (CartContext); 
     const {carritoContexto}= cartContext; 
+
+    const switchDivisa = useContext (SwitchDivisaContext);
+    const { switchDivisaContexto, setSwitchDivisaContexto} = switchDivisa; 
 
     const redirect = useNavigate();
     const cerrarSesion = ()=> {
@@ -32,11 +36,11 @@ const NavClasica = () => {
 
     const [moneda, setMoneda] = useState(false); 
     useEffect(() => {
-        localStorage.setItem("switchMoneda", JSON.stringify(moneda));
+        setSwitchDivisaContexto(moneda)
     }, [])
 
     useEffect(() => {
-        localStorage.setItem("switchMoneda", JSON.stringify(moneda));
+        setSwitchDivisaContexto(moneda)
     }, [moneda])
     
     const handleChange = (e) => {

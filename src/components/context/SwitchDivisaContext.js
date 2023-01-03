@@ -1,16 +1,16 @@
-// import React, { createContext, useState } from 'react'
+import React, { createContext, useState } from 'react'
 
-// export const SwitchDivisaContext = createContext(null);
+export const SwitchDivisaContext = createContext(null);
 
-// const SwitchDivisaProvider = (props) => {
+const SwitchDivisaProvider = (props) => {
 
-//     const [switchDivisaContexto, setSwitchDivisaContexto] = useState(null);
+    const [switchDivisaContexto, setSwitchDivisaContexto] = useState(false);
 
-//     return (
-//         <SwitchDivisaContext.Provider value={{ carritoContexto, setCarritoContexto }}>
-//             {props.children}
-//         </SwitchDivisaContext.Provider>
-//     )
-// }
+    return (
+        <SwitchDivisaContext.Provider value={{ switchDivisaContexto, setSwitchDivisaContexto }}>
+            {props.children}
+        </SwitchDivisaContext.Provider>
+    )
+}
 
-// export default SwitchDivisaProvider
+export default SwitchDivisaProvider
