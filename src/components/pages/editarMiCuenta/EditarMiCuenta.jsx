@@ -48,7 +48,6 @@ const EditarMiCuenta = () => {
     });  
 
 
-
     const redirect = useNavigate();
     const handleSwal = (info) => {
         if (info.buttons.length > 1) {

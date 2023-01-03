@@ -12,6 +12,7 @@ import Swal from 'sweetalert';
 import { useFetchData } from '../../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 import { SwitchDivisaContext } from '../../context/SwitchDivisaContext';
+import { useForm } from 'react-hook-form';
 
 const DetalleDeCompra = () => {
 
@@ -171,7 +172,42 @@ const DetalleDeCompra = () => {
                     });
                 }
             })
-    }
+        }
+        
+    const { register, formState: { errors }, handleSubmit, reset } = useForm({
+        defaultValues: {
+            name: "",
+            surname: "",
+            phone: ""
+        }
+    });  
+    console.log(errors, "Errores en detalle de compra.");
+        
+    const [userName, setUserName] = useState("");
+    const [userSurname, setUserSurname] = useState("");
+    const [userPhone, setUserPhone] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+
+    useEffect(() => {
+        if (dataUser.name) {
+            setUserName(dataUser.name);
+            setUserSurname(dataUser.surname);
+            setUserPhone(dataUser.phone);
+            setUserEmail (dataUser.email)
+        }
+    }, [dataUser]);
+
+    useEffect(() => {
+        if (userName && userSurname && userPhone && userEmail) {
+            reset({
+                name: userName,
+                surname: userSurname,
+                phone: userPhone,
+                email: userEmail
+            })
+        }
+    }, [userName, userSurname, userPhone, userEmail]);
+
 
     return (
         <main>
@@ -185,24 +221,31 @@ const DetalleDeCompra = () => {
                     <p className='fontSizeDetalleCompra'>(*) Estos datos son obligatorios</p>
                 </div>
                 <div>
-                    <form action="" className='formularioDetalleCompra'>
+                    <form action="" className='formularioDetalleCompra' onSubmit={handleSubmit(onSubmit)}>
                         <label htmlFor="nombreDetallePedido">NOMBRE *</label>
-                        <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu nombre...' defaultValue={dataUser.name} />
+                        <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu nombre...'  {...register("name", { required: true })} />
+                        {errors.name ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="apellidosDetallePedido">APELLIDOS *</label>
-                        <input required type="text" name="apellidosetallePedido" id="apellidosDetallePedido" placeholder='Ingresá tus apellidos...' defaultValue={dataUser.surname} />
+                        <input required type="text" name="apellidosetallePedido" id="apellidosDetallePedido" placeholder='Ingresá tus apellidos...' {...register("surname", { required: true })} />
+                        {errors.surname ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="correoDetallePedido">CORREO ELECTRÓNICO *</label>
-                        <input required type="email" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...' defaultValue={dataUser.email} className= {dataUser.email ? "readOnlyInput" : ""}/>
+                        <input required type="email" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...'  className={dataUser.email ? "readOnlyInput" : ""} {...register("email", { required: true, pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ } })} />
+                        {errors.email && errors.email.type === "required" ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
+                        {errors.email && errors.email.type === "pattern" ? (<p className='erroresForm mb-3'>El formato del mail es incorrecto.</p>) : ("")}
                         <label htmlFor="telefonoDetallePedido">TELEFONO *</label>
-                        <input required type="number" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...' defaultValue={dataUser.phone} />
+                        <input required type="number" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...'  {...register("phone", { required: true })} />
+                        {errors.phone ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="dniDetallePedido">DNI *</label>
-                        <input required type="number" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...' />
+                        <input required type="number" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...' {...register("dni", { required: true })} />
+                        {errors.dni ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="cuitDetallePedido">CUIT/CUIL *</label>
-                        <input required type="number" name="cuitDetallePedido" id="cuitDetallePedido" placeholder='Ingresá tu número de CUIT/CUIL...' />
+                        <input required type="number" name="cuitDetallePedido" id="cuitDetallePedido" placeholder='Ingresá tu número de CUIT/CUIL...' {...register("cuit", { required: true })} />
+                        {errors.cuit ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="cpDetallePedido">CODIGO POSTAL *</label>
-                        <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...' onChange={(e)=> setCP(e.target.value)} />
+                        <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...' onChange={(e) => setCP(e.target.value)} {...register("postalCode", { required: true })} />
                         <a className='mb-4' href="https://www.correoargentino.com.ar/formularios/cpa" target="_blank" rel="noopener noreferrer">No conozco mi código postal</a>
                         <label htmlFor="envioDetallePedido">ENVIO *</label>
-                        <div className='d-flex align-items-center'>
+                        <div className='d-flex align-items-center' {...register("envio", { required: true })}>
                             <input required className='radioDetallePedido me-3' type="radio" value="Domicilio" name="envioDetallePedido" id="envioDomicilio" onChange={envioDomicilio} />
                             Envío a domicilio
                         </div>
@@ -210,15 +253,16 @@ const DetalleDeCompra = () => {
                             <input required className='radioDetallePedido me-3' type="radio" value="Sucursal" name="envioDetallePedido" id="envioCorreoArgentino" onChange={envioDomicilio}  />
                             Retiro en sucursal de Correo Argentino
                         </div>
+                        {errors.envio ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         {envio === "Domicilio" &&
                             <div className='contenedorEnvioDomicilio'>
                                 <h2 className='tituloDetallesCompra mb-3'>Envío a domicilio</h2>
                                 <label htmlFor="nombreDetallePedido">DIRECCIÓN *</label>
-                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu dirección...' onChange={(e) => setDireccion(e.target.value)} />
+                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu dirección...' onChange={(e) => setDireccion(e.target.value)} {...register("direccion", { required: true })} />
                                 <label htmlFor="nombreDetallePedido">CIUDAD *</label>
-                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...' onChange={(e) => setCiudad(e.target.value)} />
+                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...' onChange={(e) => setCiudad(e.target.value)} {...register("ciudad", { required: true })} />
                                 <label htmlFor="nombreDetallePedido">PROVINCIA *</label>
-                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...' onChange={(e) => setProvincia(e.target.value)} />
+                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...' onChange={(e) => setProvincia(e.target.value)} {...register("provincia", { required: true })} />
                             </div>
                         }
                         {
@@ -227,7 +271,7 @@ const DetalleDeCompra = () => {
                                 <a href="https://www.correoargentino.com.ar/formularios/sucursales" target="_blank" rel="noopener noreferrer">Ver las sucursales de Correo Argentino</a>
                                 <div className='mt-3'>
                                     <label htmlFor="">Por favor escribinos tu sucursal más cercana: </label>
-                                    <input type="text" onChange={(e) => setSucursal(e.target.value)} />
+                                    <input type="text" onChange={(e) => setSucursal(e.target.value)} placeholder="Sucursal... " {...register("sucursalCorreo", { required: true })} />
                                 </div>
                             </div>
                         }
@@ -244,7 +288,7 @@ const DetalleDeCompra = () => {
             </section>
             <section className='mx-3'>
                 <p className='textoTerminosCondiciones'>Al continuar, aceptas nuestros <a className='terminosCondiciones' href="/">Términos y Condiciones</a></p>
-                <Boton estilo="botonNav botonAzul botonDetalleCompra" onClick= {handleEnviarPedido} texto="Realizar el pedido"></Boton>
+                <Boton estilo="botonNav botonAzul botonDetalleCompra"  onClick={handleSubmit(onSubmit)} texto="Realizar el pedido" />
                 <p>Sus datos personales se utilizarán para procesar su pedido y respaldar su experiencia en este sitio web.</p>
             </section>
         </main>
