@@ -36,6 +36,7 @@ const Registrate = () => {
     const checkEmail = (e) => {
         const emailValue = e.target.value;
         setEmail(emailValue);
+        console.log (emailValue, "email value")
     }
 
     useEffect(() => {        
@@ -46,7 +47,8 @@ const Registrate = () => {
         setErrorMsj(data.error ? data.error : "");
     }, [data]); 
 
-    const { register, errors, handleSubmit } = useForm();
+    const { register, formState: { errors }, handleSubmit, watch } = useForm();
+    console.log (errors, "ESTE ES EL ERROR DEL FORMULARIO, AGUANTE BOKITA.")
 
     const redirect = useNavigate();
     const handleSwal = (info) => {
@@ -86,10 +88,10 @@ const Registrate = () => {
             .then(res => {
                 if (res.status === 201) {
                     handleSwal({
-                        title: "Enviar mail al usuario",
+                        title: "Te registraste con exito!",
                         icon: 'success',
-                        buttons: ['Cerrar', 'Inicio'],
-                        link: `/`,
+                        buttons: 'Login',
+                        link: `/Login`,
                         timer: ''
                     });
                 } else {
@@ -113,19 +115,35 @@ const Registrate = () => {
                 <h1 className='tituloRegistrate'>Ingresá tus datos y crea tu cuenta</h1>
                 <section>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <input className='inputRegistrate' type="text" placeholder='Nombres' {...register("name")}/>
-                        <input className='inputRegistrate' type="text" placeholder='Apellidos' {...register("surname")}/>
-                        <input className='inputRegistrate' type="email" placeholder='Email' onBlur={(e) => checkEmail(e)}{...register("email")}/>
-                        {errorMsj && <p>{errorMsj}</p>}
-                        <input className='inputRegistrate' type="number" placeholder='Número de teléfono' {...register("phone")}/>
+                        <input className='inputRegistrate' type="text" placeholder='Nombres *' {...register("name", {required: true})}/>
+                        {errors.name? (<p className='erroresForm'>Este campo es obligatorio.</p>):("")}
+                        <input className='inputRegistrate' type="text" placeholder='Apellidos *' {...register("surname", { required: true })} />
+                        {errors.surname ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
+                        <input className='inputRegistrate' type="text" placeholder='Nombre de usuario *' {...register("username",{required:true})} />
+                        {errors.username ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
+                        <input className='inputRegistrate' type="email" placeholder='Email *'{...register("email", {required: true , pattern: {value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/}})} />
+                        {errors.email && errors.email.type === "required" ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
+                        {errors.email && errors.email.type === "pattern" ? (<p className='erroresForm'>El formato del mail es incorrecto.</p>) : ("")}
+                        <input className='inputRegistrate' type="number" placeholder='Número de teléfono *' {...register("phone", { required: true })} />
+                        {errors.phone ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
                         <div className='containerInputPassword'>
-                            <input className='inputRegistrate' type={tipoInput} placeholder='Contraseña' {...register("password")}/>
+                            <input className='inputRegistrate' type={tipoInput} placeholder='Contraseña *' {...register("password", { required: true, minLength: 8 })} />
                             <Icon onClick={mostrarContraseña} icon="clarity:eye-line" className='iconoOjoRegistrate' />
                         </div>
+                        {errors.password && errors.password.type === "required" ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
+                        {errors.password && errors.password.type === "minLength" ? (<p className='erroresForm'>La contraseña debe tener al menos 8 caracteres</p>) : ("")}
                         <div className='containerInputPassword'>
-                            <input className='inputRegistrate' type={tipoInput2} placeholder='Repetir contraseña'/>
+                            <input className='inputRegistrate' type={tipoInput2} placeholder='Repetir contraseña *' {...register("confirmPassword", {
+                                required: true,
+                                validate: (val) => {
+                                    if (watch('password') != val) {
+                                        return "Your passwords do no match";
+                                    }
+                                },
+                            })} />
                             <Icon onClick={mostrarContraseña2} icon="clarity:eye-line" className='iconoOjoRegistrate' />
                         </div>
+                        {errors.confirmPassword ? (<p className='erroresForm'>Las contraseñas no coinciden</p>) : ("")}
                         <div className='d-flex mt-2'>
                             <input className='inputRegistrateCheckbox' type="checkbox"  {...register("terminosCondiciones")}/>
                             <label>Acepto los <span className=''>Términos y condiciones</span></label>

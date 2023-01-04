@@ -47,14 +47,15 @@ const AdminAgregarCamisetas = () => {
             body: JSON.stringify(data),
         };
         fetch(`http://127.0.0.1:3001/products`, fetchOptions)
-            .then(res => {
+            .then(res => res.json())
+                .then(res=>{
                 console.log ("hola", res);
-                if (res.status === 201) {
+                if (!res.error) {
                     handleSwal({
                         title: "El producto se agrego con exito!",
                         icon: 'success',
                         buttons: ['Cerrar', 'Ir a la camiseta'],
-                        link: ``,
+                        link: `/Detalle-Camisetas/${res.product.id}`,
                         timer: ''
                     });
                 } else {

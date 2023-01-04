@@ -40,5 +40,5 @@ export const useFetchData = (BASE_URL = '', token, error_msg = 'oops!') => {
     },[BASE_URL]); //Hacer enfasis en la url
 //Retornamos nuestro fetch_data como data, nuestro loading y error
 
-    return { fetchData: fetchData, data: fetch_data, loading, error };
+    return { fetchData: fetchData, data: fetch_data, loading, error, setData: setFetchData };
 }

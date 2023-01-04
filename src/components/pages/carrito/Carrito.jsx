@@ -7,6 +7,7 @@ import Boton from '../../atoms/boton/Boton'
 import { CartContext } from '../../context/CartContext';
 import { UserContext } from '../../context/UserContext';
 import Swal from 'sweetalert';
+import { SwitchDivisaContext } from '../../context/SwitchDivisaContext';
 
 
 const Carrito = () => {
@@ -16,6 +17,10 @@ const Carrito = () => {
 
     const userContext = useContext(UserContext);
     const { userID } = userContext;
+
+    const switchDivisa = useContext(SwitchDivisaContext);
+    const { switchDivisaContexto } = switchDivisa; 
+
 
     const ruta = useLocation();
     const [titulo, setTitulo] = useState("");
@@ -27,6 +32,7 @@ const Carrito = () => {
     const [carrito, setCarrito] = useState ([]);
     const [cambioContador, setCambioContador] = useState(true);
     const [precioTotal, setPrecioTotal] = useState(0);
+    const [precioTotalUSD, setPrecioTotalUSD] = useState (0); 
 
     const borrarItem = (id)=> {
         setCarrito (carrito.filter((item)=>item.id !== id));        
@@ -76,58 +82,6 @@ const Carrito = () => {
         }
     }
 
-    // const handleSwal = (info) => {
-    //     if (info.buttons.length > 1) {
-    //         Swal({
-    //             title: info.title,
-    //             text: info.text,
-    //             icon: info.icon,
-    //             buttons: info.buttons,
-    //             timer: info.timer
-    //         })
-    //             .then(resp => {
-    //                 if (resp.buttons.continuar) {
-    //                     redirect(info.buttons.continuar.link);
-    //                 } else {
-    //                     redirect(info.buttons.registrarse.link2);
-    //                 }
-    //             })
-    //     } else {
-    //         Swal({
-    //             title: info.title,
-    //             text: info.text,
-    //             icon: info.icon,
-    //             buttons: info.buttons,
-    //             timer: info.timer
-    //         })
-    //     }
-    // }
-
-    // const iniciarCompra = ()=> {
-    //     if (userID) {
-    //         redirect('/Detalle-de-compra'); 
-    //     } else {
-    //         handleSwal({
-    //             title: "No tendrás seguimiento!",
-    //             text: "El seguimiento de tu compra solo podrá ser realizado en caso de que estés registrado.",
-    //             icon: 'warning',
-    //             buttons: {
-    //                 continuar: {
-    //                     text: "Continuar",
-    //                     className: "",
-    //                     link: "/Detalle-de-compra"
-    //                 }, 
-    //                 registrarse: {
-    //                     text: "Ir al registro",
-    //                     className: "botonAzul botonLogin",
-    //                     link2: "/Registrate"
-    //                 }
-    //             },
-    //             timer: ''
-    //         });
-    //     }
-    // }
-
     useEffect (()=>{
         if (localStorage.getItem('Carrito')) {setCarrito(JSON.parse(localStorage.getItem('Carrito')))};
     },[cambioContador]);
@@ -154,10 +108,13 @@ const Carrito = () => {
 
     const calculoPrecioTotal = ()=> {
         let cuenta= 0; 
+        let cuentaUSD = 0; 
         carrito.map(item => {
-            cuenta += (parseInt(item.cantidad) * parseInt(item.precioFinal))
+            cuenta += (parseInt(item.cantidad) * parseInt(item.precioFinal));
+            cuentaUSD += (parseInt(item.cantidad) * parseInt(item.price_usd));
         });
-        setPrecioTotal(cuenta);  
+        setPrecioTotal(cuenta);
+        setPrecioTotalUSD (cuentaUSD);
     }
 
     useEffect(() => {
@@ -183,7 +140,13 @@ const Carrito = () => {
                                 <h2 className='nombreCamisetaCardCarrito'>{item.name}</h2>
                                 <div className='d-flex align-items-center justify-content-between'>
                                     <ContadorCarrito handleClick= {contador} carrito={carrito} camiseta={item}/>
-                                    <p className='m-0'>${precioPorCantidad(item.precioFinal, item.cantidad)}</p>
+                                    <div>
+                                        {switchDivisaContexto ? 
+                                            (<p>{precioPorCantidad(item.price_usd, item.cantidad)} USD</p>)
+                                            :
+                                            (<p>${precioPorCantidad(item.precioFinal, item.cantidad)}</p>)
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             <div>
@@ -200,8 +163,11 @@ const Carrito = () => {
                     (
                     <>
                         <div>
-                            <p className='envioGratisCarrito'>Envío gratis</p>
-                            <p className='precioFinalCarrito'>Precio final ${precioTotal}</p>
+                            {switchDivisaContexto ? 
+                                (<p className='precioFinalCarrito'>Precio final {precioTotalUSD} USD</p>)
+                                :
+                                (<p className='precioFinalCarrito'>Precio final ${precioTotal}</p>)
+                            }
                         </div>
                         <div className='mb-3'>
                             <div className='containerTotalCarrito'>

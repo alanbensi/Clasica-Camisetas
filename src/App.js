@@ -24,6 +24,8 @@ import CartProvider from './components/context/CartContext';
 import AdminUsuarios from './components/pages/adminUsuarios/AdminUsuarios';
 import AdminDetalleUsuarios from './components/pages/adminDetalleUsuarios/AdminDetalleUsuarios';
 import AdminFormCamisetas from './components/pages/adminFormCamisetas/AdminFormCamisetas';
+import EditarMiCuenta from './components/pages/editarMiCuenta/EditarMiCuenta';
+import SwitchDivisaProvider from './components/context/SwitchDivisaContext';
 
 function App() {
 
@@ -37,31 +39,34 @@ function App() {
   return (
     <>
       <CartProvider>
-        <NavClasica />
-        <Routes>
-          <Route exact path='/' element= {<Inicio />} />
-          <Route exact path='/Login' element = {<Login />} />
-          <Route exact path='/Registrate' element={<Registrate />} />
-          <Route exact path='/Restablecer-Contrasena' element={<RestablecerContrasena />} />
-          <Route exact path='/Mail-Restablecer-Contrasena' element={<MailRestablecerContrasena />} />
-          <Route exact path='/Nueva-Contrasena' element={<NuevaContrasena />} />
-          <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
-          <Route exact path='/Productos/:nombreColeccion' element={<Colecciones/>} />
-          <Route exact path='/Subastas' element= {<Subastas />} />
-          <Route exact path='/Detalle-subastas' element= {<DetalleSubastas/>} />
-          <Route exact path='/Ayuda' element={<Ayuda />} />
-          <Route exact path='/Detalle-Camisetas/:id' element={<DetalleCamisetas />} />
-          <Route exact path='/Detalle-subastas/Nueva-oferta' element={<NuevaOfertaSubasta />} />
-          <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
-          <Route exact path='/Mi-cuenta/:id' element={<MiCuenta />} />
-          <Route exact path='/Carrito-de-compras' element= {<Carrito />} />
-          <Route exact path='/Detalle-de-compra' element={<DetalleDeCompra />} />
-          <Route exact path='/admin/usuarios' element={<AdminUsuarios />} />
-          <Route exact path='/admin/usuarios/:id' element={<AdminDetalleUsuarios />} />
-          <Route exact path='/admin/formularioCamisetas' element={<AdminFormCamisetas />} />
-          <Route exact path='/admin/formularioCamisetas/:id' element={<AdminFormCamisetas />} />
-        </Routes>
-        <Footer />
+        <SwitchDivisaProvider>
+          <NavClasica />
+          <Routes>
+            <Route exact path='/' element= {<Inicio />} />
+            <Route exact path='/Login' element = {<Login />} />
+            <Route exact path='/Registrate' element={<Registrate />} />
+            <Route exact path='/Restablecer-Contrasena' element={<RestablecerContrasena />} />
+            <Route exact path='/Mail-Restablecer-Contrasena' element={<MailRestablecerContrasena />} />
+            <Route exact path='/Nueva-Contrasena' element={<NuevaContrasena />} />
+            <Route exact path='/Login-Nueva-Contrasena' element={<LoginNuevaContrasena />} />
+            <Route exact path='/Productos/:nombreColeccion' element={<Colecciones/>} />
+            <Route exact path='/Subastas' element= {<Subastas />} />
+            <Route exact path='/Detalle-subastas' element= {<DetalleSubastas/>} />
+            <Route exact path='/Ayuda' element={<Ayuda />} />
+            <Route exact path='/Detalle-Camisetas/:id' element={<DetalleCamisetas />} />
+            <Route exact path='/Detalle-subastas/Nueva-oferta' element={<NuevaOfertaSubasta />} />
+            <Route exact path='/Vende-tu-camiseta' element= {<VendeTuCamiseta />} />
+            <Route exact path='/Mi-cuenta/:id' element={<MiCuenta />} />
+            <Route exact path='/Editar-mi-cuenta/:id' element={<EditarMiCuenta />} />
+            <Route exact path='/Carrito-de-compras' element= {<Carrito />} />
+            <Route exact path='/Detalle-de-compra' element={<DetalleDeCompra />} />
+            <Route exact path='/admin/usuarios' element={<AdminUsuarios />} />
+            <Route exact path='/admin/usuarios/:id' element={<AdminDetalleUsuarios />} />
+            <Route exact path='/admin/formularioCamisetas' element={<AdminFormCamisetas />} />
+            <Route exact path='/admin/formularioCamisetas/:id' element={<AdminFormCamisetas />} />
+          </Routes>
+          <Footer />
+        </SwitchDivisaProvider>
       </CartProvider>
     </>
   );

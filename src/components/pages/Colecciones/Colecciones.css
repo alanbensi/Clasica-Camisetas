@@ -5,10 +5,14 @@
 .titTempActual {
     font-family: 'Bebas Neue', cursive;
     font-size: 29px;
+    margin: 24px 0;
 }
 
 .noHayProductos {
     text-align: center;
+    display: flex;
+    align-items: center;
+    height: 20vh;
 }
 
 .container {

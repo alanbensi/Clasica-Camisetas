@@ -36,3 +36,8 @@
 .textoCentrado {
     text-align: center;
 }
+
+.erroresForm {
+    margin-bottom: 0;
+    color: crimson;
+}

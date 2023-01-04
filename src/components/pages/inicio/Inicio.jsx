@@ -21,8 +21,8 @@ const Inicio = () => {
 
     const { fetchData, data, loading } = useFetchData('/productsWithDiscount');
 
-    const ofertasMobile = data.slice(0, 6);
-    const ofertasDesktop = data.slice(0, 8);
+    const ofertasMobile = !data.error ? data.slice(0, 6) : [];
+    const ofertasDesktop = !data.error  ? data.slice(0, 8) : [];
 
     useEffect(() => {
         fetchData();
@@ -52,13 +52,16 @@ const Inicio = () => {
                     <h2 className='titOfertasInicio'>OFERTAS</h2>
                     <Container>
                         <Row>
-                            {data.length !== 0 ?
+                            {data.length === 0 || data.error ?
+                                (<p className='noHayOfertas'>Actualmente no hay productos en oferta. Podés buscar los productos deseados en su respectiva categoria.
+                                </p>)
+                                :
                                 (vistaComputadora ?
                                     (
                                         ofertasDesktop.map((camiseta) => (
                                             <Col className='cardMargin' key={camiseta.id} lg={3} md={3} xs={6}>
                                                 <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
-                                                    <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} />
+                                                    <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} precioDolar={camiseta.price_usd} />
                                                 </Link>
                                             </Col>
                                         )))
@@ -73,9 +76,6 @@ const Inicio = () => {
                                         ))
                                     )
                                 )
-                                :
-                                (<p className='noHayOfertas'>Actualmente no hay productos en oferta. Podés buscar los productos deseados en su respectiva categoria.
-                                </p>)
                             }
                         </Row>
                         {

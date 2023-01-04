@@ -9,3 +9,13 @@
     width: 100%;
     margin: 1.3rem 0;
 }
+
+.editarMiCuenta {
+    font-size: 1.7rem;
+    color: rgb(78, 77, 77);
+}
+
+.iconoVerMas {
+    font-size: 1.7rem;
+    color: grey;
+}

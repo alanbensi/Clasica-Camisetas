@@ -32,7 +32,9 @@ const CategoriaProductos = (props) => {
                                     </Col>
                                 )))
                                 :
-                                (<p>Todavía no hay camisetas de esta colección</p>)                                
+                                (
+                                <p>Todavía no hay camisetas de esta colección</p>
+                                )                                
                             }
                         </Row>
                     </Container>

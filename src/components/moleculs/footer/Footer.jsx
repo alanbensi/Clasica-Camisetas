@@ -14,7 +14,7 @@ const Footer = () => {
                     <p className='categoriasFooter'>Explorar</p>
                     <ul>
                         <li className='listaFooter'> <Link className='anchorFooter' to='/'>Inicio</Link> </li>
-                        <li className='listaFooter'> <Link className='anchorFooter' to='/'>Productos</Link> </li>
+                        <li className='listaFooter'> <Link className='anchorFooter' to='/Productos/Todos los productos'>Productos</Link> </li>
                         <li className='listaFooter anchorFooter'>
                             Categorías:
                             <ul>

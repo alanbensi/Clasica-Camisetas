@@ -12,13 +12,16 @@ import ModalBootstrap from '../../moleculs/ModalBootstrap/ModalBootstrap';
 import ModalMediosPago from '../../atoms/modalMediosPago/ModalMediosPago';
 import Swal from 'sweetalert';
 import { UserContext } from '../../context/UserContext';
+import {SwitchDivisaContext} from '../../context/SwitchDivisaContext';
 
 const DetalleCamisetas = () => {
-
+    const urlBase = 'https://nombre-de-la-pagina.com'
     const cartContext = useContext(CartContext);
     const { setCarritoContexto } = cartContext;
     const userContext = useContext(UserContext);
     const { userAdmin, token} = userContext;
+    const switchDivisa = useContext(SwitchDivisaContext);
+    const { switchDivisaContexto } = switchDivisa; 
 
     const ruta = useLocation();
     const [camiseta, setCamiseta] = useState({});
@@ -50,7 +53,6 @@ const DetalleCamisetas = () => {
 
     let carrito = [];
     if (localStorage.getItem('Carrito')) { carrito = JSON.parse(localStorage.getItem('Carrito')) }
-
 
     const redirect = useNavigate();
     const handleSwal = (info) => {
@@ -178,6 +180,17 @@ const DetalleCamisetas = () => {
             });
     }
 
+    const [descuentoCamiseta, setDescuentoCamiseta] = useState(0);
+
+    useEffect(() => {
+        if (switchDivisaContexto) {
+            setDescuentoCamiseta (0);
+        }else {
+            setDescuentoCamiseta (camiseta.discount);
+        }
+    }, [[],switchDivisaContexto]);
+    
+
     return (
         <>
             {loading ?
@@ -220,22 +233,37 @@ const DetalleCamisetas = () => {
                             <div className='d-flex justify-content-center'>
                                 <div className='contenedorImgDetalle'>
                                     <img className='imgDetalle' src={camiseta.images} alt={camiseta.name} />
-                                    {camiseta.discount !== 0 &&
-                                        <div className='contenedorDescuentoDetalle'>
-                                            <p>-{camiseta.discount}%</p>
-                                        </div>
+                                    {descuentoCamiseta !== 0 && !switchDivisaContexto ?
+                                        (<div className='contenedorDescuentoDetalle'>
+                                            <p>-{descuentoCamiseta}%</p>
+                                        </div>)
+                                        :
+                                        ("")
                                     }
                                 </div>
                             </div>
-                            {camiseta.discount === 0 ?
+                            {descuentoCamiseta === 0 && !switchDivisaContexto &&
                                 (<div className='mt-3 ms-3'>
                                     <h2>${precioFinalSinDescuento}</h2>
                                 </div>)
-                                :
+                            }
+                            {descuentoCamiseta === 0 && switchDivisaContexto && 
+                                (<div className='mt-3 ms-3'>
+                                    <h2>{camiseta.price_usd} USD</h2>
+                                </div>
+                                )
+                            }
+                            {descuentoCamiseta !== 0 && !switchDivisaContexto && 
                                 (<div className='mt-3 ms-3 d-flex align-items-center'>
                                     <h2 className='precioNormal'>${precioFinalSinDescuento}</h2>
                                     <h2 className='ms-2'>${precioFinalConDescuento}</h2>
                                 </div>)
+                            }
+                            {descuentoCamiseta !== 0 && switchDivisaContexto &&
+                                (<div className='mt-3 ms-3'>
+                                    <h2>{camiseta.price_usd} USD</h2>
+                                </div>
+                                )
                             }
                             <ModalBootstrap clase='metodosDetalleCamisetas' textoBoton='Ver métodos de pago' titulo='Métodos de pago' contenido={<ModalMediosPago />} />
                         </section>
@@ -252,16 +280,16 @@ const DetalleCamisetas = () => {
                         <section className='d-flex mt-4 mb-2'>
                             <p className='me-2 compartirDetalleCamisetas'>COMPARTIR</p>
                             <div>
-                                <a href={`mailto:?subject=Mira esta camiseta &body=Hola! Cómo estás? Esta camiseta es especial para vos!LINK: ${ruta.pathname}`} rel="noopener noreferrer">
+                                <a href={`mailto:?subject=Mira esta camiseta &body=Hola! Cómo estás? Esta camiseta es especial para vos!LINK: ${urlBase}${ruta.pathname}`} rel="noopener noreferrer">
                                     <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:gmail" width='20px' />
                                 </a>
-                                <a href={`https://api.whatsapp.com/send?text=Mira esta camiseta en ${ruta.pathname}`} target="_blank" rel="noopener noreferrer">
+                                <a href={`https://api.whatsapp.com/send?text=Mira esta camiseta en ${urlBase}${ruta.pathname}`} target="_blank" rel="noopener noreferrer">
                                     <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:whatsapp" width='20px' />
                                 </a>
-                                <a href={`https://www.facebook.com/sharer.php?u=${ruta.pathname}&t=Mira esta camiseta`} target="_blank" rel="noopener noreferrer">
+                                <a href={`https://www.facebook.com/sharer/sharer.php?u=${urlBase}${ruta.pathname}&t=Mira esta camiseta`} target="_blank" rel="noopener noreferrer">
                                     <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:facebook" width='20px' />
                                 </a>
-                                <a href={`https://twitter.com/intent/tweet?text=Mira esta camiseta ${ruta.pathname}`} target="_blank" rel="noopener noreferrer">
+                                <a href={`https://twitter.com/intent/tweet?text=Mira esta camiseta ${urlBase}${ruta.pathname}`} target="_blank" rel="noopener noreferrer">
                                     <Icon className='mx-2 logosDetalleCamisetas' icon="mdi:twitter" width='20px' />
                                 </a>
                             </div>

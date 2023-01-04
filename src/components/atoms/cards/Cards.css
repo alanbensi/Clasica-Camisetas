@@ -24,6 +24,7 @@
 .cardFooter {
     padding: 0.5rem 0 !important;
     background-color:#003594 !important;
+
 }
 
 .tituloFooterCard {
@@ -31,6 +32,8 @@
     margin-top: 0.3rem;
     font-size: 15px;
     text-align: center;
+    min-width: 140px;
+    word-wrap: normal;
 }
 
 .spanPrecioAntiguo {

@@ -25,7 +25,9 @@ const AdminEditarCamiseta = (props) => {
             })
                 .then(resp => {
                     if (resp) {
-                        redirect(info.link)
+                        redirect(info.link2);
+                    } else {
+                        redirect(info.link);
                     }
                 })
         } else {
@@ -55,14 +57,15 @@ const AdminEditarCamiseta = (props) => {
                         title: "El producto se modifico con exito!",
                         icon: 'success',
                         buttons: ['Cerrar', 'Ir a la camiseta'],
-                        link: `/Detalle-Camisetas/${props.id}`,
+                        link: "/",
+                        link2: `/Detalle-Camisetas/${props.id}`,
                         timer: ''
                     });
                 }else{
                     console.log (res.status, "ABCDEF")
                     handleSwal({
                         title: "Ocurrió un error.",
-                        text: "Asegurate de estar completando todos los campos!",
+                        text: "Asegurate de estar completando todos los campos y que el producto no tenga un nombre que ya haya sido utilizado!",
                         icon: 'error',
                         link: `/Detalle-Camisetas/${props.id}`,
                         buttons: 'Cerrar',
@@ -72,7 +75,6 @@ const AdminEditarCamiseta = (props) => {
             })
     }
 
-    
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>

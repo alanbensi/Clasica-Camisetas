@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap';
+import './Filtrado.css'
 
-const Filtrado = ({precioMenorMayor}) => {
+const Filtrado = ({precioMenorMayor, precioMayorMenor, masAntiguo, masReciente, enOferta}) => {
 
     const [valorFilter, setValorFilter] = useState(valorFilter);    
 
@@ -10,17 +11,18 @@ const Filtrado = ({precioMenorMayor}) => {
     }
 
     useEffect(() => {
-        console.log(valorFilter);
-    }, [valorFilter])
-    
-    switch (valorFilter) {
-        case "1": 
+        if (valorFilter === "1") {
             precioMenorMayor();
-            break;
-        case "2":
-            console.log("case 2");
-            break;
-    }
+        } else if (valorFilter === "2") {
+            precioMayorMenor();
+        } else if (valorFilter === "3") {
+            masAntiguo();
+        }else if (valorFilter === "4") {
+            masReciente()
+        }else if (valorFilter === "5") {
+            enOferta()
+        }
+    }, [valorFilter])
 
     return (
         <Form.Select onChange={handleValorFilter}>

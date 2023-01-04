@@ -29,11 +29,6 @@ const ContadorCarrito = ({camiseta, carrito, handleClick}) => {
         if(contador < parseInt(camiseta.stock)){
             setErrorMsj('')
         }
-        // const filterCarrito = carrito.filter((item) => item.id === camiseta.id);     
-        // filterCarrito[0].cantidad = contador;
-        // let otrasCamisetas = carrito.filter((item) => item.id !== camiseta.id);
-        // otrasCamisetas.push(filterCarrito);
-        // localStorage.setItem("Carrito", JSON.stringify(otrasCamisetas));
     },[contador])
 
     return (
