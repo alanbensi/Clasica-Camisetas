@@ -1,7 +1,7 @@
 // queries to create db tables
 
 const Sequelize = require('sequelize');
-const sequelize = require('../server.js');
+const sequelize = require('../config/db_config');
 
 const queries = [
     {
@@ -40,6 +40,7 @@ const queries = [
                 order_status VARCHAR(100), 
                 payment VARCHAR(10),
                 payment_status VARCHAR(100),
+                tracking_code VARCHAR(50),
                 address VARCHAR(255) NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
     },
