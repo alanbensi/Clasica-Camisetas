@@ -252,7 +252,7 @@ exports.cancelOrder = (req, res) => {
                             {replacements: [orderItem.product_id]}
                         )
                     }));
-                    res.status(200).send('La orden fue editada exitosamente.');
+                    res.status(200).send('La orden fue cancelada exitosamente.');
                 } catch (err) {
                     res.status(404).json({ error: err.message });
                 }

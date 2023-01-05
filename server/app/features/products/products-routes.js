@@ -19,7 +19,7 @@ router.get('/:id', products.getById);
 router.get('/collections/:collection', products.getByCollection);
 
 // Get products with discount
-router.get('/productsWithDiscount', products.getWithDiscount);
+router.get('/withDiscount', products.getWithDiscount);
 
 //  Edit product
 router.put('/:id', middlewares.adminAuth, products.editProduct);
