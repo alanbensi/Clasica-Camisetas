@@ -86,7 +86,7 @@ const EditarMiCuenta = () => {
             },
             body: JSON.stringify(data),
         };
-        fetch(`http://127.0.0.1:3001/users/${dataUser.id}`, fetchOptions)
+        fetch(`${process.env.URL}/users/${dataUser.id}`, fetchOptions)
             .then(res => {
                 if (res.status === 200) {
                     handleSwal({

@@ -52,7 +52,7 @@ const Login = () => {
     }
 
     const handleClick = () => {
-        fetch('http://127.0.0.1:3001/login', fetchOptions)
+        fetch('${process.env.URL}/login', fetchOptions)
             .then(res => res.json())
             .then(res => res.error ? seterror(true) : usuarioLogueado(res.token));
     };

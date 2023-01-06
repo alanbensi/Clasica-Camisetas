@@ -157,7 +157,7 @@ const DetalleCamisetas = () => {
                             "authorization": `Bearer ${token}`
                         },
                     }
-                    fetch(`http://127.0.0.1:3001/products/${camiseta.id}`, fetchOptions)
+                    fetch(`${process.env.URL}/products/${camiseta.id}`, fetchOptions)
                         .then(res => {
                             if (res.status !== 200) {
                                 Swal("La camiseta se elimino con exito!", {

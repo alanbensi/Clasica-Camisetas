@@ -75,14 +75,14 @@ const Colecciones = () => {
         }
     }
 
-     const enOferta = () => {
+    const enOferta = () => {
         if (Info.length > 0) {
             let _informacion = [...Info]
             const newArray = _informacion.filter(oferta=> parseInt(oferta.discount) > 0);
             console.log('en oferta ', newArray)
-             setInfo(newArray);
-         }
-     }
+            setInfo(newArray);
+        }
+    }
 
     return (
         <main>
@@ -124,7 +124,7 @@ const Colecciones = () => {
                                     (Info.map((camiseta) => (
                                         <Col className='cardMargin' key={camiseta.id} lg={3} md={3} xs={6}>
                                             <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
-                                                <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} />
+                                                <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} precioDolar={camiseta.price_usd} />
                                             </Link>
                                         </Col>
                                     )))

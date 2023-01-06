@@ -84,7 +84,7 @@ const Registrate = () => {
             },
             body: JSON.stringify(data),
         };
-        fetch(`http://127.0.0.1:3001/users`, fetchOptions)
+        fetch(`${process.env.URL}/users`, fetchOptions)
             .then(res => {
                 if (res.status === 201) {
                     handleSwal({

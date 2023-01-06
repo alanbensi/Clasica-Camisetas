@@ -26,12 +26,6 @@ const DetalleDeCompra = () => {
         console.log (e.target.value, "select")
         setPais(e.target.value);
     }
-    
-    const [billetera, setBilletera] = useState ("mp");
-    const billeteraVirtual = (e) => {
-        setBilletera (e.target.value);
-    }
-
 
     const userContext = useContext(UserContext);
     const {token} = userContext;
@@ -72,11 +66,11 @@ const DetalleDeCompra = () => {
         let sumaTotal = 0;
         let sumaTotalUSD = 0;
         carritoLocal.forEach(camiseta => {
-            if (billetera === "mp") {
+            if (!switchDivisaContexto) {
                 sumaTotal += camiseta.precioFinal;
                 console.log("SEEEEEEEEE")
             } else {
-                sumaTotalUSD += camiseta.price_usd;
+                sumaTotalUSD += parseInt(camiseta.price_usd);
             }
         });
         if (!switchDivisaContexto) {
@@ -84,15 +78,7 @@ const DetalleDeCompra = () => {
         } else {
             setTotalUSD(sumaTotalUSD);
         }
-    }, [billetera])
-
-    const handleEnviarPedido = ()=> {
-        if (envio === "Domicilio") {
-            setAddress(direccion + "," + ciudad + "," + provincia + "-" + CP);
-        } else {
-            setAddress(sucursal);
-        }
-    }
+    }, [switchDivisaContexto])
 
     useEffect(() => {
         if (address.length >0) {
@@ -101,7 +87,7 @@ const DetalleDeCompra = () => {
                     "order": {
                         "total": total,
                         "totalUsd": totalUSD,
-                        "payment": billetera,
+                        "payment": switchDivisaContexto? ("paypal") : ("mp"),
                         "address": address
                     },
                     "order_items": order_items
@@ -148,7 +134,7 @@ const DetalleDeCompra = () => {
             },
             body: JSON.stringify(data),
         };
-        fetch(`http://127.0.0.1:3001/orders`, fetchOptions)
+        fetch(`${process.env.URL}/orders`, fetchOptions)
             .then(res => {
                 if (res.status === 201) {
                     handleSwal({
@@ -174,7 +160,7 @@ const DetalleDeCompra = () => {
             })
         }
         
-    const { register, formState: { errors }, handleSubmit, reset } = useForm({
+    const { register, formState: { errors }, handleSubmit, reset, watch } = useForm({
         defaultValues: {
             name: "",
             surname: "",
@@ -223,34 +209,35 @@ const DetalleDeCompra = () => {
                 <div>
                     <form action="" className='formularioDetalleCompra' onSubmit={handleSubmit(onSubmit)}>
                         <label htmlFor="nombreDetallePedido">NOMBRE *</label>
-                        <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu nombre...'  {...register("name", { required: true })} />
+                        <input  type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu nombre...'  {...register("name", { required: true })} />
                         {errors.name ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="apellidosDetallePedido">APELLIDOS *</label>
-                        <input required type="text" name="apellidosetallePedido" id="apellidosDetallePedido" placeholder='Ingresá tus apellidos...' {...register("surname", { required: true })} />
+                        <input  type="text" name="apellidosetallePedido" id="apellidosDetallePedido" placeholder='Ingresá tus apellidos...' {...register("surname", { required: true })} />
                         {errors.surname ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="correoDetallePedido">CORREO ELECTRÓNICO *</label>
-                        <input required type="email" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...'  className={dataUser.email ? "readOnlyInput" : ""} {...register("email", { required: true, pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ } })} />
+                        <input  type="email" name="correoDetallePedido" id="correoDetallePedido" placeholder='Ingresá tu correo electrónico...'  className={dataUser.email ? "readOnlyInput" : ""} {...register("email", { required: true, pattern: { value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/ } })} />
                         {errors.email && errors.email.type === "required" ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         {errors.email && errors.email.type === "pattern" ? (<p className='erroresForm mb-3'>El formato del mail es incorrecto.</p>) : ("")}
                         <label htmlFor="telefonoDetallePedido">TELEFONO *</label>
-                        <input required type="number" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...'  {...register("phone", { required: true })} />
+                        <input  type="number" name="telefonoDetallePedido" id="telefonoDetallePedido" placeholder='Ingresá tu número de teléfono...'  {...register("phone", { required: true })} />
                         {errors.phone ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="dniDetallePedido">DNI *</label>
-                        <input required type="number" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...' {...register("dni", { required: true })} />
+                        <input  type="number" name="dniDetallePedido" id="dniDetallePedido" placeholder='Ingresá tu número de DNI...' {...register("dni", { required: true })} />
                         {errors.dni ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="cuitDetallePedido">CUIT/CUIL *</label>
-                        <input required type="number" name="cuitDetallePedido" id="cuitDetallePedido" placeholder='Ingresá tu número de CUIT/CUIL...' {...register("cuit", { required: true })} />
+                        <input  type="number" name="cuitDetallePedido" id="cuitDetallePedido" placeholder='Ingresá tu número de CUIT/CUIL...' {...register("cuit", { required: true })} />
                         {errors.cuit ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <label htmlFor="cpDetallePedido">CODIGO POSTAL *</label>
-                        <input required type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...' onChange={(e) => setCP(e.target.value)} {...register("postalCode", { required: true })} />
+                        <input  type="text" name="cpDetallePedido" id="cpDetallePedido" placeholder='Ingresá tu número de CP...' onChange={(e) => setCP(e.target.value)} {...register("postalCode", { required: true })} />
+                        {errors.postalCode ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                         <a className='mb-4' href="https://www.correoargentino.com.ar/formularios/cpa" target="_blank" rel="noopener noreferrer">No conozco mi código postal</a>
                         <label htmlFor="envioDetallePedido">ENVIO *</label>
-                        <div className='d-flex align-items-center' {...register("envio", { required: true })}>
-                            <input required className='radioDetallePedido me-3' type="radio" value="Domicilio" name="envioDetallePedido" id="envioDomicilio" onChange={envioDomicilio} />
+                        <div className='d-flex align-items-center'>
+                            <input className='radioDetallePedido me-3' type="radio" value="Domicilio" name="envioDetallePedido" id="envioDomicilio" onClick={envioDomicilio} {...register("envio", { required: true })} />
                             Envío a domicilio
                         </div>
                         <div>
-                            <input required className='radioDetallePedido me-3' type="radio" value="Sucursal" name="envioDetallePedido" id="envioCorreoArgentino" onChange={envioDomicilio}  />
+                            <input className='radioDetallePedido me-3' type="radio" value="Sucursal" name="envioDetallePedido" id="envioCorreoArgentino" onClick={envioDomicilio} {...register("envio", { required: true })} />
                             Retiro en sucursal de Correo Argentino
                         </div>
                         {errors.envio ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
@@ -258,11 +245,14 @@ const DetalleDeCompra = () => {
                             <div className='contenedorEnvioDomicilio'>
                                 <h2 className='tituloDetallesCompra mb-3'>Envío a domicilio</h2>
                                 <label htmlFor="nombreDetallePedido">DIRECCIÓN *</label>
-                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu dirección...' onChange={(e) => setDireccion(e.target.value)} {...register("direccion", { required: true })} />
+                                <input  type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu dirección...' onChange={(e) => setDireccion(e.target.value)} {...register("direccion", { required: true })} />
+                                {errors.direccion ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                                 <label htmlFor="nombreDetallePedido">CIUDAD *</label>
-                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...' onChange={(e) => setCiudad(e.target.value)} {...register("ciudad", { required: true })} />
+                                <input  type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu ciudad...' onChange={(e) => setCiudad(e.target.value)} {...register("ciudad", { required: true })} />
+                                {errors.ciudad ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                                 <label htmlFor="nombreDetallePedido">PROVINCIA *</label>
-                                <input required type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...' onChange={(e) => setProvincia(e.target.value)} {...register("provincia", { required: true })} />
+                                <input type="text" name="nombreDetallePedido" id="nombreDetallePedido" placeholder='Ingresá tu provincia...' onChange={(e) => setProvincia(e.target.value)} {...register("provincia", { required: true })} />
+                                {errors.provincia ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                             </div>
                         }
                         {
@@ -272,6 +262,7 @@ const DetalleDeCompra = () => {
                                 <div className='mt-3'>
                                     <label htmlFor="">Por favor escribinos tu sucursal más cercana: </label>
                                     <input type="text" onChange={(e) => setSucursal(e.target.value)} placeholder="Sucursal... " {...register("sucursalCorreo", { required: true })} />
+                                    {errors.sucursalCorreo ? (<p className='erroresForm mb-3'>Este campo es obligatorio.</p>) : ("")}
                                 </div>
                             </div>
                         }
@@ -282,7 +273,12 @@ const DetalleDeCompra = () => {
                 <div className='containerIconosMP'>
                     <Icon className='iconosDetalleCompra' icon="iconoir:select-window"></Icon>
                     <Icon className='flechaMP' icon="bi:arrow-right" />
-                    <Icon className='iconosDetalleCompra' icon="arcticons:mercado-libre"></Icon>
+                    {switchDivisaContexto ? 
+                    (<Icon className='iconosDetalleCompra' icon="ic:sharp-paypal"></Icon>)
+                    :
+                    (<Icon className='iconosDetalleCompra' icon="arcticons:mercado-libre"></Icon>)
+                    }
+                    
                 </div>
                 <p className='textoMPDetalle'>Te llevamos a nuestro sitio para completar el pago</p>
             </section>

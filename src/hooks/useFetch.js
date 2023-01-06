@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-const localUrl = 'http://127.0.0.1:3001'
+const localUrl = process.env.URL
 
 export const useFetchData = (BASE_URL = '', token, error_msg = 'oops!') => {
     const [fetch_data, setFetchData] = useState([]);
