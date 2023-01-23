@@ -111,13 +111,13 @@ exports.getById = (req, res) => {
     sequelize.query('SELECT * FROM auctions WHERE id = ?',
         {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then(([response]) => {
-        //checks if the product by id sent in the request exists
+        //checks if the auction by id sent in the request exists
         if (response) { 
             sequelize.query(`SELECT * FROM bids WHERE auction_id = ? ORDER BY created_at DESC LIMIT 1`,
                 {replacements: [response.id], type: sequelize.QueryTypes.SELECT, raw: true }
             ).then(([result]) => {
                 response.last_bid = result;
-                //when the product exists answers the one that was found
+                //when the auction exists answers the one that was found
                 res.status(200).json(response);
             })
         } else {
@@ -192,12 +192,12 @@ exports.deleteAuction = (req, res) => {
     sequelize.query('SELECT * FROM auctions WHERE id = ?',
         {replacements: [id], type: sequelize.QueryTypes.SELECT, raw: true }
     ).then((response) =>{
-        // if the product by id doesn´t exist, throws an error
+        // if the auction by id doesn´t exist, throws an error
         if (response.length == 0){
             res.status(404)
             throw new Error (`La subasta con Id ${id} no pudo ser encontrada.`);
         }
-        // when the product by id exits, gets deleted
+        // when the auction by id exits, gets deleted
         sequelize.query('DELETE FROM auctions WHERE id = ?',
             {replacements: [id]}
         ).then((response) => {
@@ -207,15 +207,3 @@ exports.deleteAuction = (req, res) => {
         res.json({error: err.message});
     });
 };
-
-// BIDS
-
-exports.addBid = (req, res) => {}
-
-exports.getBidByAuctionId = (req, res) => {}
-
-exports.getBidByUserId = (req, res) => {}
-
-exports.getBidByUserId = (req, res) => {}
-
-exports.editBid = (req, res) => {}

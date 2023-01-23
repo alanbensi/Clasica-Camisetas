@@ -13,6 +13,8 @@ app.use('/products', require('./app/features/products/products-routes'));
 app.use('/orders', require('./app/features/orders/orders-routes'));
 // Auctions
 app.use('/auctions', require('./app/features/auctions/auctions-routes'));
+// Bids
+app.use('/bids', require('./app/features/bids/bids-routes'));
 // All
 app.use('/all', require('./app/features/all/all-routes'));
 
