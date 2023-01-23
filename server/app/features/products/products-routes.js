@@ -13,7 +13,7 @@ router.post('/', middlewares.adminAuth, products.addProduct);
 router.get('/', products.getAll);
 
 //  Get product by id
-router.get('/:id', products.getById);
+router.get('/id/:id', products.getById);
 
 // Get products by collection
 router.get('/collections/:collection', products.getByCollection);

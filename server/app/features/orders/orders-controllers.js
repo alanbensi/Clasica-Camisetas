@@ -240,7 +240,7 @@ exports.cancelOrder = (req, res) => {
                 {replacements: [id]}
             ).then(async function([response]) {
                 try {
-                    if (response.length === 0){
+                    if (!response){
                         res.status(404)
                         throw new Error (`Los productos de la orden con Id ${id} no han podido ser encontrados.`);
                     }
