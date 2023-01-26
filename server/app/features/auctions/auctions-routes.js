@@ -22,7 +22,7 @@ router.get('/closed', auctions.getClosedAuctions);
 router.get('/id/:id', auctions.getById);
 
 //  Edit auction by auction id
-router.put('/:id', middlewares.adminAuth, auctions.editAuction);
+router.put('/:id', auctions.editAuction);
 
 //  Edit status auction to closed by auction id
 router.put('/close/:id', middlewares.adminAuth, auctions.closeAuction);

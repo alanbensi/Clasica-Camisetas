@@ -57,7 +57,7 @@ exports.getActiveAuctions = (req, res) => {
         try {
             if (response.length === 0){
                 res.status(404)
-                throw new Error (`No se ha encontrado ninguna subasta.`);
+                throw new Error (`No se ha encontrado ninguna subasta activa.`);
             }
             const auctionsWithBid = [];
             await Promise.all(response.map(async function(auction){
@@ -84,7 +84,7 @@ exports.getClosedAuctions = (req, res) => {
         try {
             if (response.length === 0){
                 res.status(404)
-                throw new Error (`No se ha encontrado ninguna subasta.`);
+                throw new Error (`No se ha encontrado ninguna subasta finalizada.`);
             }
             const auctionsWithBid = [];
             await Promise.all(response.map(async function(auction){
