@@ -87,7 +87,7 @@ Verifique que cualquier comando se haga teniendo la carpeta raíz del proyecto c
 Este proyecto también trabaja con XAMPP. De no tenerlo, se lo puede descargar e instalar de https://www.apachefriends.org/es/index.html.
 En el panel de control de este sistema, se requiere que los módulos Apache y MySQL esten activados para poder operar con la base de datos.
 ### 3. Configuración de datos de conexión a la base de datos
-En el archivo **config.js** de la carpeta **db** se encuentran los datos de conexión a la base de datos. De ser necesario, pueden ser editados en ese archivo. Estos son:
+En el archivo **config.js** de la carpeta **app/config** se encuentran los datos de conexión a la base de datos. De ser necesario, pueden ser editados en ese archivo. Estos son:
 ```
 NAME = 'clasicacamisetas';    // nombre de la base de datos
 USER = 'root';                // usuario
@@ -100,11 +100,11 @@ Acceder a http://localhost/phpmyadmin/ desde el navegador para poder crear la ba
 En el panel de la izquierda, se debe seleccionar "Nueva" y en la sección que se abre crear una nueva base de datos con el nombre que se encuentra en el archivo **config.js**, mencionado en el paso anterior.
 #### 4.1 Comando para crear las tablas
 ```
-node server/db/tables.js
+node server/app/db/tables.js
 ```
 #### 4.2 Comando para crear dos usuarios admin
 ```
-node server/db/user_admin.js
+node server/app/db/user_admin.js
 ```
 Los datos para poder acceder con los usuarios admin son:
 ```
@@ -116,6 +116,10 @@ Los datos para poder acceder con los usuarios admin son:
     username: "SuperAdmin2",
     password: "clasica123"
   }
+```
+#### 4.3 Comando para crear datos mockeados de usuarios, productos y pedidos
+```
+node server/app/db/start_data.js
 ```
 ### 5. Iniciar Server.js
 ```

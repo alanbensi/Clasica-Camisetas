@@ -1,7 +1,7 @@
 // queries to create db tables
 
 const Sequelize = require('sequelize');
-const sequelize = require('../server.js');
+const sequelize = require('../config/db_config');
 
 const queries = [
     {
@@ -40,6 +40,7 @@ const queries = [
                 order_status VARCHAR(100), 
                 payment VARCHAR(10),
                 payment_status VARCHAR(100),
+                tracking_code VARCHAR(50),
                 address VARCHAR(255) NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
     },
@@ -52,7 +53,28 @@ const queries = [
                 price DECIMAL(12, 2) NOT NULL,
                 price_usd DECIMAL(12, 2) NOT NULL,
                 discount INT NOT NULL`
-    }
+    },
+    {
+        table: 'auctions',
+        layout: `id INT PRIMARY KEY AUTO_INCREMENT,
+                name VARCHAR(100) NOT NULL,
+                images VARCHAR(1000),
+                auction_status VARCHAR(100),
+                open_value DECIMAL(12, 2) NOT NULL,
+                description TEXT,
+                start_date DATETIME,
+                end_date DATETIME,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
+    },
+    {
+        table: 'bids',
+        layout: `bid_id INT PRIMARY KEY AUTO_INCREMENT,
+                auction_id INT NOT NULL,
+                user_id INT NOT NULL,
+                bid_value DECIMAL(12, 2) NOT NULL,
+                auto_bid BOOLEAN NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
+    },
 ]
 // Create database tables
 // loops the array with the query for each table 
