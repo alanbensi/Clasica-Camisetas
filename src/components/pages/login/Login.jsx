@@ -52,7 +52,7 @@ const Login = () => {
     }
 
     const handleClick = () => {
-        fetch('${process.env.URL}/login', fetchOptions)
+        fetch(`${process.env.REACT_APP_URL}/users/login`, fetchOptions)
             .then(res => res.json())
             .then(res => res.error ? seterror(true) : usuarioLogueado(res.token));
     };

@@ -15,7 +15,7 @@ const Colecciones = () => {
     let url; 
 
     if (nombreColeccion === "Ofertas") {
-        url='/productsWithDiscount';
+        url='/withDiscount';
     } else if (nombreColeccion === "Todos los productos") {
         url='/products';
     } else {

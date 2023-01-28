@@ -84,7 +84,7 @@ const Registrate = () => {
             },
             body: JSON.stringify(data),
         };
-        fetch(`${process.env.URL}/users`, fetchOptions)
+        fetch(`${process.env.REACT_APP_URL}/users`, fetchOptions)
             .then(res => {
                 if (res.status === 201) {
                     handleSwal({

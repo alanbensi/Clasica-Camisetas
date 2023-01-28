@@ -46,7 +46,7 @@ const AdminAgregarCamisetas = () => {
             },
             body: JSON.stringify(data),
         };
-        fetch(`${process.env.URL}/products`, fetchOptions)
+        fetch(`${process.env.REACT_APP_URL}/products`, fetchOptions)
             .then(res => res.json())
                 .then(res=>{
                 console.log ("hola", res);

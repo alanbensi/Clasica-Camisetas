@@ -134,7 +134,7 @@ const DetalleDeCompra = () => {
             },
             body: JSON.stringify(data),
         };
-        fetch(`${process.env.URL}/orders`, fetchOptions)
+        fetch(`${process.env.REACT_APP_URL}/orders`, fetchOptions)
             .then(res => {
                 if (res.status === 201) {
                     handleSwal({

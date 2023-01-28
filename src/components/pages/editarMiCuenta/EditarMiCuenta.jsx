@@ -86,7 +86,7 @@ const EditarMiCuenta = () => {
             },
             body: JSON.stringify(data),
         };
-        fetch(`${process.env.URL}/users/${dataUser.id}`, fetchOptions)
+        fetch(`${process.env.REACT_APP_URL}/users/${dataUser.id}`, fetchOptions)
             .then(res => {
                 if (res.status === 200) {
                     handleSwal({

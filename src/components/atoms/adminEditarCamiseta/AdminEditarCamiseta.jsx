@@ -50,7 +50,7 @@ const AdminEditarCamiseta = (props) => {
             },
             body: JSON.stringify(data),
         };
-        fetch(`${process.env.URL}/products/${props.id}`, fetchOptions)
+        fetch(`${process.env.REACT_APP_URL}/products/${props.id}`, fetchOptions)
             .then(res => {
                 if(res.status !== 204){
                     handleSwal({
