@@ -11,6 +11,7 @@ import LoadingSpinner from '../../atoms/loading/LoadingSpinner';
 import { useFetchData } from "../../../hooks/useFetch";
 import CategoriasInicioDesktop from '../../moleculs/CategoriasInicioDesktop/CategoriasInicioDesktop';
 import { UserContext } from '../../context/UserContext';
+import { useState } from 'react';
 
 const Inicio = () => {
 
@@ -19,10 +20,20 @@ const Inicio = () => {
 
     console.log(userContext);
 
-    const { fetchData, data, loading } = useFetchData('/productsWithDiscount');
+    const { fetchData, data, loading } = useFetchData('/products/withDiscount');
 
-    const ofertasMobile = !data.error ? data.slice(0, 6) : [];
-    const ofertasDesktop = !data.error  ? data.slice(0, 8) : [];
+    const [ofertasMobile, setOfertasMobile] = useState([]);
+    const [ofertasDesktop, setOfertasDesktop] = useState([]);
+
+    useEffect(() => {
+        if (data) {
+            console.log (data, "dataaaa")
+
+            setOfertasMobile(data.slice(0, 6));
+            setOfertasDesktop(data.slice(0, 8));
+        }
+        
+    }, [data])
 
     useEffect(() => {
         fetchData();
@@ -70,7 +81,7 @@ const Inicio = () => {
                                         ofertasMobile.map((camiseta) => (
                                             <Col className='cardMargin' key={camiseta.id} lg={3} md={3} xs={6}>
                                                 <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
-                                                    <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} />
+                                                    <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} precioDolar={camiseta.price_usd} />
                                                 </Link>
                                             </Col>
                                         ))

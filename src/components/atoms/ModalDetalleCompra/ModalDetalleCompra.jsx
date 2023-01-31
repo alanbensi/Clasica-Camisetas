@@ -5,6 +5,7 @@ const ModalDetalleCompra = () => {
     const carritoLocal = JSON.parse(localStorage.getItem('Carrito'));
     const precioPorCantidad = (precio, cantidad) => {
         const precioPorCantidad = precio * cantidad;
+        console.log (precioPorCantidad, "precio x cantidad");
         return precioPorCantidad;
     }
 
