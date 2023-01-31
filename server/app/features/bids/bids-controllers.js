@@ -13,8 +13,15 @@ exports.addBid = (req, res) => {
     sequelize.query('INSERT INTO bids (auction_id, user_id, bid_value, auto_bid) VALUES (?, ?, ?, ?)',
         {replacements: [auction_id, user_id, bid_value, auto_bid]})
     .then(() => {
-        res.status(201).json({ 
-            message: `Oferta creada exitosamente.`,
+        sequelize.query(
+            `UPDATE auctions 
+            SET end_date = DATE_ADD(end_date, INTERVAL 10 minute)
+            WHERE id = ?`, 
+            {replacements: [auction_id]}
+        ).then(() => {
+            res.status(201).json({ 
+                message: `Oferta creada exitosamente.`,
+            });
         });
     }).catch (function (err) {
         res.json({ error: err.message });
