@@ -26,31 +26,43 @@ exports.getAllByUserId = (req, res) => {
                     created_at
                 }
             }
-            // searches orders by user id
-            sequelize.query('SELECT * FROM orders WHERE user_id = ?',
+            // searches bids by user id and auctions info
+            sequelize.query(`SELECT bids.*, bids.created_at AS bid_created_at, auctions.* 
+                FROM bids 
+                JOIN auctions ON bids.auction_id = auctions.id
+                WHERE user_id = ? ORDER BY bids.created_at DESC`,
                 {replacements: [idToUse], type: sequelize.QueryTypes.SELECT, raw: true}
-            ).then(async function(response) {
-                try {
-                    const ordersWithItems = [];
-                    await Promise.all(response.map(async function(order){
-                        await sequelize.query(`SELECT order_items.*, products.name, products.images
-                            FROM order_items JOIN products ON order_items.product_id = products.id WHERE order_id = ? GROUP BY order_items.id`,
-                            {replacements: [order.id], type: sequelize.QueryTypes.SELECT, raw: true }
-                        ).then((res) => {
-                            ordersWithItems.push({
-                                ...order,
-                                items: res
-                            });
-                        })
-                    }))
-                    userInfo = {
-                        ...userInfo,
-                        orders: ordersWithItems,
-                    }
-                    res.status(200).send(userInfo);
-                } catch (err) {
-                    res.json({ error: err.message });
+            ).then((response) => {
+                userInfo = {
+                    ...userInfo,
+                    auctionsBids: response
                 }
+                // searches orders by user id
+                sequelize.query('SELECT * FROM orders WHERE user_id = ?',
+                    {replacements: [idToUse], type: sequelize.QueryTypes.SELECT, raw: true}
+                ).then(async function(response) {
+                    try {
+                        const ordersWithItems = [];
+                        await Promise.all(response.map(async function(order){
+                            await sequelize.query(`SELECT order_items.*, products.name, products.images
+                                FROM order_items JOIN products ON order_items.product_id = products.id WHERE order_id = ? GROUP BY order_items.id`,
+                                {replacements: [order.id], type: sequelize.QueryTypes.SELECT, raw: true }
+                            ).then((res) => {
+                                ordersWithItems.push({
+                                    ...order,
+                                    items: res
+                                });
+                            })
+                        }))
+                        userInfo = {
+                            ...userInfo,
+                            orders: ordersWithItems,
+                        }
+                        res.status(200).send(userInfo);
+                    } catch (err) {
+                        res.json({ error: err.message });
+                    }
+                })
             })
         } else {
             // when the user is not found, throws error
