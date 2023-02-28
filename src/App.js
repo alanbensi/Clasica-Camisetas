@@ -26,6 +26,7 @@ import AdminDetalleUsuarios from './components/pages/adminDetalleUsuarios/AdminD
 import AdminFormCamisetas from './components/pages/adminFormCamisetas/AdminFormCamisetas';
 import EditarMiCuenta from './components/pages/editarMiCuenta/EditarMiCuenta';
 import SwitchDivisaProvider from './components/context/SwitchDivisaContext';
+import ValidacionMail from './components/pages/validacionMail/ValidacionMail';
 
 function App() {
 
@@ -64,6 +65,7 @@ function App() {
             <Route exact path='/admin/usuarios/:id' element={<AdminDetalleUsuarios />} />
             <Route exact path='/admin/formularioCamisetas' element={<AdminFormCamisetas />} />
             <Route exact path='/admin/formularioCamisetas/:id' element={<AdminFormCamisetas />} />
+            <Route exact path='/validacionMail/:data' element={<ValidacionMail />} />
           </Routes>
           <Footer />
         </SwitchDivisaProvider>

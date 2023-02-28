@@ -28,11 +28,9 @@ const Inicio = () => {
     useEffect(() => {
         if (data) {
             console.log (data, "dataaaa")
-
             setOfertasMobile(data.slice(0, 6));
             setOfertasDesktop(data.slice(0, 8));
         }
-        
     }, [data])
 
     useEffect(() => {

@@ -7,13 +7,19 @@ import './Registrate.css';
 import { useFetchData } from "../../../hooks/useFetch";
 import { useForm } from "react-hook-form";
 import Swal from 'sweetalert';
+import base64 from 'base-64';
+import { useFetchNoToken } from '../../../hooks/useFetchNoToken';
 
 const Registrate = () => {
     const [email, setEmail] = useState('');
     const [errorMsj, setErrorMsj] = useState('');
     const [tipoInput, settipoInput] = useState("password");
+    const [html,setHtml] = useState("");
     const { fetchData, data, loading } = useFetchData(email ? `/users/checkEmail?email=${email}` : '');
+    const urlFront = process.env.REACT_APP_URL_FRONT;
     
+    const {fetchData:sendMail,data:dataMail} = useFetchNoToken(html ? `/mail?mailTo=${email}&subject=Bienvenido!&html=${html}`:'');
+
     const mostrarContraseña = () => {
         if (tipoInput === "password") {
             settipoInput ("text");
@@ -36,7 +42,6 @@ const Registrate = () => {
     const checkEmail = (e) => {
         const emailValue = e.target.value;
         setEmail(emailValue);
-        console.log (emailValue, "email value")
     }
 
     useEffect(() => {        
@@ -47,9 +52,13 @@ const Registrate = () => {
         setErrorMsj(data.error ? data.error : "");
     }, [data]); 
 
-    const { register, formState: { errors }, handleSubmit, watch } = useForm();
-    console.log (errors, "ESTE ES EL ERROR DEL FORMULARIO, AGUANTE BOKITA.")
+    useEffect(()=> {
+        if(html !== "") {
+            sendMail();
+        }
+    },[html])
 
+    const { register, formState: { errors }, handleSubmit, watch } = useForm();
     const redirect = useNavigate();
     const handleSwal = (info) => {
         if (info.buttons.length > 1) {
@@ -77,37 +86,9 @@ const Registrate = () => {
     }
 
     const onSubmit = (data) => {
-        const fetchOptions = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data),
-        };
-        fetch(`${process.env.REACT_APP_URL}/users`, fetchOptions)
-            .then(res => {
-                if (res.status === 201) {
-                    handleSwal({
-                        title: "Te registraste con exito!",
-                        icon: 'success',
-                        buttons: 'Login',
-                        link: `/Login`,
-                        timer: ''
-                    });
-                } else {
-                    handleSwal({
-                        title: "Ocurrió un error.",
-                        text: "Asegurate de estar completando todos los campos!",
-                        icon: 'error',
-                        buttons: 'Cerrar',
-                        link: `/Registrate`,
-                        timer: ''
-                    });
-                }
-            })
-    }
-
-    
+        const dataCoded = base64.encode(JSON.stringify(data));
+        setHtml (`<div><h1>Bienvenido ${data.username}</h1><p>Gracias por registrarte en Clasica Camisetas</p><p>Ingresá a <a href="${urlFront}/validacionMail/${dataCoded}">este link</a> para validar tu e-mail</p></div>`)
+    }    
 
     return (
         <>
@@ -121,7 +102,7 @@ const Registrate = () => {
                         {errors.surname ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
                         <input className='inputRegistrate' type="text" placeholder='Nombre de usuario *' {...register("username",{required:true})} />
                         {errors.username ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
-                        <input className='inputRegistrate' type="email" placeholder='Email *'{...register("email", {required: true , pattern: {value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/}})} />
+                        <input className='inputRegistrate' type="email" placeholder='Email *'{...register("email", {required: true , pattern: {value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/}})} onBlur={(e)=>checkEmail(e)} />
                         {errors.email && errors.email.type === "required" ? (<p className='erroresForm'>Este campo es obligatorio.</p>) : ("")}
                         {errors.email && errors.email.type === "pattern" ? (<p className='erroresForm'>El formato del mail es incorrecto.</p>) : ("")}
                         <input className='inputRegistrate' type="number" placeholder='Número de teléfono *' {...register("phone", { required: true })} />
