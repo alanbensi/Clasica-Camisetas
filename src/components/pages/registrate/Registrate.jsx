@@ -55,6 +55,14 @@ const Registrate = () => {
     useEffect(()=> {
         if(html !== "") {
             sendMail();
+            handleSwal({
+                title: "Verificación de correo electrónico",
+                icon: 'success',
+                text: 'Hemos enviado un mail a tu casilla, por favor verificalo para asegurarnos que es correcta!',
+                buttons: 'Cerrar',
+                link: `/Registrate`,
+                timer: ''
+            })
         }
     },[html])
 
@@ -87,7 +95,7 @@ const Registrate = () => {
 
     const onSubmit = (data) => {
         const dataCoded = base64.encode(JSON.stringify(data));
-        setHtml (`<div><h1>Bienvenido ${data.username}</h1><p>Gracias por registrarte en Clasica Camisetas</p><p>Ingresá a <a href="${urlFront}/validacionMail/${dataCoded}">este link</a> para validar tu e-mail</p></div>`)
+        setHtml (`<div><h2 style=text-align:center;font-size:55px;>Bienvenido ${data.username}!</h2><p style=text-align:center;font-size:20px;>Gracias por registrarte en <b>Clasica Camisetas⚽</b></p><p style=text-align:center;font-size:20px;>Ingresá a <a href="${urlFront}/validacionMail/${dataCoded}">este link</a> para validar tu e-mail y completar tu registro!</p><p style=text-align:center;font-size:20px;>Nos vemos pronto!</p></div>`);
     }    
 
     return (

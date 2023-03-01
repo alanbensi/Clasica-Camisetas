@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import base64 from 'base-64';
 import Swal from 'sweetalert';
+import Banner from '../../atoms/banner/Banner';
 
 const ValidacionMail = () => {
     const ruta = useLocation();
@@ -58,7 +59,8 @@ const ValidacionMail = () => {
                         handleSwal({
                             title: "Te registraste con exito!",
                             icon: 'success',
-                            buttons: 'Login',
+                            text:"Muchas gracias por registrarte! Ya podés empezar a disfrutar de toda nuestra página.",
+                            buttons: ['Cerrar', 'Login'],
                             link: `/Login`,
                             timer: ''
                         });
@@ -80,9 +82,7 @@ const ValidacionMail = () => {
 
     return (
         <div>
-            <p>
-                {code}
-            </p>
+            <Banner/>
         </div>
     )
 }

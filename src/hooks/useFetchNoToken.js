@@ -4,7 +4,6 @@ const localUrl = process.env.REACT_APP_URL;
 
 
 export const useFetchNoToken = (BASE_URL = '', error_msg = 'oops!') => {
-    console.log (BASE_URL,"LOCAL")
     const [fetch_data, setFetchData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');    
