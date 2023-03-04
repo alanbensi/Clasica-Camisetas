@@ -8,20 +8,21 @@ import AdminAgregarCamisetas from '../../atoms/adminAgregarCamisetas/AdminAgrega
 const AdminFormCamisetas = () => {
 
     const { id } = useParams();
-    const { fetchData, data } = useFetchData(`/products/${id}`);
+    const { fetchData, data } = useFetchData(`/products/id/${id}`);
 
     useEffect(() => {
         fetchData();
     }, [id])
 
+    console.log (data, "data editar")
     return (
         <main className='px-3 py-3'>
             {
-                id ?
+                data && id ?
                     (data.map((item) => (
                         <div key={item.id}>
                             <h1 className='tituloFormAdminCamiseta'>Editar producto</h1>
-                            <AdminEditarCamiseta id={item.id} name={item.name} images={item.images} discount={item.discount} price={item.price} stock={item.stock} collection={item.collection} description={item.description} />
+                            <AdminEditarCamiseta id={item.id} name={item.name} images={item.images} discount={item.discount} price={item.price} price_usd={item.price_usd} stock={item.stock} collection={item.collection} description={item.description} />
                         </div>
                     )))
                     :

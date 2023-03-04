@@ -52,7 +52,7 @@ const AdminEditarCamiseta = (props) => {
         };
         fetch(`${process.env.REACT_APP_URL}/products/${props.id}`, fetchOptions)
             .then(res => {
-                if(res.status !== 204){
+                if(res.status !== 400){
                     handleSwal({
                         title: "El producto se modifico con exito!",
                         icon: 'success',
@@ -87,6 +87,8 @@ const AdminEditarCamiseta = (props) => {
             <input className='inputRegistrate formAdminCamisetas' name='discount' type="number" placeholder='Descuento...' defaultValue={props.discount} {...register("discount")} />
             <label htmlFor="precioCamiseta">Precio: </label>
             <input className='inputRegistrate formAdminCamisetas' name='price' type="number" placeholder='Precio...' defaultValue={props.price} {...register("price")} />
+            <label htmlFor="precioCamiseta">Precio en dolares: </label>
+            <input className='inputRegistrate formAdminCamisetas' name='price_usd' type="number" placeholder='Precio en dolares...' defaultValue={props.price_usd} {...register("price_usd")} />
             <label htmlFor="stockCamiseta">Stock: </label>
             <input className='inputRegistrate formAdminCamisetas' name='stock' type="number" placeholder='Stock...' defaultValue={props.stock} {...register("stock")} />
             <div className='containerSelectFormAdmin formAdminCamisetas'>

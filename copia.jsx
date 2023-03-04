@@ -14,7 +14,6 @@ const AdminAgregarCamisetas = () => {
     const { register, errors, handleSubmit } = useForm();
 
     const [images, setImages] = useState([]);
-    const [urlImg, setUrlImg] = useState();
     const uploadedImages = [];
 
     const handleImageUpload = async (event) => {
@@ -24,14 +23,15 @@ const AdminAgregarCamisetas = () => {
         const formData = new FormData();
         formData.append('image', file);
         formData.append('key', "5bcd2afec5e2a26686fd3a114b8419cc");
+
         try {
             const response = await axios.post('https://api.imgbb.com/1/upload', formData);
             uploadedImages.push(response.data.data.display_url);
-            setUrlImg(response.data.data.url)
         } catch (error) {
             console.log(error);
         }
         }
+
         setImages([...images, ...uploadedImages]);
     };
 
@@ -110,8 +110,8 @@ const AdminAgregarCamisetas = () => {
                     <img className='imgBB' key={index} src={image} alt={`Imagen${index}`} />
                 ))}
             </div>
-            <textarea className='inputRegistrate formAdminCamisetas' name='images' type="text" placeholder='Link de la camiseta agregada' value={urlImg}  {...register("images")}>
-                {urlImg}
+            <textarea className='inputRegistrate formAdminCamisetas' name='images' type="text" placeholder='Link de la camiseta agregada'  {...register("images")}>
+                {uploadedImages}
             </textarea>
             <label htmlFor="descuentoCamiseta">Descuento: (Si no tiene descuento, poner 0) </label>
             <input className='inputRegistrate formAdminCamisetas' name='discount' type="number"  {...register("discount")}/>
