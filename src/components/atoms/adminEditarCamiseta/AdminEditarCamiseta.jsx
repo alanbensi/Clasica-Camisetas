@@ -1,17 +1,41 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Boton from '../boton/Boton';
 import { useForm } from "react-hook-form";
 import { UserContext } from '../../context/UserContext';
 import Swal from 'sweetalert';
 import { useNavigate } from 'react-router-dom';
-
-
+import { useState } from 'react';
+import { Icon } from '@iconify/react';
+import axios from "axios";
 
 const AdminEditarCamiseta = (props) => {
 
     const userContext = useContext(UserContext);
     const { token } = userContext;
     const {register, errors, handleSubmit} = useForm();    
+
+    const [urlImg, setUrlImg] = useState(props.images?(props.images):(""));
+    const [images, setImages] = useState([urlImg]);
+    const uploadedImages = [];
+
+    const handleImageUpload = async (event) => {
+        const files = event.target.files;
+
+        for (const file of files) {
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('key', "5bcd2afec5e2a26686fd3a114b8419cc");
+            try {
+                const response = await axios.post('https://api.imgbb.com/1/upload', formData);
+                uploadedImages.push(response.data.data.display_url);
+                setUrlImg(uploadedImages.join("\n"))
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        setImages([...images, ...uploadedImages]);
+    };
+
 
     const redirect = useNavigate();
     const handleSwal = (info) => {
@@ -42,6 +66,7 @@ const AdminEditarCamiseta = (props) => {
     }
 
     const onSubmit = (data) => {
+        data.images = urlImg;
         const fetchOptions = {
             method: 'PUT',
             headers: { 
@@ -75,14 +100,31 @@ const AdminEditarCamiseta = (props) => {
             })
     }
 
-
+    const eliminarIMG = (index)=> {
+        const newImages = images.filter((_, i) => i !== index);
+        setImages(newImages);
+        setUrlImg(newImages.join('\n'));
+    }
+    
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="nombreCamiseta">Nombre del producto: </label>
             <input className='inputRegistrate formAdminCamisetas' name='name' type="text" placeholder='Nombre del producto...' defaultValue={props.name} {...register("name")} />
             <label htmlFor="imgCamiseta">Imagen: </label>
-            <img className= "miniFoto" src={props.images} alt={props.name} />
-            <input className='inputRegistrate formAdminCamisetas' name='images' type="text" placeholder='Imagen...' defaultValue={props.images} {...register("images")} />
+            <div>
+                <form>
+                    <input className='inputRegistrate formAdminCamisetas inputImagenes' multiple type="file" name="image" onChange={handleImageUpload} />
+                </form>
+            </div>
+            <div className='contenedorMiniImagenes'>
+                {images.map((image, index) => (
+                    <div className='contenedorMiniImg'>
+                        <img className='imgBB' key={image} src={image} alt={`Imagen${index}`} />
+                        <Icon className='iconoEliminarMiniImg' onClick={()=>eliminarIMG(index)} icon="mdi:trash-can-circle" />
+                    </div>
+                ))}
+            </div>
+            <textarea className='inputRegistrate formAdminCamisetas textAreaAgregarCamiseta' name='images' type="text" placeholder='Link de la camiseta agregada' value={urlImg} {...register("images")} readOnly></textarea>
             <label htmlFor="descuentoCamiseta">Descuento: (Si no tiene descuento, poner 0) </label>
             <input className='inputRegistrate formAdminCamisetas' name='discount' type="number" placeholder='Descuento...' defaultValue={props.discount} {...register("discount")} />
             <label htmlFor="precioCamiseta">Precio: </label>

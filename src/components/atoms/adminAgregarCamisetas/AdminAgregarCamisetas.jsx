@@ -7,30 +7,32 @@ import Swal from 'sweetalert';
 import { useState } from 'react';
 import axios from "axios";
 import './AdminAgregarCamisetas.css';
+import { Icon } from '@iconify/react';
+
 
 const AdminAgregarCamisetas = () => {
     const userContext = useContext(UserContext);
     const { token } = userContext;
     const { register, errors, handleSubmit } = useForm();
 
+    const [urlImg, setUrlImg] = useState([]);
     const [images, setImages] = useState([]);
-    const [urlImg, setUrlImg] = useState();
     const uploadedImages = [];
 
     const handleImageUpload = async (event) => {
         const files = event.target.files;
 
         for (const file of files) {
-        const formData = new FormData();
-        formData.append('image', file);
-        formData.append('key', "5bcd2afec5e2a26686fd3a114b8419cc");
-        try {
-            const response = await axios.post('https://api.imgbb.com/1/upload', formData);
-            uploadedImages.push(response.data.data.display_url);
-            setUrlImg(response.data.data.url)
-        } catch (error) {
-            console.log(error);
-        }
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('key', "5bcd2afec5e2a26686fd3a114b8419cc");
+            try {
+                const response = await axios.post('https://api.imgbb.com/1/upload', formData);
+                uploadedImages.push(response.data.data.display_url);
+                setUrlImg(uploadedImages.join("\n"))
+            } catch (error) {
+                console.log(error);
+            }
         }
         setImages([...images, ...uploadedImages]);
     };
@@ -62,6 +64,7 @@ const AdminAgregarCamisetas = () => {
     }
 
     const onSubmit = (data) => {
+        data.images = urlImg;
         const fetchOptions = {
             method: 'POST',
             headers: {
@@ -95,6 +98,12 @@ const AdminAgregarCamisetas = () => {
             })
     }
 
+    const eliminarIMG = (index)=> {
+        const newImages = images.filter((_, i) => i !== index);
+        setImages(newImages);
+        setUrlImg(newImages.join('\n'));
+    }
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="nombreCamiseta">Nombre del producto: </label>
@@ -105,14 +114,15 @@ const AdminAgregarCamisetas = () => {
                     <input className='inputRegistrate formAdminCamisetas' type="file" name="image" multiple onChange={handleImageUpload} />
                 </form>
             </div>
-            <div className='d-flex justify-content-evenly'>
+            <div className='contenedorMiniImagenes'>
                 {images.map((image, index) => (
-                    <img className='imgBB' key={index} src={image} alt={`Imagen${index}`} />
+                    <div className='contenedorMiniImg'>
+                        <img className='imgBB' key={image} src={image} alt={`Imagen${index}`} />
+                        <Icon className='iconoEliminarMiniImg' onClick={()=>eliminarIMG(index)} icon="mdi:trash-can-circle" />
+                    </div>
                 ))}
             </div>
-            <textarea className='inputRegistrate formAdminCamisetas' name='images' type="text" placeholder='Link de la camiseta agregada' value={urlImg}  {...register("images")}>
-                {urlImg}
-            </textarea>
+            <textarea className='inputRegistrate formAdminCamisetas textAreaAgregarCamiseta' name='images' type="text" placeholder='Link de la camiseta agregada' value={urlImg} readOnly {...register("images")}></textarea>
             <label htmlFor="descuentoCamiseta">Descuento: (Si no tiene descuento, poner 0) </label>
             <input className='inputRegistrate formAdminCamisetas' name='discount' type="number"  {...register("discount")}/>
             <label htmlFor="precioCamiseta">Precio: </label>

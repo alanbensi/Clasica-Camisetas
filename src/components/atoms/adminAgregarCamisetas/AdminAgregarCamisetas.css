@@ -1,3 +1,25 @@
 .imgBB {
     width: 4rem;
 }
+
+.textAreaAgregarCamiseta {
+    height: fit-content;
+}
+
+.contenedorMiniImagenes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.contenedorMiniImg {
+    position: relative;
+}
+
+.iconoEliminarMiniImg {
+    position: absolute;
+    top: -8px;
+    right: -2px;
+    font-size: 22px;
+    color: red;
+}

@@ -178,12 +178,12 @@ const NavClasica = () => {
                                     </NavDropdown>
                                 </div>
                             </div>
-                            <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
+                            {/* <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                                 <NavLink to ='/Subastas' className='d-flex estiloLinks'>
                                     <Icon icon="ri:auction-line" width= '20px' />
                                     <p className='ms-3'>Subastas</p>
                                 </NavLink>
-                            </Navbar.Toggle>
+                            </Navbar.Toggle> */}
                             <Navbar.Toggle as="div" bsPrefix='estiloLinks'>
                                 <NavLink to='/Vende-tu-camiseta' className='d-flex estiloLinks'>
                                     <Icon icon="ep:sell" width= '20px' />
@@ -215,10 +215,10 @@ const NavClasica = () => {
                                             <Icon icon="carbon:add-alt" width='20px' />
                                             <p className='ms-3'>Agregar productos</p>
                                         </NavLink>
-                                        <NavLink to='/Subastas' className='d-flex estiloLinks'>
+                                        {/* <NavLink to='/Subastas' className='d-flex estiloLinks'>
                                             <Icon icon="carbon:add-alt" width='20px' />
                                             <p className='ms-3'>Agregar subastas</p>
-                                        </NavLink>
+                                        </NavLink> */}
                                     </>
                                     )
                                     :

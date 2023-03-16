@@ -90,7 +90,7 @@ const EditarMiCuenta = () => {
             .then(res => {
                 if (res.status === 200) {
                     handleSwal({
-                        title: "El producto se modifico con exito!",
+                        title: "Los datos se modificaron con exito!",
                         icon: 'success',
                         buttons: ['Cerrar', 'Ir a mi cuenta'],
                         link: "/",

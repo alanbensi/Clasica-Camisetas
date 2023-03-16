@@ -20,26 +20,6 @@ const MiCuenta = () => {
         setTitulo(sinEspacios.replace("/", " "));
     }, [ruta]);
 
-    const datosUsuario = {
-        fullname: "Alan Bensi",
-        email: "abc@gmail.com",
-        telefono: "1512345678"
-    }
-
-    const pedidosRealizados = {
-        numeroPedido: "123",
-        fechaPedido: "11/01/2022",
-        precioPedido: "45700",
-        estadoPedido: "Entregado"
-    }
-
-    const subastasRealizadas = {
-        numeroSubasta: "321",
-        fechaSubasta: "17/6/2021",
-        ofertaSubasta: "40200",
-        estadoSubasta: "Superada"
-    }
-
     const userContext = useContext(UserContext);
     const { token } = userContext;
 
@@ -139,7 +119,7 @@ const MiCuenta = () => {
                     )
                     }
                 </div>
-                <div>
+                {/* <div>
                     <h2 className='titulosMiCuenta'>MIS SUBASTAS</h2>
                     {subastasRealizadas? (
                         <table className='tablaCompras'>
@@ -162,7 +142,7 @@ const MiCuenta = () => {
                         <p>Todavía no realizaste ofertas en subastas <span role="img" aria-label='icono de cara triste'>😥</span></p>
                     )
                     }
-                </div>
+                </div> */}
             </section>
         </main>
     )

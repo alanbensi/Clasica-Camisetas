@@ -136,7 +136,7 @@ const DetalleDeCompra = () => {
         };
         fetch(`${process.env.REACT_APP_URL}/orders`, fetchOptions)
             .then(res => {
-                if (res.status === 201) {
+                if (res.status === 200) {
                     handleSwal({
                         title: "La compra se realizó con exito",
                         text: "En las proximas horas, te estará llegando un codigo de seguimiento via mail para ver el estado de tu compra!",
@@ -278,7 +278,6 @@ const DetalleDeCompra = () => {
                     :
                     (<Icon className='iconosDetalleCompra' icon="arcticons:mercado-libre"></Icon>)
                     }
-                    
                 </div>
                 <p className='textoMPDetalle'>Te llevamos a nuestro sitio para completar el pago</p>
             </section>
