@@ -22,7 +22,7 @@ const queries = [
         table: 'products',
         layout: `id INT PRIMARY KEY AUTO_INCREMENT,
                 name VARCHAR(100) UNIQUE NOT NULL,
-                images VARCHAR(1000),
+                year INT,
                 discount INT NOT NULL,
                 price DECIMAL(12, 2) NOT NULL,
                 price_usd DECIMAL(12, 2) NOT NULL,
@@ -58,7 +58,6 @@ const queries = [
         table: 'auctions',
         layout: `id INT PRIMARY KEY AUTO_INCREMENT,
                 name VARCHAR(100) NOT NULL,
-                images VARCHAR(1000),
                 auction_status VARCHAR(100),
                 open_value DECIMAL(12, 2) NOT NULL,
                 description TEXT,
@@ -75,13 +74,24 @@ const queries = [
                 auto_bid BOOLEAN NOT NULL,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP`
     },
+    {
+        table: 'images',
+        layout: `id INT PRIMARY KEY AUTO_INCREMENT,
+                image_link VARCHAR(1000) NOT NULL`
+    },
+    {
+        table: 'products_images',
+        layout: `id INT PRIMARY KEY AUTO_INCREMENT,
+                product_id INT NOT NULL,
+                image_id INT NOT NULL`
+    }
 ]
 // Create database tables
 // loops the array with the query for each table 
 queries.forEach(query => {
     sequelize.query(`CREATE TABLE ${query.table} (${query.layout})`, 
         {raw: true}
-    ).then ((response) => {
+    ).then(() => {
         console.log(`Table ${query.table} created`);
     }).catch((err) => {
         console.log(err);

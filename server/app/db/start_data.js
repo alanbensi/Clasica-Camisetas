@@ -11,10 +11,10 @@ const users = [
 
 // 4 products data
 const products = [
-    { name: "Camiseta Argentina 1990", images: "", discount: 0, price: 15000, price_usd: 50, stock: 10, collection: "Argentina", description: "Descripcion de Camiseta Argentina 1990" },
-    { name: "Camiseta Argentina 1986", images: "", discount: 20, price: 30000, price_usd: 100, stock: 2, collection: "Argentina", description: "Descripcion de Camiseta Argentina 1986" },
-    { name: "Camiseta Italia 1986", images: "", discount: 5, price: 15000, price_usd: 50, stock: 6, collection: "Italia", description: "Descripcion de Camiseta Italia 1986" },
-    { name: "Camiseta Brasil 1994", images: "", discount: 0, price: 22500, price_usd: 75, stock: 5, collection: "Brasil", description: "Descripcion de Camiseta Brasil 1994" }
+    { name: "Camiseta Argentina 1990", images: "img11", year: 1990, discount: 0, price: 15000, price_usd: 50, stock: 10, collection: "Argentina", description: "Descripcion de Camiseta Argentina 1990" },
+    { name: "Camiseta Argentina 1986", images: "img21,img22,img23", year: 1986, discount: 20, price: 30000, price_usd: 100, stock: 2, collection: "Argentina", description: "Descripcion de Camiseta Argentina 1986" },
+    { name: "Camiseta Italia 1986", images: "img31,img32", year: 1986, discount: 5, price: 15000, price_usd: 50, stock: 6, collection: "Italia", description: "Descripcion de Camiseta Italia 1986" },
+    { name: "Camiseta Brasil 1994", images: "", year: 1994, discount: 0, price: 22500, price_usd: 75, stock: 5, collection: "Brasil", description: "Descripcion de Camiseta Brasil 1994" }
 ]
 
 // 3 orders data
@@ -56,9 +56,20 @@ users.forEach(user => {
 
 // loops the array with the replacements for each product 
 products.forEach(product => {
-    sequelize.query(`INSERT INTO products (name, images, discount, price, price_usd, stock, collection, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, 
-        {replacements: [product.name, product.images, product.discount, product.price, product.price_usd, product.stock, product.collection, product.description], raw: true}
-    ).then(() => {
+    sequelize.query(`INSERT INTO products (name, year, discount, price, price_usd, stock, collection, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, 
+        {replacements: [product.name, product.year, product.discount, product.price, product.price_usd, product.stock, product.collection, product.description], raw: true}
+    ).then((response) => {
+        let imagesLinks = product.images.split(',').filter(image => image);
+        // creates a register for every image link
+        imagesLinks.forEach(async link => {
+            await sequelize.query('INSERT INTO images (image_link) VALUES (?)',
+                {replacements: [link]}
+            ).then(async result => {
+                // creates a register joining product id and image id
+                await sequelize.query('INSERT INTO products_images (product_id, image_id) VALUES (?, ?)',
+                    {replacements: [response[0], result[0]]});
+            }); 
+        });
         console.log(`Product ${product.name} created`);
     }).catch((err) => {
         console.log(err);
