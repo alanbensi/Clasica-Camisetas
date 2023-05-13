@@ -11,6 +11,9 @@ const Cards = (props) => {
     const switchDivisa = useContext(SwitchDivisaContext);
     const { switchDivisaContexto } = switchDivisa; 
 
+    console.log ("imagenes", props.img);
+
+
     return (
         <Card className='cards'>
             <Card.Img className='cardsImage' variant="top" src={props.img} />
@@ -21,7 +24,7 @@ const Cards = (props) => {
                 (
                     <Card.Footer className='cardFooter'> 
                         <h3 className='tituloFooterCard'>
-                            {props.precioDolar} USD
+                            {props.precioDolar} USD 
                         </h3>
                     </Card.Footer>
                 )

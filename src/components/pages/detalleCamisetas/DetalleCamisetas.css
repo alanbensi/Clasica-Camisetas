@@ -52,6 +52,7 @@
 .contenedorImgDetalle {
     text-align: center;
     position: relative;
+    width: 100%;
 }
 
 .contenedorDescuentoDetalle {
@@ -70,6 +71,7 @@
 
 .imgDetalle {
     width: 90%;
+    margin: auto;
 }
 
 .precioNormal {

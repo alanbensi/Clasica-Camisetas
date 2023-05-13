@@ -3,7 +3,6 @@ import './Slider.css'
 import { Carousel } from 'react-bootstrap'
 import fotoTempActual from '../../../assets/camiseta 1.png'
 import fotoRetroDeColeccion from '../../../assets/Camiseta 8.png'
-import fotoCategoriaOtros from '../../../assets/Camiseta 7.png'
 import fotoCategoriaEntrenamientos from '../../../assets/camiseta 4.png'
 import { Link } from 'react-router-dom'
 

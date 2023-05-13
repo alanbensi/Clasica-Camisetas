@@ -13,6 +13,7 @@ import ModalMediosPago from '../../atoms/modalMediosPago/ModalMediosPago';
 import Swal from 'sweetalert';
 import { UserContext } from '../../context/UserContext';
 import {SwitchDivisaContext} from '../../context/SwitchDivisaContext';
+import CarruselDetalle from '../../moleculs/carruselDetalle/CarruselDetalle';
 
 const DetalleCamisetas = () => {
     const urlBase = 'https://nombre-de-la-pagina.com'
@@ -41,8 +42,8 @@ const DetalleCamisetas = () => {
 
 
     useEffect(() => {
-        if (data.length > 0) {
-            setCamiseta(data[0])
+        if (data) {
+            setCamiseta(data);
         }
     }, [data])
 
@@ -232,7 +233,7 @@ const DetalleCamisetas = () => {
                             }
                             <div className='d-flex justify-content-center'>
                                 <div className='contenedorImgDetalle'>
-                                    <img className='imgDetalle' src={camiseta.images} alt={camiseta.name} />
+                                    <CarruselDetalle className='imgDetalle' images={camiseta.images} alt={camiseta.name}/>
                                     {descuentoCamiseta !== 0 && !switchDivisaContexto ?
                                         (<div className='contenedorDescuentoDetalle'>
                                             <p>-{descuentoCamiseta}%</p>

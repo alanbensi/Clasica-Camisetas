@@ -12,19 +12,24 @@ const AdminFormCamisetas = () => {
 
     useEffect(() => {
         fetchData();
+        console.log ("id de data", id)
     }, [id])
 
-    console.log (data, "data editar")
+    useEffect(() => {
+        console.log (data, "data editar")
+    }, [data])
+
+    
     return (
         <main className='px-3 py-3'>
             {
                 data && id ?
-                    (data.map((item) => (
-                        <div key={item.id}>
+                    (
+                        <div key={data.id}>
                             <h1 className='tituloFormAdminCamiseta'>Editar producto</h1>
-                            <AdminEditarCamiseta id={item.id} name={item.name} images={item.images} discount={item.discount} price={item.price} price_usd={item.price_usd} stock={item.stock} collection={item.collection} description={item.description} />
+                            <AdminEditarCamiseta id={data.id} name={data.name} images={data.images} discount={data.discount} price={data.price} price_usd={data.price_usd} stock={data.stock} collection={data.collection} description={data.description} year={data.year} />
                         </div>
-                    )))
+                    )
                     :
                     (
                         <>

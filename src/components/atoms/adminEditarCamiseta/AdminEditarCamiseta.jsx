@@ -14,7 +14,7 @@ const AdminEditarCamiseta = (props) => {
     const { token } = userContext;
     const {register, errors, handleSubmit} = useForm();    
 
-    const [urlImg, setUrlImg] = useState(props.images?(props.images):(""));
+    const [urlImg, setUrlImg] = useState(props.images?(props.images.join(",")):(""));
     const [images, setImages] = useState([urlImg]);
     const uploadedImages = [];
 
@@ -28,14 +28,13 @@ const AdminEditarCamiseta = (props) => {
             try {
                 const response = await axios.post('https://api.imgbb.com/1/upload', formData);
                 uploadedImages.push(response.data.data.display_url);
-                setUrlImg(uploadedImages.join("\n"))
+                setUrlImg(uploadedImages.join(","))
             } catch (error) {
                 console.log(error);
             }
         }
         setImages([...images, ...uploadedImages]);
     };
-
 
     const redirect = useNavigate();
     const handleSwal = (info) => {
@@ -131,6 +130,8 @@ const AdminEditarCamiseta = (props) => {
             <input className='inputRegistrate formAdminCamisetas' name='price' type="number" placeholder='Precio...' defaultValue={props.price} {...register("price")} />
             <label htmlFor="precioCamiseta">Precio en dolares: </label>
             <input className='inputRegistrate formAdminCamisetas' name='price_usd' type="number" placeholder='Precio en dolares...' defaultValue={props.price_usd} {...register("price_usd")} />
+            <label htmlFor="stockCamiseta">Año: </label>
+            <input className='inputRegistrate formAdminCamisetas' name='year' type="number" placeholder='Año' defaultValue={props.year} {...register("year")} />
             <label htmlFor="stockCamiseta">Stock: </label>
             <input className='inputRegistrate formAdminCamisetas' name='stock' type="number" placeholder='Stock...' defaultValue={props.stock} {...register("stock")} />
             <div className='containerSelectFormAdmin formAdminCamisetas'>

@@ -25,9 +25,9 @@ const Inicio = () => {
     const [ofertasMobile, setOfertasMobile] = useState([]);
     const [ofertasDesktop, setOfertasDesktop] = useState([]);
 
+
     useEffect(() => {
         if (data) {
-            console.log (data, "dataaaa")
             setOfertasMobile(data.slice(0, 6));
             setOfertasDesktop(data.slice(0, 8));
         }
@@ -70,7 +70,7 @@ const Inicio = () => {
                                         ofertasDesktop.map((camiseta) => (
                                             <Col className='cardMargin' key={camiseta.id} lg={3} md={3} xs={6}>
                                                 <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
-                                                    <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} precioDolar={camiseta.price_usd} />
+                                                    <Cards img={camiseta.images[0]} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} precioDolar={camiseta.price_usd} />
                                                 </Link>
                                             </Col>
                                         )))
@@ -79,7 +79,7 @@ const Inicio = () => {
                                         ofertasMobile.map((camiseta) => (
                                             <Col className='cardMargin' key={camiseta.id} lg={3} md={3} xs={6}>
                                                 <Link to={`/Detalle-Camisetas/${camiseta.id}`} className='estiloLinks'>
-                                                    <Cards img={camiseta.images} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} precioDolar={camiseta.price_usd} />
+                                                    <Cards img={camiseta.images[0]} titulo={camiseta.name} precio={camiseta.price} discount={camiseta.discount} precioDolar={camiseta.price_usd} />
                                                 </Link>
                                             </Col>
                                         ))
